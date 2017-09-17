@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS_7_磁盘管理 | jyhuang&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 分区简介 2. 设备相关基本信息查询 2.1 查看块设备信息 2.1.1 lsblk 2.1.2 blkid   2.2 查看磁盘分区基本信息 2.3 统计磁盘上文件的大小   3. 磁盘的分区、格式化和挂载/卸载 3.1 分区 3.1.1 MBR 分区 1. 进入 fdisk 模式 2. 新建分区 2.1 新建主分区/扩展分区 2.2 新建逻辑分区     3.1.2 GPT 分区 1">
+<meta name="keywords" content="CentOS 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS_7_磁盘管理">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/CentOS-7-磁盘管理/index.html">
+<meta property="og:site_name" content="jyhuang&#39;s blogs">
+<meta property="og:description" content="1. 分区简介 2. 设备相关基本信息查询 2.1 查看块设备信息 2.1.1 lsblk 2.1.2 blkid   2.2 查看磁盘分区基本信息 2.3 统计磁盘上文件的大小   3. 磁盘的分区、格式化和挂载/卸载 3.1 分区 3.1.1 MBR 分区 1. 进入 fdisk 模式 2. 新建分区 2.1 新建主分区/扩展分区 2.2 新建逻辑分区     3.1.2 GPT 分区 1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-17T14:59:34.440Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS_7_磁盘管理">
+<meta name="twitter:description" content="1. 分区简介 2. 设备相关基本信息查询 2.1 查看块设备信息 2.1.1 lsblk 2.1.2 blkid   2.2 查看磁盘分区基本信息 2.3 统计磁盘上文件的大小   3. 磁盘的分区、格式化和挂载/卸载 3.1 分区 3.1.1 MBR 分区 1. 进入 fdisk 模式 2. 新建分区 2.1 新建主分区/扩展分区 2.2 新建逻辑分区     3.1.2 GPT 分区 1">
+  
+    <link rel="alternate" href="/atom.xml" title="jyhuang&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jyhuang&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CentOS-7-磁盘管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-磁盘管理/" class="article-date">
+  <time datetime="2017-09-17T14:58:41.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS_7_磁盘管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-分区简介">1. 分区简介</a></li>
+<li><a href="#2-设备相关基本信息查询">2. 设备相关基本信息查询</a><ul>
+<li><a href="#21-查看块设备信息">2.1 查看块设备信息</a><ul>
+<li><a href="#211-lsblk">2.1.1 lsblk</a></li>
+<li><a href="#212-blkid">2.1.2 blkid</a></li>
+</ul>
+</li>
+<li><a href="#22-查看磁盘分区基本信息">2.2 查看磁盘分区基本信息</a></li>
+<li><a href="#23-统计磁盘上文件的大小">2.3 统计磁盘上文件的大小</a></li>
+</ul>
+</li>
+<li><a href="#3-磁盘的分区-格式化和挂载卸载">3. 磁盘的分区、格式化和挂载/卸载</a><ul>
+<li><a href="#31-分区">3.1 分区</a><ul>
+<li><a href="#311-mbr-分区">3.1.1 MBR 分区</a><ul>
+<li><a href="#1-进入-fdisk-模式">1. 进入 fdisk 模式</a></li>
+<li><a href="#2-新建分区">2. 新建分区</a><ul>
+<li><a href="#21-新建主分区扩展分区">2.1 新建主分区/扩展分区</a></li>
+<li><a href="#22-新建逻辑分区">2.2 新建逻辑分区</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#312-gpt-分区">3.1.2 GPT 分区</a><ul>
+<li><a href="#1-进入-parted-模式">1. 进入 parted 模式</a></li>
+<li><a href="#2-选择需要进行分区的硬盘">2. 选择需要进行分区的硬盘</a></li>
+<li><a href="#3-指定分区的模式">3. 指定分区的模式</a></li>
+<li><a href="#4-创建分区">4. 创建分区</a></li>
+<li><a href="#5其他常用命令">5.其他常用命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#32-格式化">3.2 格式化</a></li>
+<li><a href="#33-挂载卸载">3.3 挂载/卸载</a></li>
+<li><a href="#34-swap-分区">3.4 swap 分区</a><ul>
+<li><a href="#341-修改分区-id-的-16-进制编码">3.4.1 修改分区 Id 的 16 进制编码</a></li>
+<li><a href="#342-格式化-swap-分区">3.4.2 格式化 swap 分区</a></li>
+<li><a href="#343-启用-swap-分区">3.4.3 启用 swap 分区</a></li>
+<li><a href="#344-查看-swap-的加载情况">3.4.4 查看 swap 的加载情况</a></li>
+<li><a href="#345-关闭-swap-分区">3.4.5 关闭 swap 分区</a></li>
+</ul>
+</li>
+<li><a href="#35-lvm">3.5 LVM</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-分区简介">1. 分区简介</span></h1><p>磁盘分区时使用分区编辑器（partition editor）在磁盘上划分几个逻辑部分。磁盘一旦被划分成数个分区（partition），不同类的目录与文件可以存储进不同的分区。</p>
+<h1><span id="2-设备相关基本信息查询">2. 设备相关基本信息查询</span></h1><h2><span id="21-查看块设备信息">2.1 查看块设备信息</span></h2><p>了解新插入的设备的名字，特别是当你在终端上处理磁盘/块设备时。</p>
+<h3><span id="211-lsblk">2.1.1 lsblk</span></h3><p>lsblk 是一个 Linux 工具，它会显示有关你系统里所有可用块设备的信息。它从 sysfs 文件系统 中获取信息。默认情况下，这个工具将会以树状格式显示（除了内存虚拟磁盘外的）所有块设备。</p>
+<p>格式：lsblk [选项]</p>
+<p>选项：</p>
+<ul>
+<li>省略，即默认值，此时以标准的树状格式输出,整齐地显示块设备</li>
+<li>-l 以列表的形式输出块设备信息</li>
+<li>-n 不显示表头</li>
+<li>-m 显示块设备所有者的相关信息（包括文件的所属用户、所属组以及文件系统挂载的模式）</li>
+</ul>
+<ul>
+<li>-f 在输出结果中增加文件系统列，其他列也会有所改变<ul>
+<li>FSTYPE: 设备对应的文件系统</li>
+<li>LABEL: 设备的 label 说明</li>
+<li>UUID: 设备的唯一标识符</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>-t 以拓扑的形式输出块设备信息，对应的输出信息于之前不同，具体不再说明</li>
+</ul>
+<p>下面以默认无参的命令作简要说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# lsblk</div><div class="line">NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</div><div class="line">sda               8:0    0    5G  0 disk</div><div class="line">├─sda1            8:1    0  200M  0 part /boot</div><div class="line">└─sda2            8:2    0  4.8G  0 part</div><div class="line">  ├─centos-root 253:0    0  3.8G  0 lvm  /</div><div class="line">  └─centos-swap 253:1    0    1G  0 lvm  [SWAP]</div><div class="line">sr0              11:0    1  7.7G  0 rom</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>NAME: 设备的名称</li>
+<li>MAJ:MIN: Linux 操作系统中的每个设备都以一个文件表示，对块（磁盘）设备来说，这里用主次设备编号来描述设备</li>
+<li>RM: 是否为可移动设备。如果这是一个可移动设备将显示 1，否则显示 0</li>
+<li>SIZE: 设备的容量</li>
+<li>RO: 对于只读文件系统，这里会显示 1，否则显示 0</li>
+<li>TYPE: 设备的类型</li>
+<li>MOUNTPOINT: 设备挂载的位置</li>
+</ul>
+<h3><span id="212-blkid">2.1.2 blkid</span></h3><p>blkid 主要用来对系统的块设备（包括交换分区）所使用的 FSTYPE、LABEL、UUID等信息进行查询。</p>
+<p>格式：blkid [选项] [参数] [dev]</p>
+<p>选项：</p>
+<ul>
+<li>全部省略，即默认值，输出系统中所有块设备的基本信息</li>
+<li>/dev/sda1: 根据设备名查询其他几项信息</li>
+<li>-s tag [dev]: 查询出[指定/所有]带 tag 的设备名和 tag 值，常见 tag 有：UUID, LABEL, TYPE</li>
+<li>-U UUID: 根据 UUID 查询出对应的设备名</li>
+<li>-L LABEL: 根据 LABEL 查询出对应的设备名</li>
+<li>-po format dev: 按照指定格式（format:value/device/udev/full）输出指定设备的详细信息</li>
+<li>-o format [dev]: 按照指定格式（format:value/device/list/export/full）输出[指定/所有]设备的信息</li>
+<li>-g: 清除设备列表缓存，刷新当前设备列表</li>
+</ul>
+<h2><span id="22-查看磁盘分区基本信息">2.2 查看磁盘分区基本信息</span></h2><p>格式：df [选项] [已挂载分区/文件系统名]</p>
+<p>选项：</p>
+<ul>
+<li>-l 仅显示本地磁盘（默认）</li>
+<li>-a 显示所有文件系统的磁盘使用情况</li>
+<li>-h 以 1024 进制计算最合适的单位显示磁盘容量</li>
+<li>-H 以 1000 进制计算最合适的单位显示磁盘容量</li>
+<li>-T 显示磁盘分区类型</li>
+<li>-t 后跟文件系统名，显示指定类型文件系统的磁盘分区</li>
+<li>-x 后跟文件系统名，不显示指定类型文件系统的磁盘分区</li>
+</ul>
+<h2><span id="23-统计磁盘上文件的大小">2.3 统计磁盘上文件的大小</span></h2><p>格式：du [选项] [文件/目录]</p>
+<p>选项：</p>
+<ul>
+<li>-b 以 byte 为单位统计文件文件大小</li>
+<li>-k 以 KB 为单位统计文件大小</li>
+<li>-m 以 MB 为单位统计文件大小</li>
+<li>-h 按照 1024 进制以最合适的单位统计文件大小</li>
+<li>-H 按照 1000 进制以最合适的单位统计文件大小</li>
+<li>-s 指定统计目标，如目录、文件等</li>
+</ul>
+<h1><span id="3-磁盘的分区-格式化和挂载卸载">3. 磁盘的分区、格式化和挂载/卸载</span></h1><p>Linux 系统中的硬件设备都是以文件的形式存在于根目录下的 dev 目录中，由 Linux 系统自动识别，对于磁盘，其文件命名结构为：sd[a-z]X</p>
+<ul>
+<li>sd：表示接口类型为 SATA 或 SCSI 的硬盘，对于 IDE 接口为 hd</li>
+<li>[a-z]：表示硬盘编号，分别对应第 1 到 26 块硬盘</li>
+<li>X：表示当前硬盘下的分区编号，</li>
+</ul>
+<p>虽然对于一块全新的硬盘，Linux 开机后能自动识别但并不能直接使用，必须对硬盘进行分区、格式化和挂载后才能正常使用。</p>
+<h2><span id="31-分区">3.1 分区</span></h2><h3><span id="311-mbr-分区">3.1.1 MBR 分区</span></h3><p>MBR 分区模式特点：</p>
+<ul>
+<li>一块硬盘的主分区 + 扩展分区最多只能有 4 个，对应的分区编号为 1-4</li>
+<li>扩展分区其实也是主分区，为了增加分区个数，将一个主分区作为扩展分区使用，但一个硬盘的扩展分区最多只能有 1 个</li>
+<li>扩展分区不能写入数据，只能包含若干个逻辑分区</li>
+<li>逻辑分区对应的编号从 5 开始</li>
+<li>单个分区容量最大为 2TB</li>
+</ul>
+<p>使用 Linux 自带的磁盘分区工具：fdisk，命令帮助如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk</div><div class="line">Usage:</div><div class="line"> fdisk [options] &lt;disk&gt;    change partition table</div><div class="line"> fdisk [options] -l &lt;disk&gt; list partition table(s)</div><div class="line"> fdisk -s &lt;partition&gt;      give partition size(s) in blocks</div><div class="line"></div><div class="line">Options:</div><div class="line"> -b &lt;size&gt;             sector size (512, 1024, 2048 or 4096)</div><div class="line"> -c[=&lt;mode&gt;]           compatible mode: 'dos' or 'nondos' (default)</div><div class="line"> -h                    print this help text</div><div class="line"> -u[=&lt;unit&gt;]           display units: 'cylinders' or 'sectors' (default)</div><div class="line"> -v                    print program version</div><div class="line"> -C &lt;number&gt;           specify the number of cylinders</div><div class="line"> -H &lt;number&gt;           specify the number of heads</div><div class="line"> -S &lt;number&gt;           specify the number of sectors per track</div></pre></td></tr></table></figure>
+<p>使用 <code>fdisk -l</code> 命令显示系统当前分区表信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk -l</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line"></div><div class="line"></div><div class="line">Disk /dev/sda: 21.5 GB, 21474836480 bytes, 41943040 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x000b9672</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sda1   *        2048     1026047      512000   83  Linux</div><div class="line">/dev/sda2         1026048    26191871    12582912   83  Linux</div><div class="line">/dev/sda3        26191872    30386175     2097152   82  Linux swap / Solaris</div><div class="line">/dev/sda4        30386176    41943039     5778432    5  Extended</div><div class="line">/dev/sda5        30388224    41938943     5775360   83  Linux</div></pre></td></tr></table></figure>
+<p>其中，/dev/sda 为系统的第一块硬盘，是用于安装系统和存储相关数据的主硬盘，/dev/sdb 为后来新增的第二块硬盘，现在需要对此硬盘进行分区操作，具体流程如下：</p>
+<h5><span id="1-进入-fdisk-模式">1. 进入 fdisk 模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk /dev/sdb</div><div class="line">Welcome to fdisk (util-linux 2.23.2).</div><div class="line"></div><div class="line">Changes will remain in memory only, until you decide to write them.</div><div class="line">Be careful before using the write command.</div><div class="line"></div><div class="line">Device does not contain a recognized partition table</div><div class="line">Building a new DOS disklabel with disk identifier 0x97759901.</div><div class="line"></div><div class="line">Command (m for help):</div></pre></td></tr></table></figure>
+<p>在 fdisk 的分区模式下，通过输入 m 查看相关的命令帮助，主要的分区命令都可通过帮助信息找到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Command (m for help): m</div><div class="line">Command action</div><div class="line">   a   toggle a bootable flag</div><div class="line">   b   edit bsd disklabel</div><div class="line">   c   toggle the dos compatibility flag</div><div class="line">   d   delete a partition</div><div class="line">   g   create a new empty GPT partition table</div><div class="line">   G   create an IRIX (SGI) partition table</div><div class="line">   l   list known partition types</div><div class="line">   m   print this menu</div><div class="line">   n   add a new partition</div><div class="line">   o   create a new empty DOS partition table</div><div class="line">   p   print the partition table</div><div class="line">   q   quit without saving changes</div><div class="line">   s   create a new empty Sun disklabel</div><div class="line">   t   change a partition's system id</div><div class="line">   u   change display/entry units</div><div class="line">   v   verify the partition table</div><div class="line">   w   write table to disk and exit</div><div class="line">   x   extra functionality (experts only)</div></pre></td></tr></table></figure>
+<h5><span id="2-新建分区">2. 新建分区</span></h5><h6><span id="21-新建主分区扩展分区">2.1 新建主分区/扩展分区</span></h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): n</div><div class="line">Partition type:</div><div class="line">   p   primary (0 primary, 0 extended, 4 free)</div><div class="line">   e   extended</div><div class="line">Select (default p):</div></pre></td></tr></table></figure>
+<ul>
+<li>p：主分区，默认值</li>
+<li>0 primary, 0 extended, 4 free：当前硬盘的分区情况，0 个主分区、0 个扩展分区，4 个分区可用</li>
+<li>e：扩展分区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Select (default p):</div><div class="line">Using default response p</div><div class="line">Partition number (1-4, default 1): 1</div></pre></td></tr></table></figure>
+<ul>
+<li>Partition number (1-4, default 1)：指定分区号，1-4 是系统预留给主分区和扩展分区使用的</li>
+</ul>
+<h6><span id="22-新建逻辑分区">2.2 新建逻辑分区</span></h6><p>新建的扩展分区并不能直接使用，需要在此基础上建立逻辑分区，逻辑分区的分区编号是从 5 开始的。当建立了扩展分区后，再次使用 n 命令会出现如下信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): n</div><div class="line">Partition type:</div><div class="line">   p   primary (1 primary, 1 extended, 2 free)</div><div class="line">   l   logical (numbered from 5)</div><div class="line">Select (default p):</div></pre></td></tr></table></figure>
+<p>此时只需要输入 <code>l</code> 即可创建逻辑分区，其余操作同创建主分区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">First sector (2048-10485759, default 2048):</div><div class="line">Using default value 2048</div><div class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (2048-10485759, default 10485759): +2G</div><div class="line">Partition 1 of type Linux and of size 2 GiB is set</div></pre></td></tr></table></figure>
+<ul>
+<li>指定分区的起始位置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Command (m for help): p</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x97759901</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sdb1            2048     4196351     2097152   83  Linux</div><div class="line"></div><div class="line">Command (m for help):</div></pre></td></tr></table></figure>
+<ul>
+<li>p 命令：查看当前磁盘下的分区信息</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): w</div><div class="line">The partition table has been altered!</div><div class="line"></div><div class="line">Calling ioctl() to re-read partition table.</div><div class="line">Syncing disks.</div></pre></td></tr></table></figure>
+<p>当硬盘分区完成，使用 p 命令查看无误后，使用 w 命令将硬盘的分区信息写入到系统的分区表（partition table）中，此时，使用 <code>fdisk -l</code> 命令就可以看到刚才的分区信息了。</p>
+<h3><span id="312-gpt-分区">3.1.2 GPT 分区</span></h3><p>GPT 分区模式特点：</p>
+<ul>
+<li>主分区个数最大为 128 个，由于此分区模式下的分区数量足够使用，此时扩展分区用于增加分区数量的作用相对弱化，故在 pgt 分区模式下，不严格区分主分区和扩展分区</li>
+<li>单个分区的容量最大为 18EB (1EB = 1024PB = 1024TB)</li>
+<li>GPT 的主分区中不适合安装 X86 架构的系统</li>
+</ul>
+<p>fdisk 命令只能用于创建 MBR 分区模式的分区，所以，此处采用系统自带的 parted 分区工具，此命令可以指定分区的模式为 MBR 或 GPT 等。</p>
+<h5><span id="1-进入-parted-模式">1. 进入 parted 模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# parted</div><div class="line">GNU Parted 3.1</div><div class="line">Using /dev/sda</div><div class="line">Welcome to GNU Parted! Type 'help' to view a list of commands.</div><div class="line">(parted)</div></pre></td></tr></table></figure>
+<p>输入 help 查看相关的命令帮助，主要的分区命令都可通过帮助信息找到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# parted</div><div class="line">GNU Parted 3.1</div><div class="line">Using /dev/sda</div><div class="line">Welcome to GNU Parted! Type 'help' to view a list of commands.</div><div class="line">(parted) help</div><div class="line">  align-check TYPE N                        check partition N for TYPE(min|opt)</div><div class="line">        alignment</div><div class="line">  help [COMMAND]                           print general help, or help on COMMAND</div><div class="line">  mklabel,mktable LABEL-TYPE               create a new disklabel (partition</div><div class="line">        table)</div><div class="line">  mkpart PART-TYPE [FS-TYPE] START END     make a partition</div><div class="line">  name NUMBER NAME                         name partition NUMBER as NAME</div><div class="line">  print [devices|free|list,all|NUMBER]     display the partition table, available</div><div class="line">        devices, free space, all found partitions, or a particular partition</div><div class="line">  quit                                     exit program</div><div class="line">  rescue START END                         rescue a lost partition near START and</div><div class="line">        END</div><div class="line">  rm NUMBER                                delete partition NUMBER</div><div class="line">  select DEVICE                            choose the device to edit</div><div class="line">  disk_set FLAG STATE                      change the FLAG on selected device</div><div class="line">  disk_toggle [FLAG]                       toggle the state of FLAG on selected</div><div class="line">        device</div><div class="line">  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER</div><div class="line">  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition</div><div class="line">        NUMBER</div><div class="line">  unit UNIT                                set the default unit to UNIT</div><div class="line">  version                                  display the version number and</div><div class="line">        copyright information of GNU Parted</div><div class="line">(parted)</div></pre></td></tr></table></figure>
+<p>输入 print 查看当前选中硬盘（默认为 sda）的分区相关信息， 输入 print all 查看所有硬盘的分区相关信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">(parted) print all</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sda: 21.5GB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: msdos</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    Type      File system     Flags</div><div class="line"> 1      1049kB  525MB   524MB   primary   ext4            boot</div><div class="line"> 2      525MB   13.4GB  12.9GB  primary   ext4</div><div class="line"> 3      13.4GB  15.6GB  2147MB  primary   linux-swap(v1)</div><div class="line"> 4      15.6GB  21.5GB  5917MB  extended</div><div class="line"> 5      15.6GB  21.5GB  5914MB  logical   ext4</div><div class="line"></div><div class="line"></div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdb: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: msdos</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    Type      File system  Flags</div><div class="line"> 1      1049kB  2149MB  2147MB  primary</div><div class="line"> 2      2149MB  5369MB  3220MB  extended</div><div class="line"> 5      2150MB  3223MB  1074MB  logical</div><div class="line"> 6      3224MB  5369MB  2144MB  logical</div><div class="line"></div><div class="line"></div><div class="line">Error: /dev/sdc: unrecognised disk label</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: unknown</div><div class="line">Disk Flags:</div></pre></td></tr></table></figure>
+<h5><span id="2-选择需要进行分区的硬盘">2. 选择需要进行分区的硬盘</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(parted) select /dev/sdc</div></pre></td></tr></table></figure>
+<h5><span id="3-指定分区的模式">3. 指定分区的模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(parted) mklabel gpt</div></pre></td></tr></table></figure>
+<p>通过帮助可知：mklabel 和 mktabel 都可以用于指定分区的模式，两者是等价的，后面紧跟分区的模式类型，这是指定为 gpt，如果需要指定分区的模式类型为 MBR，可使用 msdos</p>
+<h5><span id="4-创建分区">4. 创建分区</span></h5><p>在 parted 工具中，它提供了两种操作模式：交互和命令。交互模式同 fdisk，通过输入简单命令，然后根据工具提示完成操作；命令模式是直接使用完整命令一次性完成分区创建。</p>
+<ul>
+<li>交互模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart</div><div class="line">Partition name?  []? test1</div><div class="line">File system type?  [ext2]?</div><div class="line">Start? 1</div><div class="line">End? 3000</div><div class="line">(parted) print</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    File system  Name   Flags</div><div class="line"> 1      1049kB  3000MB  2999MB               test1</div></pre></td></tr></table></figure>
+<ul>
+<li>命令模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart test2 3000 4000</div><div class="line">(parted) print</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    File system  Name   Flags</div><div class="line"> 1      1049kB  3000MB  2999MB               test1</div><div class="line"> 2      3000MB  4000MB  1000MB               test2</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>Partition name：分区名，默认为空，命令模式下必须输入分区名</li>
+<li>File system type：文件系统，默认为 ext2</li>
+<li>Start 和 End：起始位置，默认单位为 Mb，区别于 fdisk 中的起始位置，fdisk 中的起始位置输入的是扇区数据块的编号，此处是从 Start Mb 到 End Mb</li>
+<li>区别于 fdisk，parted 工具分区完成后，不需要额外的保存的命令来使用创建分区生效，它是立即生效的</li>
+</ul>
+<p>特殊情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart test3 3500 5000</div><div class="line">Warning: You requested a partition from 3500MB to 5000MB (sectors</div><div class="line">6835937..9765625).</div><div class="line">The closest location we can manage is 4000MB to 5000MB (sectors</div><div class="line">7813120..9765625).</div><div class="line">Is this still acceptable to you?</div><div class="line">Yes/No? y</div><div class="line"></div><div class="line">(parted) mkpart test4 5300 5000</div><div class="line">Error: Can't have the end before the start! (start sector=10351562 length=-585936)</div><div class="line"></div><div class="line">(parted) mkpart test4 5000 6000</div><div class="line">Error: The location 6000 is outside of the device /dev/sdc.</div></pre></td></tr></table></figure>
+<p>当输入的分区开始值与原分区结束值重叠时，工具会自动给出解决方案（将新分区的开始值设置为上一分区的结束值），提示是否接受？</p>
+<p>当输入的起始值超出硬盘的容量或者结束值小于开始值，工具会自动报错。</p>
+<h5><span id="5其他常用命令">5.其他常用命令</span></h5><ul>
+<li>修改分区起始值的默认单位：<code>unit GB</code></li>
+<li>删除分区：<code>rm number</code>，number 为分区号，可通过 print 命令查看</li>
+</ul>
+<h2><span id="32-格式化">3.2 格式化</span></h2><p>通常使用 mkfs 命令进行分区的格式化，有以下两种方式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# mkfs.ext4 /dev/sdb1</div><div class="line"></div><div class="line">[root@localhost ~]# mkfs -t ext4 /dev/sdb5</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>格式化是针对主分区和逻辑分区而言的，扩展分区不能进行格式化</li>
+<li>对于已经格式化的分区，可以通过 parted 工具进行查看，如果该分区已经被挂载，也可通过 <code>df -T</code> 查看</li>
+</ul>
+<h2><span id="33-挂载卸载">3.3 挂载/卸载</span></h2><p>对于一块硬盘，经过分区、格式化后，仍然是无法使用的，必须将分区挂载，才可以正常使用。理论上，分区的挂载目录是任意的，只要该目录存在即可，但系统默认已经提供了 /mnt 目录专门用于挂载新增的设备（随着系统功能的增强和发行版的衍生，也存在 /media, /misc 等目录，视系统版本而定）方便管理，如无特殊需要，建议使用系统提供的目录。</p>
+<ul>
+<li>挂载：<code>mount 设备文件名 挂载目录</code>，如 <code>mount /dev/sdb1 /mnt/test1</code></li>
+<li>卸载：<code>umount 挂载目录</code>，如 <code>umount /mnt/test1</code></li>
+</ul>
+<p>详细帮助信息见 <code>mount --help</code></p>
+<p>通过命令的方式进行挂载只是临时的，系统重启就会使挂载失效，要想永久有效，需要修改 /etc/fstab 文件，这样每次系统开机时，都会自动挂载.</p>
+<table>
+<thead>
+<tr>
+<th>file system</th>
+<th>mount point</th>
+<th>type</th>
+<th>options</th>
+<th style="text-align:center">dump</th>
+<th style="text-align:center">pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sdb1</td>
+<td>/mnt/test1</td>
+<td>ext4</td>
+<td>defaults</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="34-swap-分区">3.4 swap 分区</span></h2><p>为硬盘添加 swap 分区步骤：</p>
+<ol>
+<li>建立一个普通的 Linux 分区</li>
+<li>修改分区 Id 的 16 进制编码</li>
+<li>格式化 swap 分区</li>
+<li>启用 swap 分区</li>
+</ol>
+<h3><span id="341-修改分区-id-的-16-进制编码">3.4.1 修改分区 Id 的 16 进制编码</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk /dev/sdb</div><div class="line">Welcome to fdisk (util-linux 2.23.2).</div><div class="line"></div><div class="line">Changes will remain in memory only, until you decide to write them.</div><div class="line">Be careful before using the write command.</div><div class="line"></div><div class="line"></div><div class="line">Command (m for help): t</div><div class="line">Partition number (1,2,5,6, default 6): 1</div><div class="line">Hex code (type L to list all codes): 82</div><div class="line">Changed type of partition 'Linux' to 'Linux swap / Solaris'</div><div class="line"></div><div class="line">Command (m for help): p</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x97759901</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sdb1            2048     4196351     2097152   82  Linux swap / Solaris</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>使用 fdisk 工具的 t 命令修改分区的系统 Id，系统 Id 默认为十六进制数，通过 L 查看对应关系，如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">Command (m for help): t</div><div class="line">Partition number (1,2,5,6, default 6): 1</div><div class="line">Hex code (type L to list all codes): L</div><div class="line"></div><div class="line"> 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris</div><div class="line"> 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-</div><div class="line"> 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-</div><div class="line"> 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden C:  c6  DRDOS/sec (FAT-</div><div class="line"> 4  FAT16 &lt;32M      40  Venix 80286     85  Linux extended  c7  Syrinx</div><div class="line"> 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data</div><div class="line"> 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .</div><div class="line"> 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility</div><div class="line"> 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt</div><div class="line"> 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access</div><div class="line"> a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O</div><div class="line"> b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor</div><div class="line"> c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi eb  BeOS fs</div><div class="line"> e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT</div><div class="line"> f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/</div><div class="line">10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC b</div><div class="line">11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor</div><div class="line">12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor</div><div class="line">14  Hidden FAT16 &lt;3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary</div><div class="line">16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS</div><div class="line">17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware</div><div class="line">18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto</div><div class="line">1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep</div><div class="line">1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT</div><div class="line">1e  Hidden W95 FAT1 80  Old Minix</div></pre></td></tr></table></figure>
+<h3><span id="342-格式化-swap-分区">3.4.2 格式化 swap 分区</span></h3><p>区别于普通分区的格式化命令 mkfs，此处使用 mkswap 命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# mkswap /dev/sdb1</div><div class="line">mkswap: /dev/sdb1: warning: wiping old ext4 signature.</div><div class="line">Setting up swapspace version 1, size = 2097148 KiB</div><div class="line">no label, UUID=cedc88d0-5d2b-46bd-af65-38adecd06901</div></pre></td></tr></table></figure>
+<h3><span id="343-启用-swap-分区">3.4.3 启用 swap 分区</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# swapon /dev/sdb1</div></pre></td></tr></table></figure>
+<h3><span id="344-查看-swap-的加载情况">3.4.4 查看 swap 的加载情况</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# free /dev/sdb1</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1001332      120416      741332        6832      139584      735092</div><div class="line">Swap:       2097148           0     2097148</div></pre></td></tr></table></figure>
+<h3><span id="345-关闭-swap-分区">3.4.5 关闭 swap 分区</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# swapoff /dev/sdb1</div></pre></td></tr></table></figure>
+<h2><span id="35-lvm">3.5 LVM</span></h2><p>Blockquote</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-磁盘管理/" data-id="cj7ovn50g000hcpsbdrd6x205" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/17/CentOS-7-软件安装管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CentOS_7_软件安装管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/17/CentOS-7-用户管理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CentOS_7_用户管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-系统管理/">CentOS_7_系统管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-bash基础/">CentOS_7_bash基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-Shell基础/">CentOS_7_Shell基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-服务管理/">CentOS_7_服务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-网络管理/">CentOS_7_网络管理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 jyhuang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

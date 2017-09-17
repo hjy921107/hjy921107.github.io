@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS_7_系统管理 | jyhuang&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 进程管理 1.1 进程管理简介 1.2 进程查看命令 1.2.1 查看所有进程 1.2.2 查看系统健康状态 top 命令 1.2.2.1 top 命令的交互模式 1.2.2.2 top 命令执行结果详解     1.3 杀死进程 1.3.1 kill 命令 1.3.2 killall 命令 1.3.3 pkill 命令   1.4 修改进程优先级 1.4.1 进程优先级简介 1.4.2">
+<meta name="keywords" content="CentOS 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS_7_系统管理">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/CentOS-7-系统管理/index.html">
+<meta property="og:site_name" content="jyhuang&#39;s blogs">
+<meta property="og:description" content="1. 进程管理 1.1 进程管理简介 1.2 进程查看命令 1.2.1 查看所有进程 1.2.2 查看系统健康状态 top 命令 1.2.2.1 top 命令的交互模式 1.2.2.2 top 命令执行结果详解     1.3 杀死进程 1.3.1 kill 命令 1.3.2 killall 命令 1.3.3 pkill 命令   1.4 修改进程优先级 1.4.1 进程优先级简介 1.4.2">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-17T15:08:17.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS_7_系统管理">
+<meta name="twitter:description" content="1. 进程管理 1.1 进程管理简介 1.2 进程查看命令 1.2.1 查看所有进程 1.2.2 查看系统健康状态 top 命令 1.2.2.1 top 命令的交互模式 1.2.2.2 top 命令执行结果详解     1.3 杀死进程 1.3.1 kill 命令 1.3.2 killall 命令 1.3.3 pkill 命令   1.4 修改进程优先级 1.4.1 进程优先级简介 1.4.2">
+  
+    <link rel="alternate" href="/atom.xml" title="jyhuang&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jyhuang&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CentOS-7-系统管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-系统管理/" class="article-date">
+  <time datetime="2017-09-17T15:06:47.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS_7_系统管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-进程管理">1. 进程管理</a><ul>
+<li><a href="#11-进程管理简介">1.1 进程管理简介</a></li>
+<li><a href="#12-进程查看命令">1.2 进程查看命令</a><ul>
+<li><a href="#121-查看所有进程">1.2.1 查看所有进程</a></li>
+<li><a href="#122-查看系统健康状态-top-命令">1.2.2 查看系统健康状态 top 命令</a><ul>
+<li><a href="#1221-top-命令的交互模式">1.2.2.1 top 命令的交互模式</a></li>
+<li><a href="#1222-top-命令执行结果详解">1.2.2.2 top 命令执行结果详解</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#13-杀死进程">1.3 杀死进程</a><ul>
+<li><a href="#131-kill-命令">1.3.1 kill 命令</a></li>
+<li><a href="#132-killall-命令">1.3.2 killall 命令</a></li>
+<li><a href="#133-pkill-命令">1.3.3 pkill 命令</a></li>
+</ul>
+</li>
+<li><a href="#14-修改进程优先级">1.4 修改进程优先级</a><ul>
+<li><a href="#141-进程优先级简介">1.4.1 进程优先级简介</a></li>
+<li><a href="#142-修改进程的优先级">1.4.2 修改进程的优先级</a><ul>
+<li><a href="#1421-nice-命令">1.4.2.1 nice 命令</a></li>
+<li><a href="#1422-renice-命令">1.4.2.2 renice 命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-工作管理">2. 工作管理</a><ul>
+<li><a href="#21-工作管理简介">2.1 工作管理简介</a></li>
+<li><a href="#22-工作管理方法">2.2 工作管理方法</a><ul>
+<li><a href="#221-把进程放入后台的方法">2.2.1 把进程放入后台的方法</a></li>
+<li><a href="#222-查看后台的工作">2.2.2 查看后台的工作</a></li>
+<li><a href="#223-将后台暂停的工作恢复到前台执行">2.2.3 将后台暂停的工作恢复到前台执行</a></li>
+<li><a href="#224-将后台暂停的工作恢复到后台执行">2.2.4 将后台暂停的工作恢复到后台执行</a></li>
+</ul>
+</li>
+<li><a href="#23-后台命令脱离登录终端执行">2.3 后台命令脱离登录终端执行</a></li>
+</ul>
+</li>
+<li><a href="#3-系统资源查看">3. 系统资源查看</a><ul>
+<li><a href="#31-监控系统资源">3.1 监控系统资源</a></li>
+<li><a href="#32-监测内核资源">3.2 监测内核资源</a></li>
+<li><a href="#33-查看内存使用状态">3.3 查看内存使用状态</a></li>
+<li><a href="#34-列出当前系统打开的文件">3.4 列出当前系统打开的文件</a></li>
+<li><a href="#35-其他">3.5 其他</a></li>
+</ul>
+</li>
+<li><a href="#4-系统定时任务">4. 系统定时任务</a><ul>
+<li><a href="#41-at-一次性定时任务">4.1 at 一次性定时任务</a><ul>
+<li><a href="#411-at-服务的安装和启动">4.1.1 at 服务的安装和启动</a></li>
+<li><a href="#412-at-服务的访问控制">4.1.2 at 服务的访问控制</a></li>
+<li><a href="#413-at-相关命令">4.1.3 at 相关命令</a><ul>
+<li><a href="#4131-查看当前系统中的定时任务">4.1.3.1 查看当前系统中的定时任务：</a></li>
+<li><a href="#4132-删除由-at-建立的正在等待被执行的任务">4.1.3.2 删除由 at 建立的正在等待被执行的任务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#42-crontab-循环定时任务">4.2 crontab 循环定时任务</a><ul>
+<li><a href="#421-cron-服务">4.2.1 cron 服务</a></li>
+<li><a href="#422-服务访问控制">4.2.2 服务访问控制</a></li>
+<li><a href="#423-crontab-命令">4.2.3 crontab 命令</a></li>
+</ul>
+</li>
+<li><a href="#43-系统的-crontab-设置">4.3 系统的 crontab 设置</a></li>
+<li><a href="#44-anacron">4.4 anacron</a><ul>
+<li><a href="#441-检测周期">4.4.1 检测周期</a></li>
+<li><a href="#442-centos-的版本区别">4.4.2 CentOS 的版本区别</a></li>
+<li><a href="#443-anacron-配置文件">4.4.3 anacron 配置文件</a></li>
+<li><a href="#444-执行流程">4.4.4 执行流程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-进程管理">1. 进程管理</span></h1><h2><span id="11-进程管理简介">1.1 进程管理简介</span></h2><p>进程<br>: 是正在执行的一个程序或命令，第一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。</p>
+<p>进程管理任务</p>
+<ul>
+<li>判断服务器的健康状态</li>
+<li>查看系统中的所有进程</li>
+<li>杀死进程</li>
+</ul>
+<h2><span id="12-进程查看命令">1.2 进程查看命令</span></h2><h3><span id="121-查看所有进程">1.2.1 查看所有进程</span></h3><ul>
+<li><code>ps aux</code>：查看系统中的所有进程，使用 BSD 操作系统格式</li>
+</ul>
+<ul>
+<li><code>ps [选项]</code>：查看系统中的所有进程，使用 Linux 标准的合作格式<ul>
+<li>-a：显示一个终端的所有进程，除了会话引线</li>
+<li>-u：显示进程的归属用户及内存的使用情况</li>
+<li>-x：显示没有控制终端的进程</li>
+<li>-l：长格式显示，显示更加详细的信息</li>
+<li>-e/A：显示所有进程，包括系统、服务相关的进程</li>
+</ul>
+</li>
+<li><code>pstree [选项]</code>：以树结构的样式显示当前所有进程，需要 psmisc 包的支持<ul>
+<li>-p：显示进程的 PID</li>
+<li>-u：显示进程的所属用户</li>
+</ul>
+</li>
+</ul>
+<p><code>ps aux</code> 命令详解</p>
+<ul>
+<li><code>aux</code> 之前没有 <code>-</code>，如果添加 <code>-</code>，也可以显示相关信息，但可能会出现警告，详见 <code>man ps</code></li>
+</ul>
+<ul>
+<li>对于命令的输出结果说明：<ul>
+<li>USER：该进程是由哪个用户产生的</li>
+<li>PID：进程的 ID 号</li>
+<li>%CPU：该进程占用 CPU 资源的百分比</li>
+<li>%MEN：该进程战胜物理内存的百分比</li>
+<li>VSZ：该进程占用虚拟内存的大小，单位 KB</li>
+<li>RSS：该进程占用实际物理内存的大小，单位 KB</li>
+<li>TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地终端，1-6 为本地的字符界面终端，7 为图形界面终端；pts/0-pts/65536 代表远程终端。</li>
+</ul>
+<ul>
+<li>STAT：进程状态，常见的进程状态的：<ul>
+<li>R：运行</li>
+<li>S：睡眠</li>
+<li>T：停止</li>
+<li>s：包含子进程</li>
+<li>+：位于后台的进程</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>START：该进程的启动时间</li>
+<li>TIME：该进程启动占用的 CPU 运算时间，注意：不是系统时间</li>
+<li>COMMAND：产生此进程的命令</li>
+</ul>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li><code>ps aux</code> 与 <code>ps -le</code> 命令的作用类似，只是显示的信息稍有不同，使用视个人习惯</li>
+<li>在所有的进程中，PID 为 1 的进程是所有其他进程的基础，可以理解为是系统启动的初始化进程。Linux 的版本不同，此进程对应的 COMMAND 不尽相同，但作用和地位是一样的</li>
+<li>Linux 中的大部分进程都是 root 用户产生的，可以理解为系统进程</li>
+<li>TTY 为 <code>?</code> 表示该进程不是由终端产生的，可以理解为是由 Linux 内核直接启动的</li>
+</ul>
+<h3><span id="122-查看系统健康状态-top-命令">1.2.2 查看系统健康状态 top 命令</span></h3><p>格式：top [选项] 参数</p>
+<p>选项：</p>
+<ul>
+<li>-d 秒数：指定 top 命令自动刷新的时间间隔，默认为 3 秒</li>
+<li>-b：使用批处理模式输出，一般的 <code>-n</code> 的选项同时使用</li>
+<li>-n 次数：指定 top 命令执行的次数，一般和 <code>-b</code> 选项同时使用</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 执行三次 top 命令，并将三次的执行结果写入到 /root/top.log 中</div><div class="line">top -b -n 3 &gt; /root/top.log</div></pre></td></tr></table></figure>
+<h4><span id="1221-top-命令的交互模式">1.2.2.1 top 命令的交互模式</span></h4><p>top 命令执行默认是存在交互的，主要有如下常见命令</p>
+<ul>
+<li>? 或 h：显示交互模式中的相关帮助信息</li>
+<li>P：以 CPU 的使用率从大到小排序，此项为默认值</li>
+<li>M：以内存的使用率从大到小排序</li>
+<li>N：以 PID 从大到小排序</li>
+<li>q：退出 top</li>
+</ul>
+<h4><span id="1222-top-命令执行结果详解">1.2.2.2 top 命令执行结果详解</span></h4><ul>
+<li>第一行为任务队列状态：<code>top - 22:21:02 up 11 min,  1 user,  load average: 0.00, 0.01, 0.02</code><ul>
+<li>22:21:02：系统当前时间</li>
+<li>up 11 min：服务器运行时间</li>
+<li>1 user：当前系统的登陆用户数</li>
+<li>load average: 0.00, 0.01, 0.02：服务器之前 1 分钟，5 分钟，15 分钟的平均负载，一般认为小于 1 为负载较小；大于 1 为超负载，具体视系统的硬件和当前的资源使用情况而定，并没有固定的标准</li>
+</ul>
+</li>
+<li>第二行为进程状态：<code>Tasks: 332 total,   2 running, 330 sleeping,   0 stopped,   0 zombie</code><ul>
+<li>Tasks: 332 total：当前总的任务进程数</li>
+<li>2 running：当前状态为运行的进程数</li>
+<li>330 sleeping：当前状态为睡眠的进程数</li>
+<li>0 stopped：当前状态为停止的进程数</li>
+<li>0 zombie：当前状态为僵死状态的进程数，简单理解为卡死的进程，一般系统中不会存在僵死的进程，如果出现，可能为正在停止的进程，可稍事等待后再次查看，如果长期存在僵死的进程，可查看该进程的相关信息并作出下一步的操作</li>
+</ul>
+</li>
+<li>第三行为 CPU 状态：<code>%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</code><ul>
+<li>0.0 us：用户占用的 CPU 百分比</li>
+<li>0.0 ys：系统占用的 CPU 百分比</li>
+<li>0.0 ni：改变过优先级的用户进程占用的 CPU 百分比</li>
+<li>100.0 id：CPU 的空闲百分比（主要指标）</li>
+<li>0.0 wa：等待输入输出进程占用的 CPU 百分比</li>
+<li>0.0 hi：硬中断请求服务占用的 CPU 百分比</li>
+<li>0.0 si：软中断请求服务占用的 CPU 百分比</li>
+<li>0.0 st：Steal Time 虚拟时间百分比，就是当有虚拟机运行时，虚拟 CPU 等待实际 CPU 的时间百分比</li>
+</ul>
+</li>
+<li>第四行为内存状态（单位 KB）：<code>KiB Mem :  1001332 total,   721564 free,   122632 used,   157136 buff/c</code><ul>
+<li>1001332 total：整体内存的大小</li>
+<li>721564 free：空闲内存的大小</li>
+<li>122632 used：已使用的内存大小</li>
+<li>157136 buff/c：内存中缓冲和缓存的总大小</li>
+</ul>
+</li>
+<li>第五行为交换分区的状态（单位 KB）：<code>KiB Swap:  2097148 total,  2097148 free,        0 used.   723884 avail</code><ul>
+<li>2097148 total：交换分区的整体大小</li>
+<li>2097148 free：交换分区中空闲的大小</li>
+<li>0 used：交换分区中已使用的大小</li>
+<li>723884 avail：交换分区中可用的大小</li>
+</ul>
+</li>
+<li>第六行为一空行，之后为一张列表，内容类似于 ps 命令的执行结果，此处不再详细说明</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>top 命令的执行结果是默认是每 3 秒刷新一次</li>
+<li>top 命令的执行结果默认是按照 CPU 的使用率从高到低进行排序的</li>
+<li>默认只显示占满一屏的信息，使用 <code>q</code> 退出信息显示</li>
+</ul>
+<h2><span id="13-杀死进程">1.3 杀死进程</span></h2><p>Linux 系统提供了 64 个进程信号供杀死进程的命令使用。使用 <code>kill -l</code> 查看所有的进程信号，常见的进程信号如下：</p>
+<ul>
+<li>1:SIGHUP：该信号用于立即关闭进程，然后重新读取配置文件之后重启</li>
+<li>9:SIGKILL：用于立即结束程序的运行，此信号不能被阻塞、忽略，一般用于强制终止进程。只有进程无法通过 kill 命令正常结束时，都会使用此信号</li>
+<li>15:SIGTERM：正常结束进程的信号，kill 命令的默认信号</li>
+</ul>
+<h3><span id="131-kill-命令">1.3.1 kill 命令</span></h3><p>格式：kill [选项] [信号] pid</p>
+<p>说明：kill 命令只能用于杀死单一进程</p>
+<p>常见命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 重启进程</div><div class="line">kill -1 123 # 或者 kill -HUP 123</div><div class="line"><span class="meta">#</span> 强制结束进程</div><div class="line">kill -9 123</div></pre></td></tr></table></figure>
+<h3><span id="132-killall-命令">1.3.2 killall 命令</span></h3><p>格式：killall [选项] [信号] 进程名</p>
+<p>说明：按照进程名进行模糊匹配，杀死所有匹配的进程</p>
+<p>选项：</p>
+<ul>
+<li>-i：交互式，针对需要杀死的一批进程，逐个询问是否（y/n）需要杀死，输入错误时，通过 Ctrl + BackSpace 进行删除</li>
+<li>-I：模糊匹配时，忽略进程名的大小写</li>
+</ul>
+<h3><span id="133-pkill-命令">1.3.3 pkill 命令</span></h3><p>格式：pkill [选项] [信号] 进程名/终端号</p>
+<p>说明：pkill 和 killall 的作用基本类似</p>
+<p>选项：</p>
+<ul>
+<li>-t：按照终端号踢除用户，如 <code>pkill -9 -t tty1</code>，注意：只能是 root 用户踢除其他用户（包括 root 用户），且命令中的 <code>-9</code> 不能省略</li>
+</ul>
+<h2><span id="14-修改进程优先级">1.4 修改进程优先级</span></h2><h3><span id="141-进程优先级简介">1.4.1 进程优先级简介</span></h3><p>Linux 是一个多用户、多任务的操作系统，Linux 系统中同时运行着非常多的进程，但是每个 CPU 在同一个时钟周期内只能运算一个指令，进程的优先级就决定了每个进程处理的先后顺序。</p>
+<p>对于进程的优先级可以通过如下方式查看： <code>ps -le</code>，其中有以下两列是关于进程优先级的：PRI 和 NI，以下面几行为例，作简单说明：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">F S   UID    PID   PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD</div><div class="line">4 S     0      1      0  0  80   0 - 10973 ep_pol ?        00:00:01 systemd</div><div class="line">1 S     0      2      0  0  80   0 -     0 kthrea ?        00:00:00 kthreadd</div><div class="line">1 S     0      3      2  0  80   0 -     0 smpboo ?        00:00:00 ksoftirqd/0</div><div class="line">1 S     0      5      2  0  60 -20 -     0 worker ?        00:00:00 kworker/0:0H</div><div class="line">1 S     0      6      2  0  80   0 -     0 worker ?        00:00:00 kworker/u256:0</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>PRI 为 priority 的缩写，NI 为 nice 的缩写，这两个值都代表优先级，数值越小代表该进程的优先级越高。</li>
+<li>对于用户而言，不能直接修改 PRI 的值，只能修改 NI 的值，系统最终会以 PRI（原始值） + NI 作为 PRI（最终值） 来决定该进程优先级</li>
+<li>执行命令得到的结果列中的 PRI 为最终值，无须再与 NI 的值进行运算，直接根据该值来判断该进程的优先级</li>
+</ul>
+<h3><span id="142-修改进程的优先级">1.4.2 修改进程的优先级</span></h3><h4><span id="1421-nice-命令">1.4.2.1 nice 命令</span></h4><p>格式：nice [选项] 命令</p>
+<p>选项：</p>
+<ul>
+<li>-n NI值：给命令赋予 NI 值</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>nice 命令只能给还未启用的进程（通过命令即将被启用的进程）赋予 NI 值，并不能修改已经存在的进程的 NI 值</li>
+<li>NI 值的取值范围为 -20 到 19</li>
+<li>普通用户调整 NI 值的范围是 0 到 19，而且只能调高 NI 值，不能降低，另外，只能调整由自己启用的进程</li>
+<li>root 用户可以任意调整所有用户进程的 NI 值，并且可以调低和设置 NI 的值为负数</li>
+</ul>
+<p>举例：<code>nice -n -5 service httpd start</code>，此命令将启动 Apache 的 Web 服务，通过在 <code>service httpd start</code> 命令之前添加 nice 命令，将 <code>service httpd start</code> 启动的所有进程的 NI 值设为 -5</p>
+<h4><span id="1422-renice-命令">1.4.2.2 renice 命令</span></h4><p>区别于 nice 命令，renice 命令是还可以修改已存在的进程的 NI 值</p>
+<p>格式：renice [NI值] [[选项] 参数]</p>
+<p>选项：</p>
+<ul>
+<li>-p pid：修改指定 pid 进程的 NI 值</li>
+<li>-g pgrps：修改该用户组下面所有进程的 NI 值（包括未创建的和已经在运行的）</li>
+<li>-u users：修改该用户启用的所有进程的 NI 值（包括未创建的和已经在运行的）</li>
+</ul>
+<p>举例：</p>
+<ul>
+<li><code>renice -10 123</code>，修改 PID 为 123 的进程的 NI 的值为 -10</li>
+<li><code>renice +10 -u oracle</code>，修改 oracle 用户下的所有进程的 NI 值为 10</li>
+</ul>
+<h1><span id="2-工作管理">2. 工作管理</span></h1><h2><span id="21-工作管理简介">2.1 工作管理简介</span></h2><p>工作管理指的是在单个登录终端中（就是登录的 shell 界面中）同时管理多个工作的行为，即管理后台进程</p>
+<p>注意事项：</p>
+<ul>
+<li>当前的登录终端，只能管理当前终端的工作，而不能管理其他登录终端的工作</li>
+<li>放入后台的命令必须可以持续运行一段时间，这样才能捕捉和操作这个工作</li>
+<li>放入后台执行的命令不能和前台用户有交互，否则放入后台也只是暂停，而不能执行</li>
+</ul>
+<h2><span id="22-工作管理方法">2.2 工作管理方法</span></h2><h3><span id="221-把进程放入后台的方法">2.2.1 把进程放入后台的方法</span></h3><ul>
+<li>在命令最后加上 &amp; 符，此方法除了与前台有交互的命令会暂停，其他命令会在后台继续执行</li>
+<li>命令执行后，按下 <code>Ctrl + z</code> 快捷键，任何命令都会被放入后台并暂停执行</li>
+</ul>
+<h3><span id="222-查看后台的工作">2.2.2 查看后台的工作</span></h3><p>格式：jobs [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-l：显示完整格式，包括后台工作的 pid</li>
+<li>-p：只显示 pid</li>
+<li>-r：只显示 Running 状态的工作</li>
+</ul>
+<p>执行结果格式：[Job ID] [+-] PID CMD</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# jobs</div><div class="line">[1]   Stopped                 top</div><div class="line">[2]-  Stopped                 top</div><div class="line">[3]+  Stopped                 vi abc</div><div class="line"></div><div class="line">[root@localhost ~]# jobs -l</div><div class="line">[1]   1848 Stopped (signal)        top</div><div class="line">[2]-  1858 Stopped (signal)        top</div><div class="line">[3]+  1861 Stopped (tty output)    vi abc</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>[1]：job id，表示当前工作的 id，按照放入后台的顺序依次递增</li>
+<li><code>+</code> 代表最近一个放入后台的工作，也是恢复工作时，默认恢复的工作；<code>-</code> 代表倒数第二个放入后台的工作；其他都为空格</li>
+<li>Stopped：进程状态，常见的还有 Running，Done，Terminated</li>
+<li>命令内容</li>
+</ul>
+<h3><span id="223-将后台暂停的工作恢复到前台执行">2.2.3 将后台暂停的工作恢复到前台执行</span></h3><p>格式：fg [%job id]</p>
+<ul>
+<li>直接输入 fg，恢复 <code>+</code> 标记的工作</li>
+<li>%job id：% 可以省略，但需要注意 job id 的 pid 的区别</li>
+</ul>
+<h3><span id="224-将后台暂停的工作恢复到后台执行">2.2.4 将后台暂停的工作恢复到后台执行</span></h3><p>格式：bg [%job id]</p>
+<ul>
+<li>直接输入 fg，恢复 <code>+</code> 标记的工作</li>
+<li>%job id：% 可以省略，但需要注意 job id 的 pid 的区别</li>
+<li>将后台暂停的工作恢复到后台执行要求该工作不能与前台有交互，否则，该工作仍然不能执行</li>
+</ul>
+<h2><span id="23-后台命令脱离登录终端执行">2.3 后台命令脱离登录终端执行</span></h2><p>绝大多数情况下，把命令放入后台，只能在当前登录终端执行，一旦退出或关闭终端，后台程序就会停止（原因是一旦退出或关闭终端，系统会自动使用 <code>kill -HUP pid</code>命令杀死相关的非系统进程）</p>
+<p>常见的后台命令脱离登录终端执行的方法：（推荐使用前两种）</p>
+<ul>
+<li>使用 nohup 命令，格式：<code>nohup 需要执行的命令 &amp;</code></li>
+<li>把需要后台执行的命令加入到 /etc/rc.local 文件中，这样退出或关闭终端，命令仍然执行，每次系统重启，会自动启用进程，适用于配置一些需要开机启动并一直运行的程序、服务等</li>
+<li>使用系统定时任务，让系统在指定的时间执行某些后台命令（在某些情况下会存在一定的问题）</li>
+<li>将进程设置为守护进程（设置较为繁琐，且系统中的守护进程过多不利于管理）</li>
+</ul>
+<h1><span id="3-系统资源查看">3. 系统资源查看</span></h1><h2><span id="31-监控系统资源">3.1 监控系统资源</span></h2><p>格式：vmstat [刷新延时 刷新次数]</p>
+<p>说明：每隔多久刷新，刷新几次</p>
+<p>执行结果格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# vmstat</div><div class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div><div class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div><div class="line"> 2  0      0 718828  17132 147984    0    0     5     1   18   16  0  0 100  0  0</div></pre></td></tr></table></figure>
+<p>执行结果详解：</p>
+<ul>
+<li>procs：进程信息字段<ul>
+<li>r：等待运行的进程数，数量越大，系统越繁忙</li>
+<li>b：不可被唤醒的进程数量，数量越大，系统越繁忙</li>
+</ul>
+</li>
+<li>memory：内在信息字段（单位 KB）<ul>
+<li>swpd：虚拟内存的使用情况</li>
+<li>free：空闲的内存容量</li>
+<li>buff：缓冲的内存容量</li>
+<li>cache：缓存的内存容量</li>
+</ul>
+</li>
+<li>swap：交换分区的信息字段（单位 KB），下面两个值越大，证明数据需要经常在磁盘和内存之间交换，即系统性能越差<ul>
+<li>si：从磁盘中交换到内存中数据的数量</li>
+<li>so：从内存中交换到磁盘中数据的数量</li>
+</ul>
+</li>
+<li>io：系统 I/O 的信息字段，单位 KB，下面两个值越大，代表系统的 I/O 越繁忙<ul>
+<li>bi：从块设备读出数据的总量</li>
+<li>bo：写入到块设备数据的总量</li>
+</ul>
+</li>
+<li>system：系统信息字段，下面两个数越大，代表系统与接口设备的通信越繁忙<ul>
+<li>in：每秒被中断的进程次数</li>
+<li>cs：每秒进行的事件切换次数</li>
+</ul>
+</li>
+<li>CUP：CPU 信息字段<ul>
+<li>us：非内核进程消耗 CPU 运算时间的百分比</li>
+<li>sy：内核进程消耗 CPU 运算时间的百分比</li>
+<li>id：空闲 CPU 的百分比</li>
+<li>wa：等待 I/O 所消耗 CPU 的百分比</li>
+<li>st：被虚拟机使用 CPU 的百分比</li>
+</ul>
+</li>
+</ul>
+<h2><span id="32-监测内核资源">3.2 监测内核资源</span></h2><p>格式：dmesg</p>
+<p>说明：</p>
+<p>此命令用于显示系统内核相关资源信息，但返回结果过多，通常结合 grep 进行指定内容查找，如：</p>
+<ul>
+<li><code>dmesg | grep CPU</code>：查看 CPU 相关的信息</li>
+<li><code>dmesg | grep memory</code>：查看内存相关的信息</li>
+</ul>
+<h2><span id="33-查看内存使用状态">3.3 查看内存使用状态</span></h2><p>格式：free [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-b：以字节为单位显示</li>
+<li>-k：以 KB 为单位显示，默认值</li>
+<li>-m：以 MB 为单位显示</li>
+<li>-g：以 GB 为单位显示</li>
+<li>-h：个性化显示文件大小，使用此选项，可自动转换成以 B/K/M/G 等为单位的数值，更方便阅读</li>
+</ul>
+<h2><span id="34-列出当前系统打开的文件">3.4 列出当前系统打开的文件</span></h2><p>格式：lsof [选项] 参数</p>
+<p>选项：</p>
+<ul>
+<li>-c 字符串：只列出以指定字符串开头的进程名所打开或使用的文件</li>
+<li>-u [^]用户名：只列出[非]某个用户下进程所打开或使用的文件</li>
+<li>-p pid：列出某个 pid 进程打开或使用的文件</li>
+<li>-i [:port]：列出指定端口号对应的进程</li>
+</ul>
+<p>常见命令：</p>
+<ul>
+<li><code>lsof /dev/cdrom</code>：哪个进程在占用光驱</li>
+<li><code>lsof -p  123</code>：显示哪些文件被 123 进程占用</li>
+<li><code>lsof -i:80</code>：显示所有以 80 端口的进程，省略端口号即显示所有打开端口的进程</li>
+<li><code>lsof -c httpd -u ^root</code>：显示哪些文件是由非root 用户开启的、进程名是以 httpd 开头的进程打开或使用的</li>
+</ul>
+<h2><span id="35-其他">3.5 其他</span></h2><ul>
+<li>查看 CPU 信息：<code>cat /proc/cpuinfo</code></li>
+<li>查看操作系统版本信息：<code>cat /proc/version</code></li>
+<li>查看系统的启动时间和平均负载，即 top 命令执行结果的第一行：<code>uptime</code>，另外，<code>w</code> 命令的第一行也是此信息</li>
+</ul>
+<ul>
+<li>查看系统与内核相关信息：uname [选项]<ul>
+<li>-a：查看系统所有相关信息</li>
+<li>-r：查看内核版本</li>
+<li>-s：查看内核名称</li>
+</ul>
+</li>
+<li>查看操作系统位数：<ul>
+<li><code>file /bin/ls</code>，通过 file 命令后跟任意一个系统命令</li>
+<li><code>getconf LONG_BIT</code>，获取系统配置</li>
+</ul>
+</li>
+<li>查看当前 Linux 系统 的发行版本：<ul>
+<li><code>cat /etc/redhat-release</code></li>
+<li><code>lsb_release -a</code>：需要 redhat-lsb 包和相关依赖包的支持，包较大，如果未安装，不建议安装使用</li>
+</ul>
+</li>
+</ul>
+<h1><span id="4-系统定时任务">4. 系统定时任务</span></h1><h2><span id="41-at-一次性定时任务">4.1 at 一次性定时任务</span></h2><h3><span id="411-at-服务的安装和启动">4.1.1 at 服务的安装和启动</span></h3><p> at 命令需要 at 服务的支持，而在 CentOS 7 默认的最小化安装中并没有 at 服务，所以需要如下操作：</p>
+<ul>
+<li>使用 yum 工具安装：<code>yum install -y at</code></li>
+<li>查看 at 服务是否安装成功：<code>systemctl list-unit-files | grep atd</code></li>
+</ul>
+<ul>
+<li>查看 at 服务是否启动：（常见方法）<ul>
+<li><code>ps aux | grep atd</code>：查看是否存在 atd 进程</li>
+<li><code>systemctl status atd</code>：查看 at 服务的状态，active (running) 为启动</li>
+<li><code>systemctl list-units | grep atd</code>：如果有结果，说明 at 服务已被加载</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>at 服务的启动/关闭/重启：<code>systemctl start/stop/restart atd</code></li>
+</ul>
+<h3><span id="412-at-服务的访问控制">4.1.2 at 服务的访问控制</span></h3><p>与 at 服务访问控制相关的文件有以下两个：/etc/at.allow 和 /etc/at.deny</p>
+<ul>
+<li>如果系统存在 /etc/at.allow 文件，那么只有写入此文件中的用户可以使用 at 命令，类似于白名单，此时忽略 /etc/at.deny 文件</li>
+<li>如果系统中没有 /etc/at.allow 文件，只有 /etc/at.deny 文件（安装完 at 工具包默认存在的文件，内容为空，类似于黑名单），那么写入此文件中的用户无法使用 at 命令，<strong>对 root 用户无效</strong></li>
+<li>如果系统中这两个文件都不存在，那么只有 root 用户可以使用 at 命令</li>
+</ul>
+<h3><span id="413-at-相关命令">4.1.3 at 相关命令</span></h3><p>格式：at [选项] 时间</p>
+<p>选项：</p>
+<ul>
+<li>-m：当 at 工作完成后，无论命令是否有输出，都通过 email 通知执行 at 命令的用户</li>
+<li>-c 工作号：显示该 at 工作的实际内容</li>
+</ul>
+<p>常用时间格式：</p>
+<ul>
+<li>HH:MM 如：19:30</li>
+<li>HH:MM YYYY-MM-DD 如：07:00 2016-07-31</li>
+<li>HH:MM [am|pm] [month] [date] 如：12 am July 31</li>
+<li>HH:MM [am|pm] + number [minutes|hours|days|weeks] 如：now + 1 hours</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# at 12:00 am 2016-07-31</div><div class="line"><span class="meta">at&gt;</span> ls -alh &gt;&gt; hello.log</div><div class="line"><span class="meta">at&gt;</span> &lt;EOT&gt;</div><div class="line">job 1 at Sun Jul 31 12:00:00 2016</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>at 命令是指定一个时间执行一个任务，只能执行一次</li>
+<li>ctrl + d 保存退出 at 命令输入模式，对应上面的 <code>&lt;EOT&gt;</code> 处</li>
+</ul>
+<h4><span id="4131-查看当前系统中的定时任务">4.1.3.1 查看当前系统中的定时任务：</span></h4><ul>
+<li>atq：查看当前机器上的 at 工作列表</li>
+<li>at -c jobid：查看指定工作号的工作内容</li>
+</ul>
+<h4><span id="4132-删除由-at-建立的正在等待被执行的任务">4.1.3.2 删除由 at 建立的正在等待被执行的任务</span></h4><ul>
+<li>atrm jobid</li>
+</ul>
+<h2><span id="42-crontab-循环定时任务">4.2 crontab 循环定时任务</span></h2><h3><span id="421-cron-服务">4.2.1 cron 服务</span></h3><p>crontab 命令需要 cron 服务的支持，此服务是系统安装时自带的且开机自启动的，相关的服务查询和启动、关闭等操作同 at 服务类似，此处不在赘述。</p>
+<h3><span id="422-服务访问控制">4.2.2 服务访问控制</span></h3><p>同 at 服务类似，与 cron 服务访问控制相关的文件有如下两个：/etc/cron.allow 和 /etc/cron.deny，具体使用同 at 服务类似，此处不在赘述。</p>
+<h3><span id="423-crontab-命令">4.2.3 crontab 命令</span></h3><p>格式：crontab [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-e：进入编辑 crontab 定时任务模式，使用 vi 编辑工作内容</li>
+<li>-l：查询 crontab 任务列表</li>
+<li>-r：删除当前用户<strong>所有</strong>的 crontab 任务，如果想删除其中的某个或一些，直接进入编辑模式将对应的任务内容删除即可</li>
+</ul>
+<p>crontab 命令编辑模式格式：</p>
+<ul>
+<li>任何一个工作都以五个通配符开始<ul>
+<li>第一个：一小时中的第几分钟，0-59</li>
+<li>第二个：一天中的第几个小时，0-23</li>
+<li>第三个：一个月中的第几天，1-31</li>
+<li>第四个：一年中的第几个月，1-12</li>
+<li>第五个：一周中的星期几，0-7（0 和 7 都代表星期日）</li>
+</ul>
+</li>
+<li>在五个通配符之后为需要定时执行的命令/脚本等</li>
+</ul>
+<p>特殊通配符：</p>
+<ul>
+<li><code>*</code>：代表任何时间。如：第一个 <code>*</code> 就代表一小时中的每分钟都执行一次</li>
+<li><code>,</code>代表不连续的时间。如：<code>0 6,8,12 * * *</code> 表示在每天的 6 点、8 点和 12 点都执行一次</li>
+<li><code>-</code>：代表连续的范围。如：<code>0 5 * * 1-5</code> 表示每周的周一至周五凌晨 5 点执行</li>
+<li><code>*/n</code>：代表每隔多久执行一次。如：<code>*/10 * * * *</code> 表示每隔 10 分钟执行一次</li>
+</ul>
+<p>定时时间格式举例：</p>
+<ul>
+<li><code>30 3 * * *</code>：每天凌晨 3 点 30 分执行</li>
+<li><code>0 18 * * 1</code>：每周一下午 6 点执行</li>
+<li><code>0 5 1,15 * *</code>：每月 1 号和 15 号的凌晨 5 点执行</li>
+<li><code>40 4 * * 1-5</code>：每周一到周五的凌晨 4 点 40 分执行</li>
+<li><code>*/10 4 * * *</code>：每天凌晨 4 点整开始，每隔 10 分钟执行</li>
+<li><code>0 0 1,15 * 1</code>：每月 1 号和 15 号以及所有星期一执行</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>关于定时任务的内容格式 6 个部分（五个通配符和一个命令）都不能为空</li>
+<li>对于上面定时时间格式的最后一个例子，取的是并集而不是交集，建议：操作单位相同的情况下，如此处指定的号数和星期指明的都是哪天，此时不应该同时指定，容易造成混淆</li>
+<li>对于定时任务，指定的时间精度是有范围的，最小为分钟，最大为月份，无法具体指定哪年或者哪秒，对于哪年哪秒的定时任务是无法被识别的</li>
+<li>在定时任务内容中的所有命令，或者是需要使用定时命令执行的脚本文件中的命令，最好全部使用绝对路径（原因：在命令行模式下之所以可以不写绝对路径是因为系统会根据自身的 PATH 进行自动匹配，而定时任务的 PATH（见 /etc/crontab 文件）与系统自身的 PATH 并不一定完全一致，所以不使用绝对路径有时会出现意想不到的问题）</li>
+</ul>
+<h2><span id="43-系统的-crontab-设置">4.3 系统的 crontab 设置</span></h2><p><code>crontab</code> 命令是系统提供给用户执行的，它会自动与当前登录用户进行绑定，即每个用户都有自己的定时任务，互不干扰。但是，受到用户自身权限的限制，并不是所有的定时任务都可以交给任意的用户执行，此时就需要修改系统的 crontab 配置，即 /etc/crontab 配置文件，在配置文件中分配哪些定时任务由哪些用户执行，格式：<code>*  *  *  *  * user-name  command to be executed</code></p>
+<p>除了上述修改 /etc/crontab 配置文件的方式，CentOS 还提供了另一种方法：在 /etc 目录下，存在这样四个目录：cron.hourly，cron.daily，cron.weekly 和 cron.monthly，用户只要将需要进行定时执行的脚本文件放入对应的目录中，就可以每时/天/周/月定时执行。</p>
+<p>在 CentOS 6 之前，这些目录是通过 /etc/crontab 配置文件进行配置管理的，从 CentOS 6 开始，/etc/crontab 配置文件的功能已被弱化（默认情况下，该文件的内容为空），转向采用 anacron 的方式进行系统定时任务的管理，详见下节。虽然管理方式改变，但这四个目录依然仍在，只要将需要定时执行的脚本放入对应的目录，将只可以正常实现定时任务。</p>
+<p>比较：</p>
+<ul>
+<li>两种系统定时任务的处理方式，建议使用第二种方式，操作更加简单，更便于管理。</li>
+<li>系统和用户定时任务的处理方式，建议使用系统定时任务，因为这些定时任务都是存在于文件或目录中的，更加方便查询和管理，而使用用户定时任务，通过 <code>crontab -l</code> 进行查询的定时任务列表是存在于一个临时文件中的，很容易出现文件损坏或丢失的情况，而且只能显示当前用户的定时任务，不方便进行统一的管理。</li>
+</ul>
+<p>附：（CentOS 5 的 /etc/crontab 文件的部分内容）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">01 * * * * root run-parts /etc/cron.hourly</div><div class="line">02 4 * * * root run-parts /etc/cron.daily</div><div class="line">22 4 * * * root run-parts /etc/cron.weekly</div><div class="line">42 4 1 * * root run-parts /etc/cron.monthly</div></pre></td></tr></table></figure>
+<h2><span id="44-anacron">4.4 anacron</span></h2><p>anacron 是用来保证那些由于系统出现异常、关机等情况没有正常执行的定时任务，在系统恢复正常后能自动再执行的命令，但它只会监听 /etc 下 cron.daily，cron.weekly 和 cron.monthly 目录下未正常执行的定时任务，对于用户使用 crontab 命令添加的定时任务无法再次执行。</p>
+<p>注意：/etc/cron.hourly 下的定时任务是由 cron 默认执行的</p>
+<h3><span id="441-检测周期">4.4.1 检测周期</span></h3><ul>
+<li>anacron 会使用一天，一周，一月作为检测周期</li>
+<li>在系统的 /var/spool/anacron 目录下存在 cron.{daily, weekly, monthly} 三个文件，分别用于记录不同周期上次执行 cron 的时间</li>
+<li>将上述文件中的时间和当前时间比较，若两个时间的差值超过了 anacron 的检测周期（一天，一周和一月），证明有 cron 任务被漏执行了</li>
+</ul>
+<h3><span id="442-centos-的版本区别">4.4.2 CentOS 的版本区别</span></h3><ul>
+<li>在 CentOS 6 之前的版本中，/etc/cron.{daily, weekly, monthly} 三个目录不仅会被 cron 调用，还会被 anacron 调用，容易造成重复执行</li>
+<li>从 CentOS 6 开始，上述目录只会被 anacron 调用，避免了重复执行</li>
+<li>从 CentOS 6 开始，anacron 不再是服务，而是系统命令</li>
+</ul>
+<h3><span id="443-anacron-配置文件">4.4.3 anacron 配置文件</span></h3><p>文件地址：/etc/anacrontab</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">SHELL=/bin/sh # shell 的种类</div><div class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin # 定时任务执行的环境变量</div><div class="line">MAILTO=root # 定时任务的相关日志信息发送到 /var/spool/mail/root 中</div><div class="line"><span class="meta">#</span> the maximal random delay added to the base delay of the jobs</div><div class="line">RANDOM_DELAY=45 # 最大的随机延迟时间（分钟）</div><div class="line"><span class="meta">#</span> the jobs will be started during the following hours only</div><div class="line">START_HOURS_RANGE=3-22 # 执行时间范围（凌晨 3 点到晚上 10 点）</div><div class="line"></div><div class="line"><span class="meta">#</span>period in days   delay in minutes   job-identifier   command</div><div class="line"><span class="meta">#</span> 天数	强制延迟（分钟）	工作名称		实际执行命令</div><div class="line">1	5	cron.daily		nice run-parts /etc/cron.daily</div><div class="line">7	25	cron.weekly		nice run-parts /etc/cron.weekly</div><div class="line">@monthly 45	cron.monthly		nice run-parts /etc/cron.monthly</div><div class="line"></div><div class="line"><span class="meta">#</span> 随机延迟：防止大批量的定时任务同时执行，先随机延迟一段时间，现执行</div><div class="line"><span class="meta">#</span> 天数：上次执行时间与当前时间的差值超过几天，就执行哪个</div><div class="line"><span class="meta">#</span> 强制延迟：作用同上，先强制延迟指定时间，再执行</div><div class="line"><span class="meta">#</span> nice：调整命令的优先级，此处并没有指定命令的优先级，还是默认值</div><div class="line"><span class="meta">#</span> run-parts：是一个 shell 脚本，调用指定目录下可执行的脚本文件，同系统二进制命令类似，只是 shell 脚本的效率稍低于二进制命令</div></pre></td></tr></table></figure>
+<h3><span id="444-执行流程">4.4.4 执行流程</span></h3><p>以 cron.daily 为例</p>
+<ol>
+<li>读取 /var/spool/anacron/cron.daily 中上一次 anacron 的执行时间</li>
+<li>和当前时间比较，如果两个时间的差值超过一天，就准备执行 cron.daily 中的任务</li>
+<li>判断当前时间是否在 03:00-22:00 之间，是：继续；不是：等待直到时间范围满足再继续执行；</li>
+<li>执行任务前，先强制延迟 5 分钟，再随机延迟 45 分钟（即至少保证系统正常启动 5 分钟以上，最好是 50 分钟以上，才能确保任务一定执行）</li>
+<li>使用 nice 命令指定默认优先级，使用 run-parts 脚本执行 /etc/cron.daily 目录下所有的可执行文件</li>
+</ol>
+<p>总结：虽然 anacron 命令的优点很多，但对于一批任务，需要经过如上一系列步骤才能成功执行，对于时间的要求较多，用户不能很好地确保任务在一定的时间内可以正常执行完成，存在一定的不可控性。即 anacron 命令对实时性的要求并不高，从该命令没有监听 /etc/cron.hourly 目录中的任务也可以看出。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-系统管理/" data-id="cj7ovn50j000ncpsbyjexon99" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/17/CentOS-7-bash基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CentOS_7_bash基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-系统管理/">CentOS_7_系统管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-bash基础/">CentOS_7_bash基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-Shell基础/">CentOS_7_Shell基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-服务管理/">CentOS_7_服务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-网络管理/">CentOS_7_网络管理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 jyhuang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

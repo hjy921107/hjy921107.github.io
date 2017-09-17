@@ -65,12 +65,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-CentOS-7-系统管理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/09/13/hello-world/" class="article-date">
-  <time datetime="2017-09-13T13:06:18.000Z" itemprop="datePublished">2017-09-13</time>
+    <a href="/2017/09/17/CentOS-7-系统管理/" class="article-date">
+  <time datetime="2017-09-17T15:06:47.000Z" itemprop="datePublished">2017-09-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -79,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/hello-world/">Hello World</a>
+      <a class="article-title" href="/2017/09/17/CentOS-7-系统管理/">CentOS_7_系统管理</a>
     </h1>
   
 
@@ -87,22 +91,2995 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <!-- toc -->
+<ul>
+<li><a href="#1-进程管理">1. 进程管理</a><ul>
+<li><a href="#11-进程管理简介">1.1 进程管理简介</a></li>
+<li><a href="#12-进程查看命令">1.2 进程查看命令</a><ul>
+<li><a href="#121-查看所有进程">1.2.1 查看所有进程</a></li>
+<li><a href="#122-查看系统健康状态-top-命令">1.2.2 查看系统健康状态 top 命令</a><ul>
+<li><a href="#1221-top-命令的交互模式">1.2.2.1 top 命令的交互模式</a></li>
+<li><a href="#1222-top-命令执行结果详解">1.2.2.2 top 命令执行结果详解</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#13-杀死进程">1.3 杀死进程</a><ul>
+<li><a href="#131-kill-命令">1.3.1 kill 命令</a></li>
+<li><a href="#132-killall-命令">1.3.2 killall 命令</a></li>
+<li><a href="#133-pkill-命令">1.3.3 pkill 命令</a></li>
+</ul>
+</li>
+<li><a href="#14-修改进程优先级">1.4 修改进程优先级</a><ul>
+<li><a href="#141-进程优先级简介">1.4.1 进程优先级简介</a></li>
+<li><a href="#142-修改进程的优先级">1.4.2 修改进程的优先级</a><ul>
+<li><a href="#1421-nice-命令">1.4.2.1 nice 命令</a></li>
+<li><a href="#1422-renice-命令">1.4.2.2 renice 命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-工作管理">2. 工作管理</a><ul>
+<li><a href="#21-工作管理简介">2.1 工作管理简介</a></li>
+<li><a href="#22-工作管理方法">2.2 工作管理方法</a><ul>
+<li><a href="#221-把进程放入后台的方法">2.2.1 把进程放入后台的方法</a></li>
+<li><a href="#222-查看后台的工作">2.2.2 查看后台的工作</a></li>
+<li><a href="#223-将后台暂停的工作恢复到前台执行">2.2.3 将后台暂停的工作恢复到前台执行</a></li>
+<li><a href="#224-将后台暂停的工作恢复到后台执行">2.2.4 将后台暂停的工作恢复到后台执行</a></li>
+</ul>
+</li>
+<li><a href="#23-后台命令脱离登录终端执行">2.3 后台命令脱离登录终端执行</a></li>
+</ul>
+</li>
+<li><a href="#3-系统资源查看">3. 系统资源查看</a><ul>
+<li><a href="#31-监控系统资源">3.1 监控系统资源</a></li>
+<li><a href="#32-监测内核资源">3.2 监测内核资源</a></li>
+<li><a href="#33-查看内存使用状态">3.3 查看内存使用状态</a></li>
+<li><a href="#34-列出当前系统打开的文件">3.4 列出当前系统打开的文件</a></li>
+<li><a href="#35-其他">3.5 其他</a></li>
+</ul>
+</li>
+<li><a href="#4-系统定时任务">4. 系统定时任务</a><ul>
+<li><a href="#41-at-一次性定时任务">4.1 at 一次性定时任务</a><ul>
+<li><a href="#411-at-服务的安装和启动">4.1.1 at 服务的安装和启动</a></li>
+<li><a href="#412-at-服务的访问控制">4.1.2 at 服务的访问控制</a></li>
+<li><a href="#413-at-相关命令">4.1.3 at 相关命令</a><ul>
+<li><a href="#4131-查看当前系统中的定时任务">4.1.3.1 查看当前系统中的定时任务：</a></li>
+<li><a href="#4132-删除由-at-建立的正在等待被执行的任务">4.1.3.2 删除由 at 建立的正在等待被执行的任务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#42-crontab-循环定时任务">4.2 crontab 循环定时任务</a><ul>
+<li><a href="#421-cron-服务">4.2.1 cron 服务</a></li>
+<li><a href="#422-服务访问控制">4.2.2 服务访问控制</a></li>
+<li><a href="#423-crontab-命令">4.2.3 crontab 命令</a></li>
+</ul>
+</li>
+<li><a href="#43-系统的-crontab-设置">4.3 系统的 crontab 设置</a></li>
+<li><a href="#44-anacron">4.4 anacron</a><ul>
+<li><a href="#441-检测周期">4.4.1 检测周期</a></li>
+<li><a href="#442-centos-的版本区别">4.4.2 CentOS 的版本区别</a></li>
+<li><a href="#443-anacron-配置文件">4.4.3 anacron 配置文件</a></li>
+<li><a href="#444-执行流程">4.4.4 执行流程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-进程管理">1. 进程管理</span></h1><h2><span id="11-进程管理简介">1.1 进程管理简介</span></h2><p>进程<br>: 是正在执行的一个程序或命令，第一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。</p>
+<p>进程管理任务</p>
+<ul>
+<li>判断服务器的健康状态</li>
+<li>查看系统中的所有进程</li>
+<li>杀死进程</li>
+</ul>
+<h2><span id="12-进程查看命令">1.2 进程查看命令</span></h2><h3><span id="121-查看所有进程">1.2.1 查看所有进程</span></h3><ul>
+<li><code>ps aux</code>：查看系统中的所有进程，使用 BSD 操作系统格式</li>
+</ul>
+<ul>
+<li><code>ps [选项]</code>：查看系统中的所有进程，使用 Linux 标准的合作格式<ul>
+<li>-a：显示一个终端的所有进程，除了会话引线</li>
+<li>-u：显示进程的归属用户及内存的使用情况</li>
+<li>-x：显示没有控制终端的进程</li>
+<li>-l：长格式显示，显示更加详细的信息</li>
+<li>-e/A：显示所有进程，包括系统、服务相关的进程</li>
+</ul>
+</li>
+<li><code>pstree [选项]</code>：以树结构的样式显示当前所有进程，需要 psmisc 包的支持<ul>
+<li>-p：显示进程的 PID</li>
+<li>-u：显示进程的所属用户</li>
+</ul>
+</li>
+</ul>
+<p><code>ps aux</code> 命令详解</p>
+<ul>
+<li><code>aux</code> 之前没有 <code>-</code>，如果添加 <code>-</code>，也可以显示相关信息，但可能会出现警告，详见 <code>man ps</code></li>
+</ul>
+<ul>
+<li>对于命令的输出结果说明：<ul>
+<li>USER：该进程是由哪个用户产生的</li>
+<li>PID：进程的 ID 号</li>
+<li>%CPU：该进程占用 CPU 资源的百分比</li>
+<li>%MEN：该进程战胜物理内存的百分比</li>
+<li>VSZ：该进程占用虚拟内存的大小，单位 KB</li>
+<li>RSS：该进程占用实际物理内存的大小，单位 KB</li>
+<li>TTY：该进程是在哪个终端中运行的。其中 tty1-tty7 代表本地终端，1-6 为本地的字符界面终端，7 为图形界面终端；pts/0-pts/65536 代表远程终端。</li>
+</ul>
+<ul>
+<li>STAT：进程状态，常见的进程状态的：<ul>
+<li>R：运行</li>
+<li>S：睡眠</li>
+<li>T：停止</li>
+<li>s：包含子进程</li>
+<li>+：位于后台的进程</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>START：该进程的启动时间</li>
+<li>TIME：该进程启动占用的 CPU 运算时间，注意：不是系统时间</li>
+<li>COMMAND：产生此进程的命令</li>
+</ul>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li><code>ps aux</code> 与 <code>ps -le</code> 命令的作用类似，只是显示的信息稍有不同，使用视个人习惯</li>
+<li>在所有的进程中，PID 为 1 的进程是所有其他进程的基础，可以理解为是系统启动的初始化进程。Linux 的版本不同，此进程对应的 COMMAND 不尽相同，但作用和地位是一样的</li>
+<li>Linux 中的大部分进程都是 root 用户产生的，可以理解为系统进程</li>
+<li>TTY 为 <code>?</code> 表示该进程不是由终端产生的，可以理解为是由 Linux 内核直接启动的</li>
+</ul>
+<h3><span id="122-查看系统健康状态-top-命令">1.2.2 查看系统健康状态 top 命令</span></h3><p>格式：top [选项] 参数</p>
+<p>选项：</p>
+<ul>
+<li>-d 秒数：指定 top 命令自动刷新的时间间隔，默认为 3 秒</li>
+<li>-b：使用批处理模式输出，一般的 <code>-n</code> 的选项同时使用</li>
+<li>-n 次数：指定 top 命令执行的次数，一般和 <code>-b</code> 选项同时使用</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 执行三次 top 命令，并将三次的执行结果写入到 /root/top.log 中</div><div class="line">top -b -n 3 &gt; /root/top.log</div></pre></td></tr></table></figure>
+<h4><span id="1221-top-命令的交互模式">1.2.2.1 top 命令的交互模式</span></h4><p>top 命令执行默认是存在交互的，主要有如下常见命令</p>
+<ul>
+<li>? 或 h：显示交互模式中的相关帮助信息</li>
+<li>P：以 CPU 的使用率从大到小排序，此项为默认值</li>
+<li>M：以内存的使用率从大到小排序</li>
+<li>N：以 PID 从大到小排序</li>
+<li>q：退出 top</li>
+</ul>
+<h4><span id="1222-top-命令执行结果详解">1.2.2.2 top 命令执行结果详解</span></h4><ul>
+<li>第一行为任务队列状态：<code>top - 22:21:02 up 11 min,  1 user,  load average: 0.00, 0.01, 0.02</code><ul>
+<li>22:21:02：系统当前时间</li>
+<li>up 11 min：服务器运行时间</li>
+<li>1 user：当前系统的登陆用户数</li>
+<li>load average: 0.00, 0.01, 0.02：服务器之前 1 分钟，5 分钟，15 分钟的平均负载，一般认为小于 1 为负载较小；大于 1 为超负载，具体视系统的硬件和当前的资源使用情况而定，并没有固定的标准</li>
+</ul>
+</li>
+<li>第二行为进程状态：<code>Tasks: 332 total,   2 running, 330 sleeping,   0 stopped,   0 zombie</code><ul>
+<li>Tasks: 332 total：当前总的任务进程数</li>
+<li>2 running：当前状态为运行的进程数</li>
+<li>330 sleeping：当前状态为睡眠的进程数</li>
+<li>0 stopped：当前状态为停止的进程数</li>
+<li>0 zombie：当前状态为僵死状态的进程数，简单理解为卡死的进程，一般系统中不会存在僵死的进程，如果出现，可能为正在停止的进程，可稍事等待后再次查看，如果长期存在僵死的进程，可查看该进程的相关信息并作出下一步的操作</li>
+</ul>
+</li>
+<li>第三行为 CPU 状态：<code>%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</code><ul>
+<li>0.0 us：用户占用的 CPU 百分比</li>
+<li>0.0 ys：系统占用的 CPU 百分比</li>
+<li>0.0 ni：改变过优先级的用户进程占用的 CPU 百分比</li>
+<li>100.0 id：CPU 的空闲百分比（主要指标）</li>
+<li>0.0 wa：等待输入输出进程占用的 CPU 百分比</li>
+<li>0.0 hi：硬中断请求服务占用的 CPU 百分比</li>
+<li>0.0 si：软中断请求服务占用的 CPU 百分比</li>
+<li>0.0 st：Steal Time 虚拟时间百分比，就是当有虚拟机运行时，虚拟 CPU 等待实际 CPU 的时间百分比</li>
+</ul>
+</li>
+<li>第四行为内存状态（单位 KB）：<code>KiB Mem :  1001332 total,   721564 free,   122632 used,   157136 buff/c</code><ul>
+<li>1001332 total：整体内存的大小</li>
+<li>721564 free：空闲内存的大小</li>
+<li>122632 used：已使用的内存大小</li>
+<li>157136 buff/c：内存中缓冲和缓存的总大小</li>
+</ul>
+</li>
+<li>第五行为交换分区的状态（单位 KB）：<code>KiB Swap:  2097148 total,  2097148 free,        0 used.   723884 avail</code><ul>
+<li>2097148 total：交换分区的整体大小</li>
+<li>2097148 free：交换分区中空闲的大小</li>
+<li>0 used：交换分区中已使用的大小</li>
+<li>723884 avail：交换分区中可用的大小</li>
+</ul>
+</li>
+<li>第六行为一空行，之后为一张列表，内容类似于 ps 命令的执行结果，此处不再详细说明</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>top 命令的执行结果是默认是每 3 秒刷新一次</li>
+<li>top 命令的执行结果默认是按照 CPU 的使用率从高到低进行排序的</li>
+<li>默认只显示占满一屏的信息，使用 <code>q</code> 退出信息显示</li>
+</ul>
+<h2><span id="13-杀死进程">1.3 杀死进程</span></h2><p>Linux 系统提供了 64 个进程信号供杀死进程的命令使用。使用 <code>kill -l</code> 查看所有的进程信号，常见的进程信号如下：</p>
+<ul>
+<li>1:SIGHUP：该信号用于立即关闭进程，然后重新读取配置文件之后重启</li>
+<li>9:SIGKILL：用于立即结束程序的运行，此信号不能被阻塞、忽略，一般用于强制终止进程。只有进程无法通过 kill 命令正常结束时，都会使用此信号</li>
+<li>15:SIGTERM：正常结束进程的信号，kill 命令的默认信号</li>
+</ul>
+<h3><span id="131-kill-命令">1.3.1 kill 命令</span></h3><p>格式：kill [选项] [信号] pid</p>
+<p>说明：kill 命令只能用于杀死单一进程</p>
+<p>常见命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 重启进程</div><div class="line">kill -1 123 # 或者 kill -HUP 123</div><div class="line"><span class="meta">#</span> 强制结束进程</div><div class="line">kill -9 123</div></pre></td></tr></table></figure>
+<h3><span id="132-killall-命令">1.3.2 killall 命令</span></h3><p>格式：killall [选项] [信号] 进程名</p>
+<p>说明：按照进程名进行模糊匹配，杀死所有匹配的进程</p>
+<p>选项：</p>
+<ul>
+<li>-i：交互式，针对需要杀死的一批进程，逐个询问是否（y/n）需要杀死，输入错误时，通过 Ctrl + BackSpace 进行删除</li>
+<li>-I：模糊匹配时，忽略进程名的大小写</li>
+</ul>
+<h3><span id="133-pkill-命令">1.3.3 pkill 命令</span></h3><p>格式：pkill [选项] [信号] 进程名/终端号</p>
+<p>说明：pkill 和 killall 的作用基本类似</p>
+<p>选项：</p>
+<ul>
+<li>-t：按照终端号踢除用户，如 <code>pkill -9 -t tty1</code>，注意：只能是 root 用户踢除其他用户（包括 root 用户），且命令中的 <code>-9</code> 不能省略</li>
+</ul>
+<h2><span id="14-修改进程优先级">1.4 修改进程优先级</span></h2><h3><span id="141-进程优先级简介">1.4.1 进程优先级简介</span></h3><p>Linux 是一个多用户、多任务的操作系统，Linux 系统中同时运行着非常多的进程，但是每个 CPU 在同一个时钟周期内只能运算一个指令，进程的优先级就决定了每个进程处理的先后顺序。</p>
+<p>对于进程的优先级可以通过如下方式查看： <code>ps -le</code>，其中有以下两列是关于进程优先级的：PRI 和 NI，以下面几行为例，作简单说明：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">F S   UID    PID   PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD</div><div class="line">4 S     0      1      0  0  80   0 - 10973 ep_pol ?        00:00:01 systemd</div><div class="line">1 S     0      2      0  0  80   0 -     0 kthrea ?        00:00:00 kthreadd</div><div class="line">1 S     0      3      2  0  80   0 -     0 smpboo ?        00:00:00 ksoftirqd/0</div><div class="line">1 S     0      5      2  0  60 -20 -     0 worker ?        00:00:00 kworker/0:0H</div><div class="line">1 S     0      6      2  0  80   0 -     0 worker ?        00:00:00 kworker/u256:0</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>PRI 为 priority 的缩写，NI 为 nice 的缩写，这两个值都代表优先级，数值越小代表该进程的优先级越高。</li>
+<li>对于用户而言，不能直接修改 PRI 的值，只能修改 NI 的值，系统最终会以 PRI（原始值） + NI 作为 PRI（最终值） 来决定该进程优先级</li>
+<li>执行命令得到的结果列中的 PRI 为最终值，无须再与 NI 的值进行运算，直接根据该值来判断该进程的优先级</li>
+</ul>
+<h3><span id="142-修改进程的优先级">1.4.2 修改进程的优先级</span></h3><h4><span id="1421-nice-命令">1.4.2.1 nice 命令</span></h4><p>格式：nice [选项] 命令</p>
+<p>选项：</p>
+<ul>
+<li>-n NI值：给命令赋予 NI 值</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>nice 命令只能给还未启用的进程（通过命令即将被启用的进程）赋予 NI 值，并不能修改已经存在的进程的 NI 值</li>
+<li>NI 值的取值范围为 -20 到 19</li>
+<li>普通用户调整 NI 值的范围是 0 到 19，而且只能调高 NI 值，不能降低，另外，只能调整由自己启用的进程</li>
+<li>root 用户可以任意调整所有用户进程的 NI 值，并且可以调低和设置 NI 的值为负数</li>
+</ul>
+<p>举例：<code>nice -n -5 service httpd start</code>，此命令将启动 Apache 的 Web 服务，通过在 <code>service httpd start</code> 命令之前添加 nice 命令，将 <code>service httpd start</code> 启动的所有进程的 NI 值设为 -5</p>
+<h4><span id="1422-renice-命令">1.4.2.2 renice 命令</span></h4><p>区别于 nice 命令，renice 命令是还可以修改已存在的进程的 NI 值</p>
+<p>格式：renice [NI值] [[选项] 参数]</p>
+<p>选项：</p>
+<ul>
+<li>-p pid：修改指定 pid 进程的 NI 值</li>
+<li>-g pgrps：修改该用户组下面所有进程的 NI 值（包括未创建的和已经在运行的）</li>
+<li>-u users：修改该用户启用的所有进程的 NI 值（包括未创建的和已经在运行的）</li>
+</ul>
+<p>举例：</p>
+<ul>
+<li><code>renice -10 123</code>，修改 PID 为 123 的进程的 NI 的值为 -10</li>
+<li><code>renice +10 -u oracle</code>，修改 oracle 用户下的所有进程的 NI 值为 10</li>
+</ul>
+<h1><span id="2-工作管理">2. 工作管理</span></h1><h2><span id="21-工作管理简介">2.1 工作管理简介</span></h2><p>工作管理指的是在单个登录终端中（就是登录的 shell 界面中）同时管理多个工作的行为，即管理后台进程</p>
+<p>注意事项：</p>
+<ul>
+<li>当前的登录终端，只能管理当前终端的工作，而不能管理其他登录终端的工作</li>
+<li>放入后台的命令必须可以持续运行一段时间，这样才能捕捉和操作这个工作</li>
+<li>放入后台执行的命令不能和前台用户有交互，否则放入后台也只是暂停，而不能执行</li>
+</ul>
+<h2><span id="22-工作管理方法">2.2 工作管理方法</span></h2><h3><span id="221-把进程放入后台的方法">2.2.1 把进程放入后台的方法</span></h3><ul>
+<li>在命令最后加上 &amp; 符，此方法除了与前台有交互的命令会暂停，其他命令会在后台继续执行</li>
+<li>命令执行后，按下 <code>Ctrl + z</code> 快捷键，任何命令都会被放入后台并暂停执行</li>
+</ul>
+<h3><span id="222-查看后台的工作">2.2.2 查看后台的工作</span></h3><p>格式：jobs [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-l：显示完整格式，包括后台工作的 pid</li>
+<li>-p：只显示 pid</li>
+<li>-r：只显示 Running 状态的工作</li>
+</ul>
+<p>执行结果格式：[Job ID] [+-] PID CMD</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# jobs</div><div class="line">[1]   Stopped                 top</div><div class="line">[2]-  Stopped                 top</div><div class="line">[3]+  Stopped                 vi abc</div><div class="line"></div><div class="line">[root@localhost ~]# jobs -l</div><div class="line">[1]   1848 Stopped (signal)        top</div><div class="line">[2]-  1858 Stopped (signal)        top</div><div class="line">[3]+  1861 Stopped (tty output)    vi abc</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>[1]：job id，表示当前工作的 id，按照放入后台的顺序依次递增</li>
+<li><code>+</code> 代表最近一个放入后台的工作，也是恢复工作时，默认恢复的工作；<code>-</code> 代表倒数第二个放入后台的工作；其他都为空格</li>
+<li>Stopped：进程状态，常见的还有 Running，Done，Terminated</li>
+<li>命令内容</li>
+</ul>
+<h3><span id="223-将后台暂停的工作恢复到前台执行">2.2.3 将后台暂停的工作恢复到前台执行</span></h3><p>格式：fg [%job id]</p>
+<ul>
+<li>直接输入 fg，恢复 <code>+</code> 标记的工作</li>
+<li>%job id：% 可以省略，但需要注意 job id 的 pid 的区别</li>
+</ul>
+<h3><span id="224-将后台暂停的工作恢复到后台执行">2.2.4 将后台暂停的工作恢复到后台执行</span></h3><p>格式：bg [%job id]</p>
+<ul>
+<li>直接输入 fg，恢复 <code>+</code> 标记的工作</li>
+<li>%job id：% 可以省略，但需要注意 job id 的 pid 的区别</li>
+<li>将后台暂停的工作恢复到后台执行要求该工作不能与前台有交互，否则，该工作仍然不能执行</li>
+</ul>
+<h2><span id="23-后台命令脱离登录终端执行">2.3 后台命令脱离登录终端执行</span></h2><p>绝大多数情况下，把命令放入后台，只能在当前登录终端执行，一旦退出或关闭终端，后台程序就会停止（原因是一旦退出或关闭终端，系统会自动使用 <code>kill -HUP pid</code>命令杀死相关的非系统进程）</p>
+<p>常见的后台命令脱离登录终端执行的方法：（推荐使用前两种）</p>
+<ul>
+<li>使用 nohup 命令，格式：<code>nohup 需要执行的命令 &amp;</code></li>
+<li>把需要后台执行的命令加入到 /etc/rc.local 文件中，这样退出或关闭终端，命令仍然执行，每次系统重启，会自动启用进程，适用于配置一些需要开机启动并一直运行的程序、服务等</li>
+<li>使用系统定时任务，让系统在指定的时间执行某些后台命令（在某些情况下会存在一定的问题）</li>
+<li>将进程设置为守护进程（设置较为繁琐，且系统中的守护进程过多不利于管理）</li>
+</ul>
+<h1><span id="3-系统资源查看">3. 系统资源查看</span></h1><h2><span id="31-监控系统资源">3.1 监控系统资源</span></h2><p>格式：vmstat [刷新延时 刷新次数]</p>
+<p>说明：每隔多久刷新，刷新几次</p>
+<p>执行结果格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# vmstat</div><div class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div><div class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div><div class="line"> 2  0      0 718828  17132 147984    0    0     5     1   18   16  0  0 100  0  0</div></pre></td></tr></table></figure>
+<p>执行结果详解：</p>
+<ul>
+<li>procs：进程信息字段<ul>
+<li>r：等待运行的进程数，数量越大，系统越繁忙</li>
+<li>b：不可被唤醒的进程数量，数量越大，系统越繁忙</li>
+</ul>
+</li>
+<li>memory：内在信息字段（单位 KB）<ul>
+<li>swpd：虚拟内存的使用情况</li>
+<li>free：空闲的内存容量</li>
+<li>buff：缓冲的内存容量</li>
+<li>cache：缓存的内存容量</li>
+</ul>
+</li>
+<li>swap：交换分区的信息字段（单位 KB），下面两个值越大，证明数据需要经常在磁盘和内存之间交换，即系统性能越差<ul>
+<li>si：从磁盘中交换到内存中数据的数量</li>
+<li>so：从内存中交换到磁盘中数据的数量</li>
+</ul>
+</li>
+<li>io：系统 I/O 的信息字段，单位 KB，下面两个值越大，代表系统的 I/O 越繁忙<ul>
+<li>bi：从块设备读出数据的总量</li>
+<li>bo：写入到块设备数据的总量</li>
+</ul>
+</li>
+<li>system：系统信息字段，下面两个数越大，代表系统与接口设备的通信越繁忙<ul>
+<li>in：每秒被中断的进程次数</li>
+<li>cs：每秒进行的事件切换次数</li>
+</ul>
+</li>
+<li>CUP：CPU 信息字段<ul>
+<li>us：非内核进程消耗 CPU 运算时间的百分比</li>
+<li>sy：内核进程消耗 CPU 运算时间的百分比</li>
+<li>id：空闲 CPU 的百分比</li>
+<li>wa：等待 I/O 所消耗 CPU 的百分比</li>
+<li>st：被虚拟机使用 CPU 的百分比</li>
+</ul>
+</li>
+</ul>
+<h2><span id="32-监测内核资源">3.2 监测内核资源</span></h2><p>格式：dmesg</p>
+<p>说明：</p>
+<p>此命令用于显示系统内核相关资源信息，但返回结果过多，通常结合 grep 进行指定内容查找，如：</p>
+<ul>
+<li><code>dmesg | grep CPU</code>：查看 CPU 相关的信息</li>
+<li><code>dmesg | grep memory</code>：查看内存相关的信息</li>
+</ul>
+<h2><span id="33-查看内存使用状态">3.3 查看内存使用状态</span></h2><p>格式：free [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-b：以字节为单位显示</li>
+<li>-k：以 KB 为单位显示，默认值</li>
+<li>-m：以 MB 为单位显示</li>
+<li>-g：以 GB 为单位显示</li>
+<li>-h：个性化显示文件大小，使用此选项，可自动转换成以 B/K/M/G 等为单位的数值，更方便阅读</li>
+</ul>
+<h2><span id="34-列出当前系统打开的文件">3.4 列出当前系统打开的文件</span></h2><p>格式：lsof [选项] 参数</p>
+<p>选项：</p>
+<ul>
+<li>-c 字符串：只列出以指定字符串开头的进程名所打开或使用的文件</li>
+<li>-u [^]用户名：只列出[非]某个用户下进程所打开或使用的文件</li>
+<li>-p pid：列出某个 pid 进程打开或使用的文件</li>
+<li>-i [:port]：列出指定端口号对应的进程</li>
+</ul>
+<p>常见命令：</p>
+<ul>
+<li><code>lsof /dev/cdrom</code>：哪个进程在占用光驱</li>
+<li><code>lsof -p  123</code>：显示哪些文件被 123 进程占用</li>
+<li><code>lsof -i:80</code>：显示所有以 80 端口的进程，省略端口号即显示所有打开端口的进程</li>
+<li><code>lsof -c httpd -u ^root</code>：显示哪些文件是由非root 用户开启的、进程名是以 httpd 开头的进程打开或使用的</li>
+</ul>
+<h2><span id="35-其他">3.5 其他</span></h2><ul>
+<li>查看 CPU 信息：<code>cat /proc/cpuinfo</code></li>
+<li>查看操作系统版本信息：<code>cat /proc/version</code></li>
+<li>查看系统的启动时间和平均负载，即 top 命令执行结果的第一行：<code>uptime</code>，另外，<code>w</code> 命令的第一行也是此信息</li>
+</ul>
+<ul>
+<li>查看系统与内核相关信息：uname [选项]<ul>
+<li>-a：查看系统所有相关信息</li>
+<li>-r：查看内核版本</li>
+<li>-s：查看内核名称</li>
+</ul>
+</li>
+<li>查看操作系统位数：<ul>
+<li><code>file /bin/ls</code>，通过 file 命令后跟任意一个系统命令</li>
+<li><code>getconf LONG_BIT</code>，获取系统配置</li>
+</ul>
+</li>
+<li>查看当前 Linux 系统 的发行版本：<ul>
+<li><code>cat /etc/redhat-release</code></li>
+<li><code>lsb_release -a</code>：需要 redhat-lsb 包和相关依赖包的支持，包较大，如果未安装，不建议安装使用</li>
+</ul>
+</li>
+</ul>
+<h1><span id="4-系统定时任务">4. 系统定时任务</span></h1><h2><span id="41-at-一次性定时任务">4.1 at 一次性定时任务</span></h2><h3><span id="411-at-服务的安装和启动">4.1.1 at 服务的安装和启动</span></h3><p> at 命令需要 at 服务的支持，而在 CentOS 7 默认的最小化安装中并没有 at 服务，所以需要如下操作：</p>
+<ul>
+<li>使用 yum 工具安装：<code>yum install -y at</code></li>
+<li>查看 at 服务是否安装成功：<code>systemctl list-unit-files | grep atd</code></li>
+</ul>
+<ul>
+<li>查看 at 服务是否启动：（常见方法）<ul>
+<li><code>ps aux | grep atd</code>：查看是否存在 atd 进程</li>
+<li><code>systemctl status atd</code>：查看 at 服务的状态，active (running) 为启动</li>
+<li><code>systemctl list-units | grep atd</code>：如果有结果，说明 at 服务已被加载</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>at 服务的启动/关闭/重启：<code>systemctl start/stop/restart atd</code></li>
+</ul>
+<h3><span id="412-at-服务的访问控制">4.1.2 at 服务的访问控制</span></h3><p>与 at 服务访问控制相关的文件有以下两个：/etc/at.allow 和 /etc/at.deny</p>
+<ul>
+<li>如果系统存在 /etc/at.allow 文件，那么只有写入此文件中的用户可以使用 at 命令，类似于白名单，此时忽略 /etc/at.deny 文件</li>
+<li>如果系统中没有 /etc/at.allow 文件，只有 /etc/at.deny 文件（安装完 at 工具包默认存在的文件，内容为空，类似于黑名单），那么写入此文件中的用户无法使用 at 命令，<strong>对 root 用户无效</strong></li>
+<li>如果系统中这两个文件都不存在，那么只有 root 用户可以使用 at 命令</li>
+</ul>
+<h3><span id="413-at-相关命令">4.1.3 at 相关命令</span></h3><p>格式：at [选项] 时间</p>
+<p>选项：</p>
+<ul>
+<li>-m：当 at 工作完成后，无论命令是否有输出，都通过 email 通知执行 at 命令的用户</li>
+<li>-c 工作号：显示该 at 工作的实际内容</li>
+</ul>
+<p>常用时间格式：</p>
+<ul>
+<li>HH:MM 如：19:30</li>
+<li>HH:MM YYYY-MM-DD 如：07:00 2016-07-31</li>
+<li>HH:MM [am|pm] [month] [date] 如：12 am July 31</li>
+<li>HH:MM [am|pm] + number [minutes|hours|days|weeks] 如：now + 1 hours</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# at 12:00 am 2016-07-31</div><div class="line"><span class="meta">at&gt;</span> ls -alh &gt;&gt; hello.log</div><div class="line"><span class="meta">at&gt;</span> &lt;EOT&gt;</div><div class="line">job 1 at Sun Jul 31 12:00:00 2016</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>at 命令是指定一个时间执行一个任务，只能执行一次</li>
+<li>ctrl + d 保存退出 at 命令输入模式，对应上面的 <code>&lt;EOT&gt;</code> 处</li>
+</ul>
+<h4><span id="4131-查看当前系统中的定时任务">4.1.3.1 查看当前系统中的定时任务：</span></h4><ul>
+<li>atq：查看当前机器上的 at 工作列表</li>
+<li>at -c jobid：查看指定工作号的工作内容</li>
+</ul>
+<h4><span id="4132-删除由-at-建立的正在等待被执行的任务">4.1.3.2 删除由 at 建立的正在等待被执行的任务</span></h4><ul>
+<li>atrm jobid</li>
+</ul>
+<h2><span id="42-crontab-循环定时任务">4.2 crontab 循环定时任务</span></h2><h3><span id="421-cron-服务">4.2.1 cron 服务</span></h3><p>crontab 命令需要 cron 服务的支持，此服务是系统安装时自带的且开机自启动的，相关的服务查询和启动、关闭等操作同 at 服务类似，此处不在赘述。</p>
+<h3><span id="422-服务访问控制">4.2.2 服务访问控制</span></h3><p>同 at 服务类似，与 cron 服务访问控制相关的文件有如下两个：/etc/cron.allow 和 /etc/cron.deny，具体使用同 at 服务类似，此处不在赘述。</p>
+<h3><span id="423-crontab-命令">4.2.3 crontab 命令</span></h3><p>格式：crontab [选项]</p>
+<p>选项：</p>
+<ul>
+<li>-e：进入编辑 crontab 定时任务模式，使用 vi 编辑工作内容</li>
+<li>-l：查询 crontab 任务列表</li>
+<li>-r：删除当前用户<strong>所有</strong>的 crontab 任务，如果想删除其中的某个或一些，直接进入编辑模式将对应的任务内容删除即可</li>
+</ul>
+<p>crontab 命令编辑模式格式：</p>
+<ul>
+<li>任何一个工作都以五个通配符开始<ul>
+<li>第一个：一小时中的第几分钟，0-59</li>
+<li>第二个：一天中的第几个小时，0-23</li>
+<li>第三个：一个月中的第几天，1-31</li>
+<li>第四个：一年中的第几个月，1-12</li>
+<li>第五个：一周中的星期几，0-7（0 和 7 都代表星期日）</li>
+</ul>
+</li>
+<li>在五个通配符之后为需要定时执行的命令/脚本等</li>
+</ul>
+<p>特殊通配符：</p>
+<ul>
+<li><code>*</code>：代表任何时间。如：第一个 <code>*</code> 就代表一小时中的每分钟都执行一次</li>
+<li><code>,</code>代表不连续的时间。如：<code>0 6,8,12 * * *</code> 表示在每天的 6 点、8 点和 12 点都执行一次</li>
+<li><code>-</code>：代表连续的范围。如：<code>0 5 * * 1-5</code> 表示每周的周一至周五凌晨 5 点执行</li>
+<li><code>*/n</code>：代表每隔多久执行一次。如：<code>*/10 * * * *</code> 表示每隔 10 分钟执行一次</li>
+</ul>
+<p>定时时间格式举例：</p>
+<ul>
+<li><code>30 3 * * *</code>：每天凌晨 3 点 30 分执行</li>
+<li><code>0 18 * * 1</code>：每周一下午 6 点执行</li>
+<li><code>0 5 1,15 * *</code>：每月 1 号和 15 号的凌晨 5 点执行</li>
+<li><code>40 4 * * 1-5</code>：每周一到周五的凌晨 4 点 40 分执行</li>
+<li><code>*/10 4 * * *</code>：每天凌晨 4 点整开始，每隔 10 分钟执行</li>
+<li><code>0 0 1,15 * 1</code>：每月 1 号和 15 号以及所有星期一执行</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>关于定时任务的内容格式 6 个部分（五个通配符和一个命令）都不能为空</li>
+<li>对于上面定时时间格式的最后一个例子，取的是并集而不是交集，建议：操作单位相同的情况下，如此处指定的号数和星期指明的都是哪天，此时不应该同时指定，容易造成混淆</li>
+<li>对于定时任务，指定的时间精度是有范围的，最小为分钟，最大为月份，无法具体指定哪年或者哪秒，对于哪年哪秒的定时任务是无法被识别的</li>
+<li>在定时任务内容中的所有命令，或者是需要使用定时命令执行的脚本文件中的命令，最好全部使用绝对路径（原因：在命令行模式下之所以可以不写绝对路径是因为系统会根据自身的 PATH 进行自动匹配，而定时任务的 PATH（见 /etc/crontab 文件）与系统自身的 PATH 并不一定完全一致，所以不使用绝对路径有时会出现意想不到的问题）</li>
+</ul>
+<h2><span id="43-系统的-crontab-设置">4.3 系统的 crontab 设置</span></h2><p><code>crontab</code> 命令是系统提供给用户执行的，它会自动与当前登录用户进行绑定，即每个用户都有自己的定时任务，互不干扰。但是，受到用户自身权限的限制，并不是所有的定时任务都可以交给任意的用户执行，此时就需要修改系统的 crontab 配置，即 /etc/crontab 配置文件，在配置文件中分配哪些定时任务由哪些用户执行，格式：<code>*  *  *  *  * user-name  command to be executed</code></p>
+<p>除了上述修改 /etc/crontab 配置文件的方式，CentOS 还提供了另一种方法：在 /etc 目录下，存在这样四个目录：cron.hourly，cron.daily，cron.weekly 和 cron.monthly，用户只要将需要进行定时执行的脚本文件放入对应的目录中，就可以每时/天/周/月定时执行。</p>
+<p>在 CentOS 6 之前，这些目录是通过 /etc/crontab 配置文件进行配置管理的，从 CentOS 6 开始，/etc/crontab 配置文件的功能已被弱化（默认情况下，该文件的内容为空），转向采用 anacron 的方式进行系统定时任务的管理，详见下节。虽然管理方式改变，但这四个目录依然仍在，只要将需要定时执行的脚本放入对应的目录，将只可以正常实现定时任务。</p>
+<p>比较：</p>
+<ul>
+<li>两种系统定时任务的处理方式，建议使用第二种方式，操作更加简单，更便于管理。</li>
+<li>系统和用户定时任务的处理方式，建议使用系统定时任务，因为这些定时任务都是存在于文件或目录中的，更加方便查询和管理，而使用用户定时任务，通过 <code>crontab -l</code> 进行查询的定时任务列表是存在于一个临时文件中的，很容易出现文件损坏或丢失的情况，而且只能显示当前用户的定时任务，不方便进行统一的管理。</li>
+</ul>
+<p>附：（CentOS 5 的 /etc/crontab 文件的部分内容）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">01 * * * * root run-parts /etc/cron.hourly</div><div class="line">02 4 * * * root run-parts /etc/cron.daily</div><div class="line">22 4 * * * root run-parts /etc/cron.weekly</div><div class="line">42 4 1 * * root run-parts /etc/cron.monthly</div></pre></td></tr></table></figure>
+<h2><span id="44-anacron">4.4 anacron</span></h2><p>anacron 是用来保证那些由于系统出现异常、关机等情况没有正常执行的定时任务，在系统恢复正常后能自动再执行的命令，但它只会监听 /etc 下 cron.daily，cron.weekly 和 cron.monthly 目录下未正常执行的定时任务，对于用户使用 crontab 命令添加的定时任务无法再次执行。</p>
+<p>注意：/etc/cron.hourly 下的定时任务是由 cron 默认执行的</p>
+<h3><span id="441-检测周期">4.4.1 检测周期</span></h3><ul>
+<li>anacron 会使用一天，一周，一月作为检测周期</li>
+<li>在系统的 /var/spool/anacron 目录下存在 cron.{daily, weekly, monthly} 三个文件，分别用于记录不同周期上次执行 cron 的时间</li>
+<li>将上述文件中的时间和当前时间比较，若两个时间的差值超过了 anacron 的检测周期（一天，一周和一月），证明有 cron 任务被漏执行了</li>
+</ul>
+<h3><span id="442-centos-的版本区别">4.4.2 CentOS 的版本区别</span></h3><ul>
+<li>在 CentOS 6 之前的版本中，/etc/cron.{daily, weekly, monthly} 三个目录不仅会被 cron 调用，还会被 anacron 调用，容易造成重复执行</li>
+<li>从 CentOS 6 开始，上述目录只会被 anacron 调用，避免了重复执行</li>
+<li>从 CentOS 6 开始，anacron 不再是服务，而是系统命令</li>
+</ul>
+<h3><span id="443-anacron-配置文件">4.4.3 anacron 配置文件</span></h3><p>文件地址：/etc/anacrontab</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">SHELL=/bin/sh # shell 的种类</div><div class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin # 定时任务执行的环境变量</div><div class="line">MAILTO=root # 定时任务的相关日志信息发送到 /var/spool/mail/root 中</div><div class="line"><span class="meta">#</span> the maximal random delay added to the base delay of the jobs</div><div class="line">RANDOM_DELAY=45 # 最大的随机延迟时间（分钟）</div><div class="line"><span class="meta">#</span> the jobs will be started during the following hours only</div><div class="line">START_HOURS_RANGE=3-22 # 执行时间范围（凌晨 3 点到晚上 10 点）</div><div class="line"></div><div class="line"><span class="meta">#</span>period in days   delay in minutes   job-identifier   command</div><div class="line"><span class="meta">#</span> 天数	强制延迟（分钟）	工作名称		实际执行命令</div><div class="line">1	5	cron.daily		nice run-parts /etc/cron.daily</div><div class="line">7	25	cron.weekly		nice run-parts /etc/cron.weekly</div><div class="line">@monthly 45	cron.monthly		nice run-parts /etc/cron.monthly</div><div class="line"></div><div class="line"><span class="meta">#</span> 随机延迟：防止大批量的定时任务同时执行，先随机延迟一段时间，现执行</div><div class="line"><span class="meta">#</span> 天数：上次执行时间与当前时间的差值超过几天，就执行哪个</div><div class="line"><span class="meta">#</span> 强制延迟：作用同上，先强制延迟指定时间，再执行</div><div class="line"><span class="meta">#</span> nice：调整命令的优先级，此处并没有指定命令的优先级，还是默认值</div><div class="line"><span class="meta">#</span> run-parts：是一个 shell 脚本，调用指定目录下可执行的脚本文件，同系统二进制命令类似，只是 shell 脚本的效率稍低于二进制命令</div></pre></td></tr></table></figure>
+<h3><span id="444-执行流程">4.4.4 执行流程</span></h3><p>以 cron.daily 为例</p>
+<ol>
+<li>读取 /var/spool/anacron/cron.daily 中上一次 anacron 的执行时间</li>
+<li>和当前时间比较，如果两个时间的差值超过一天，就准备执行 cron.daily 中的任务</li>
+<li>判断当前时间是否在 03:00-22:00 之间，是：继续；不是：等待直到时间范围满足再继续执行；</li>
+<li>执行任务前，先强制延迟 5 分钟，再随机延迟 45 分钟（即至少保证系统正常启动 5 分钟以上，最好是 50 分钟以上，才能确保任务一定执行）</li>
+<li>使用 nice 命令指定默认优先级，使用 run-parts 脚本执行 /etc/cron.daily 目录下所有的可执行文件</li>
+</ol>
+<p>总结：虽然 anacron 命令的优点很多，但对于一批任务，需要经过如上一系列步骤才能成功执行，对于时间的要求较多，用户不能很好地确保任务在一定的时间内可以正常执行完成，存在一定的不可控性。即 anacron 命令对实时性的要求并不高，从该命令没有监听 /etc/cron.hourly 目录中的任务也可以看出。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/13/hello-world/" data-id="cj7j1puwl0000wvsbvs5c0pt6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-系统管理/" data-id="cj7ovn50j000ncpsbyjexon99" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-bash基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-bash基础/" class="article-date">
+  <time datetime="2017-09-17T15:06:00.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-bash基础/">CentOS_7_bash基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-别名">1. 别名</a><ul>
+<li><a href="#11-查看系统中别名">1.1 查看系统中别名</a></li>
+<li><a href="#12-设置别名">1.2 设置别名</a><ul>
+<li><a href="#121-临时设置">1.2.1 临时设置</a></li>
+<li><a href="#122-永久设置">1.2.2 永久设置</a></li>
+</ul>
+</li>
+<li><a href="#13-删除别名">1.3 删除别名</a></li>
+<li><a href="#14-命令的生效顺序">1.4 命令的生效顺序</a></li>
+</ul>
+</li>
+<li><a href="#2-快捷键">2. 快捷键</a></li>
+<li><a href="#3-历史命令">3. 历史命令</a></li>
+<li><a href="#4-输入输出及重定向">4. 输入/输出及重定向</a><ul>
+<li><a href="#41-标准输入输出">4.1 标准输入/输出</a></li>
+<li><a href="#42-标准输出重定向">4.2 标准输出重定向</a></li>
+<li><a href="#43-标准输入重定向">4.3 标准输入重定向</a></li>
+</ul>
+</li>
+<li><a href="#5-多命令的顺序执行">5. 多命令的顺序执行</a></li>
+<li><a href="#6-管道符">6. 管道符</a></li>
+<li><a href="#7-通配符">7. 通配符</a></li>
+<li><a href="#8-bash-中其他的特殊符号">8. Bash 中其他的特殊符号</a></li>
+</ul>
+<!-- tocstop -->
+<hr>
+<p>Bash 是 Linux 中最基本和最常见的 Shell，它提供了很多基本功能来帮助我们更方便、高效的使用 Linux 和对编写 Shell 脚本带来帮助。</p>
+<h1><span id="1-别名">1. 别名</span></h1><h2><span id="11-查看系统中别名">1.1 查看系统中别名</span></h2><p>格式：alias</p>
+<p>在 CentOS 中有如下系统默认的别名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">alias cp='cp -i'</div><div class="line">alias egrep='egrep --color=auto'</div><div class="line">alias fgrep='fgrep --color=auto'</div><div class="line">alias grep='grep --color=auto'</div><div class="line">alias l.='ls -d .* --color=auto'</div><div class="line">alias ll='ls -l --color=auto'</div><div class="line">alias ls='ls --color=auto'</div><div class="line">alias mv='mv -i'</div><div class="line">alias rm='rm -i'</div><div class="line">alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'</div></pre></td></tr></table></figure>
+<h2><span id="12-设置别名">1.2 设置别名</span></h2><h3><span id="121-临时设置">1.2.1 临时设置</span></h3><p>格式：alias 别名=完整命令</p>
+<p>如：alias la=’ls -la –color=auto’</p>
+<p>说明：临时设置只对此次登陆有效</p>
+<h3><span id="122-永久设置">1.2.2 永久设置</span></h3><p>区别于临时设置，永久设置只要没有再次修改此配置，那么此配置将长期有效。永久设置的命令格式同临时设置的完全相同，只是永久设置是将配置写入到系统的环境变量配置文件中，常见的环境变量配置文件为 /当前用户的家目录/.bashrc</p>
+<p>如下为系统默认的 /root/.bashrc 文件内容，其中已经指定了几个永久设置的命令别名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> .bashrc</div><div class="line"></div><div class="line"><span class="meta">#</span> User specific aliases and functions</div><div class="line"></div><div class="line">alias rm='rm -i'</div><div class="line">alias cp='cp -i'</div><div class="line">alias mv='mv -i'</div><div class="line"></div><div class="line"><span class="meta">#</span> Source global definitions</div><div class="line">if [ -f /etc/bashrc ]; then</div><div class="line">	. /etc/bashrc</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>要想设置永久的命令别名，只需要在对应用户下的 .bashrc 文件中增加 alias 命令即可。不过，修改此配置文件后需要重新登陆才能生效，或者使用 <code>source /root/.bashrc</code>命令强制使配置立即生效。</p>
+<h2><span id="13-删除别名">1.3 删除别名</span></h2><p>格式：unalias 别名</p>
+<p>如：unalias la</p>
+<p>说明：同样地，此命令只是删除临时的别名，对于写入到系统环境变量配置文件中的别名，需要修改文件内容才，并重新登陆或使用 <code>source /root/.bashrc</code> 命令使配置立即生效。</p>
+<h2><span id="14-命令的生效顺序">1.4 命令的生效顺序</span></h2><p>对于命令，除了系统默认的情况，还在多个地方、使用多种方式设置了别名，那么的生效顺序如下：</p>
+<ol>
+<li>执行明确指定路径（绝对/相对）的命令</li>
+<li>执行别名</li>
+<li>执行 Bash 的最原始的内部命令</li>
+<li>按照 $PATH 中定义的目录顺序找到的第一个命令</li>
+</ol>
+<p>由上述顺序可知：别名的执行优先级要高于原始命令，所以，如非必要，别名尽量不要和原始命令重名，否则原始命令会被覆盖。</p>
+<h1><span id="2-快捷键">2. 快捷键</span></h1><ul>
+<li>Ctrl + c 强制终止当前命令</li>
+<li>Ctrl + l 清屏（其实是控制滑轮将当前屏幕的内容隐藏）</li>
+<li>Ctrl + a 光标移到到命令行首</li>
+<li>Ctrl + e 光标移到到命令行尾</li>
+<li>Ctrl + u 从光标所在位置删除到行首</li>
+<li>Ctrl + z 把命令放入后台执行，不建议使用</li>
+<li>Ctrl + r 在执行过的历史命令中搜索</li>
+</ul>
+<h1><span id="3-历史命令">3. 历史命令</span></h1><p>格式：history [选项] [历史命令保存文件]</p>
+<p>选项：</p>
+<ul>
+<li>-c 清空历史命令</li>
+<li>-w 把缓存中的历史命令写入到历史命令保存文件中（每个用户家目录下的 .bash_history）</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>直接使用 history 命令可以显示当前用户 .bash_history 文件中的所有记录以及此次登陆中已经执行过的所有命令记录</li>
+<li>.bash_history 文件中保存的是当前用户之前执行的所有命令，即默认情况下只有用户正确注销之后，他此次登陆所执行的命令才会保存到此文件中</li>
+</ul>
+<ul>
+<li>可以通过上述选项强制清空或保存当前缓存中的命令至指定文件，如果没有指定文件，系统默认为当前用户的 .bash_history 文件<ul>
+<li>使用强制保存后，会将此次登陆所执行的命令保存到 .bash_history 文件中，而不需要 logout</li>
+<li>使用清空命令后，并不会直接清空 .bash_history 文件，还是需要使用 -w 来强制覆盖 .bash_history 文件，此时，该文件中只剩下 <code>history -w</code> 这一条刚刚执行的记录</li>
+<li>默认情况下 .bash_history 文件中保存 1000 条记录，可以通过修改环境变量配置文件（/etc/profile）中的 HISTSIZE 的值来自定义记录的保存数量</li>
+</ul>
+</li>
+</ul>
+<p><strong>历史命令的调用：</strong></p>
+<ul>
+<li>使用上、下箭头调用以前的历史命令</li>
+<li>使用 “!n” 重复执行第 n 条历史命令</li>
+<li>使用 “!!” 重复执行上一条历史命令</li>
+<li>使用 “!字符串” 重复执行最后一条以该字符串开头的命令</li>
+</ul>
+<h1><span id="4-输入输出及重定向">4. 输入/输出及重定向</span></h1><h2><span id="41-标准输入输出">4.1 标准输入/输出</span></h2><table>
+<thead>
+<tr>
+<th style="text-align:center">设备</th>
+<th style="text-align:center">设备文件名</th>
+<th style="text-align:center">文件描述符</th>
+<th style="text-align:center">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">键盘</td>
+<td style="text-align:center">/dev/stdin</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">标准输入</td>
+</tr>
+<tr>
+<td style="text-align:center">显示器</td>
+<td style="text-align:center">/dev/stdout</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">标准输出</td>
+</tr>
+<tr>
+<td style="text-align:center">显示器</td>
+<td style="text-align:center">/dev/stderr</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">标准错误输出</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="42-标准输出重定向">4.2 标准输出重定向</span></h2><table><br>    <tr><br>        <td>类型</td><br>        <td>输出重定向命令的具体格式</td><br>        <td>作用</td><br>    </tr><br>    <tr><br>        <td rowspan="2">标准输出重定向</td><br>        <td>命令 &gt; 文件</td><br>        <td>以覆盖的方式将命令正确执行的结果输出到指定文件或设备中</td><br>    </tr><br>    <tr><br>        <td>命令 &gt;&gt; 文件</td><br>        <td>以追加的方式将命令的正确执行结果输出到指定文件或设备中</td><br>    </tr><br>    <tr><br>        <td rowspan="2">标准错误输出重定向</td><br>        <td>错误命令 2&gt; 文件</td><br>        <td>以覆盖的方式将执行错误命令的提示信息输出到指定文件或设备中</td><br>    </tr><br>    <tr><br>        <td>错误命令 2&gt;&gt; 文件</td><br>        <td>以追加的方式将执行错误命令的提示信息输出到指定文件或设备中</td><br>    </tr><br></table>
+
+<p>上述表格中的命令使用频率并不高，尤其是标准错误输出重定向命令，因为需要先明确执行的命令是否正确，然后才能使用对应的命令，如：对于错误命令，既然知道执行的命令是错误的，谁还会执行。所以，通常使用下面的命令，不用区分命令是否正确，都可以保存。</p>
+<table>
+<thead>
+<tr>
+<th>正确输出和错误输出同时保存命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令 &gt; 文件 2&gt;&amp;1</td>
+<td>以覆盖的方式将正确和错误的输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件 2&gt;&amp;1</td>
+<td>以追加的方式将正确和错误的输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td>命令 &amp;&gt; 文件</td>
+<td>以覆盖的方式将正确和错误的输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td>命令 &amp;&gt;&gt; 文件</td>
+<td>以追加的方式将正确和错误的输出都保存到同一个文件中</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件1 2&gt;&gt; 文件2</td>
+<td>以追加的方式将正确输出保存到文件1中，将错误输出保存到文件2中</td>
+</tr>
+</tbody>
+</table>
+<p>说明：</p>
+<ul>
+<li>输出重定向符号：&gt; 表示输出覆盖；&gt;&gt; 表示输出追加</li>
+<li>当使用文件描述符（0/1/2）以及 &amp;<br>时，文件描述符与输出重定向符之间不能有空格。默认情况下，输出重定向符之间是 1，如 <code>命令 1&gt; 文件</code>，将命令的正确执行结果保存到文件中。</li>
+<li>特殊的输出目的：/dev/null，类似于回收站，如 <code>ls &amp;&gt; /dev/null</code>，将 ls 命令的执行结果直接放弃，通常用于对某个命令的执行结果不关心、不需要显示给用户，可通过此命令直接删除命令的执行结果。</li>
+</ul>
+<h2><span id="43-标准输入重定向">4.3 标准输入重定向</span></h2><p>与标准输出重定向相反，标准输出重定向使用 &lt; 和 &lt;&lt; 符号</p>
+<ul>
+<li>命令 &lt; 内容 表示将内容作为命令的输入，内容可以是键盘录入或者文件等</li>
+<li>命令 &lt;&lt; 标识符 表示将指定标识符之间的内容作为命令的输入，如执行 <code>wc &lt;&lt; abc</code>，此时 wc 命令会统计键盘录入的内容，直到再次出现 abc 输入结束（abc 不在统计范围之内）。</li>
+</ul>
+<h1><span id="5-多命令的顺序执行">5. 多命令的顺序执行</span></h1><table>
+<thead>
+<tr>
+<th style="text-align:center">多命令执行符</th>
+<th style="text-align:center">多命令执行格式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">;</td>
+<td style="text-align:center">命令1 ; 命令2</td>
+<td>多命令顺序执行，命令之间没有任何逻辑关系</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;&amp;</td>
+<td style="text-align:center">命令1 &amp;&amp; 命令2</td>
+<td>逻辑与；当 1 正确执行，则 2 执行；否则 2 不执行</td>
+</tr>
+<tr>
+<td style="text-align:center">&#124;&#124;</td>
+<td style="text-align:center">命令1 &#124;&#124; 命令2</td>
+<td>逻辑或；当 1 执行错误，则 2 执行，否则 2 不执行</td>
+</tr>
+</tbody>
+</table>
+<h1><span id="6-管道符">6. 管道符</span></h1><p>格式：命令1 | 命令2 [| 命令3 …]</p>
+<p>说明：管道流也是多命令顺序流的一种，只是管道流比上述的基本的多命令顺序流更为特殊，它要求<strong>命令1的正确输出要作为命令2的操作对象</strong>，并非简单的要求命令之间是否存在逻辑关系的问题。</p>
+<p>举例：</p>
+<ul>
+<li>ll -ah /etc/ | more 使用 more 命令将 ll 命令的执行结果分买票显示</li>
+<li>netstat -an | grep ESTABLISHED | wc -l 使用 grep 搜索 netstat 命令列出的哪些端口已经正确建立连接（state 为 ESTABLISHED）并将结果交给 wc 命令统计正确建立连接的个数</li>
+</ul>
+<h1><span id="7-通配符">7. 通配符</span></h1><table>
+<thead>
+<tr>
+<th style="text-align:center">通配符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">?</td>
+<td>匹配一个任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td>匹配 0 个或任意多个字符，即可以匹配任意内容</td>
+</tr>
+<tr>
+<td style="text-align:center">[]</td>
+<td>匹配括号中列出的任意一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[-]</td>
+<td>匹配括号中列出范围内的任意一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[^]</td>
+<td>匹配一个不是括号内列出的或不在列出范围内的字符</td>
+</tr>
+</tbody>
+</table>
+<h1><span id="8-bash-中其他的特殊符号">8. Bash 中其他的特殊符号</span></h1><table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘’</td>
+<td>单引号，被单引号括起来的所有字符都没有特殊含义</td>
+</tr>
+<tr>
+<td style="text-align:center">“”</td>
+<td>双引号，被双引号括起来的所有字符都没有特殊含义，但 “$”、”`” 和 “\“ 是例外，它们分别拥有 “调用变量的值”、 “引用命令” 和 “转义符” 的特殊含义，这是单双引号的最重要的区别</td>
+</tr>
+<tr>
+<td style="text-align:center">``</td>
+<td>反引号，被反引号括起来内容会作为系统命令，在 Bash 先执行。和 \$() 作用一样，但推荐使用后者，因为反引号不易识别</td>
+</tr>
+<tr>
+<td style="text-align:center">\$()</td>
+<td>用来执行系统命令，与反引号的作用一样，建议使用 \$()</td>
+</tr>
+<tr>
+<td style="text-align:center">#</td>
+<td>在 Shell 中，# 开头的行代表注释，除了 <code>#!/bin/bash</code></td>
+</tr>
+<tr>
+<td style="text-align:center">\$</td>
+<td>用于调用变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">\</td>
+<td>转义符，在 \ 后面的字符将失去特殊含义，变为普通字符</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-bash基础/" data-id="cj7ovn5060004cpsb0n9b1r1w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-Shell基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-Shell基础/" class="article-date">
+  <time datetime="2017-09-17T15:05:27.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-Shell基础/">CentOS_7_Shell基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-shell-简介">1. Shell 简介</a></li>
+<li><a href="#2-helloworld">2. HelloWorld</a><ul>
+<li><a href="#21-新建-shell-脚本">2.1 新建 Shell 脚本</a></li>
+<li><a href="#22-执行-shell-脚本">2.2 执行 Shell 脚本</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-shell-简介">1. Shell 简介</span></h1><h1><span id="2-helloworld">2. HelloWorld</span></h1><h2><span id="21-新建-shell-脚本">2.1 新建 Shell 脚本</span></h2><p>脚本文件 hello.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span>!/bin/bash</div><div class="line"><span class="meta">#</span>This is the first program</div><div class="line"></div><div class="line">echo "Hello Shell";</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>Linux 中并没有扩展名的概念，但为了便于管理，建议使用 .sh 作为脚本文件的后缀</li>
+<li>注释：shell 脚本中使用 # 进行注释</li>
+<li><code>#!/bin/bash</code> 是固定写法，不是注释，放在文件首行，说明下面的内容遵循 bash 的基本语法。对于简单的 shell 脚本可以省略，但不建议；对于脚本中使用了其他语言的脚本，不能省略。</li>
+</ul>
+<h2><span id="22-执行-shell-脚本">2.2 执行 Shell 脚本</span></h2><ul>
+<li>方法一：直接使用 <code>bash hello.sh</code> 命令，但通常不这样做，建议使用方法二</li>
+</ul>
+<ul>
+<li>方法二：<ol>
+<li>修改脚本文件的执行权限 <code>chmod 755 hell.sh</code></li>
+<li>使用相对/绝对路径访问脚本文件 <code>./hello.sh</code> 或 <code>/root/hello.sh</code></li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-Shell基础/" data-id="cj7ovn5020001cpsbc0lj6bwb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-服务管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-服务管理/" class="article-date">
+  <time datetime="2017-09-17T15:02:27.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-服务管理/">CentOS_7_服务管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-服务的分类">1. 服务的分类</a></li>
+<li><a href="#2-服务端口">2. 服务端口</a></li>
+<li><a href="#3-服务查询">3. 服务查询</a></li>
+<li><a href="#4-服务启动与自启动">4. 服务启动与自启动</a><ul>
+<li><a href="#41-启动">4.1 启动</a></li>
+<li><a href="#42-自启动">4.2 自启动</a></li>
+<li><a href="#span-idxinetd43-基于-xinetd-的服务span"><span id="xinetd">4.3 基于 xinetd 的服务</span></a></li>
+<li><a href="#span-idsrc44-源码包安装的服务span"><span id="src">4.4 源码包安装的服务</span></a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<p>前言</p>
+<p>传统的 Linux 系统启动过程主要由 init 进程（也被称为 SysV init 启动系统）处理，从 CentOS 6 开始，就已经开始使用 Systemd 来渐渐取代 init，在 CentOS 7 中，与 init 相关的内容已所剩无几，下面所述的服务相关操作也都是使用 Systemd 的相关命令来完成的，所以，对于 Cent OS 7 以下的版本可能并不完成适用。</p>
+<h1><span id="1-服务的分类">1. 服务的分类</span></h1><p>Linux 服务：</p>
+<ul>
+<li>源码包安装的服务</li>
+</ul>
+<ul>
+<li>rpm 包默认安装的服务<ul>
+<li>独立的服务</li>
+<li>基于 xinetd 的服务</li>
+</ul>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>独立的服务，每个服务独立的占用内存，对于其他程序的访问能立即响应</li>
+</ul>
+<ul>
+<li>基于 xinetd 的服务<ul>
+<li>xinetd：是超级守护进程的一种，用于管理其他服务</li>
+<li>基于 xinetd 的服务并不单独占用内存，它们由 xinetd 进程调度，只有 xinted 进程占用内存。由于服务是由 xinetd 进行调度，所以对于其他程序的访问，响应相对没有独立服务那么迅速</li>
+</ul>
+</li>
+</ul>
+<h1><span id="2-服务端口">2. 服务端口</span></h1><p>每个 IP 地址都有 65536 个（0 - 65535）端口，不同的端口对应该 IP 提供的不同服务。在传输层，通常使用 TCP 和 UDP 两种协议，即每种协议都有 65536 个端口，但是为了便于管理，通常一个服务占用了一种协议的一个端口后，另一种协议的对应端口系统也会预占，这样不会混淆。</p>
+<p>由于端口过多，在 CentOS 中，系统提供了一个相对比较全面的服务与端口的映射关系文件，文件为：<code>/etc/services</code>，此文件通常情况下不建议修改，仅供参考、查询之用。</p>
+<h1><span id="3-服务查询">3. 服务查询</span></h1><ul>
+<li><code>systemctl --type=service [list-units]</code>：列出当前正在运行的服务状态</li>
+<li><code>systemd-cgls</code>：以树形列出正在运行的进程，它可以递归显示控制组内容</li>
+<li><code>systemctl status 服务名</code>：显示一个服务的运行状态</li>
+<li><code>systemctl command 服务名</code><ul>
+<li><code>is-enabled</code>：查看服务是否开机启动，返回值为：enable、disable或static，其中 static 是指对应的 Unit 文件中没有定义 [Install] 区域，因此无法配置为开机启动服务</li>
+<li><code>is-active</code>：判断服务当前是否 active</li>
+<li><code>is-failed</code>：判断服务启动是否失败</li>
+</ul>
+</li>
+<li><code>systemctl --failed</code>：查看启动失败的服务列表</li>
+<li><code>systemctl [--state=状态] list-unit-files</code>：查看系统中所有/任意状态服务的列表，输出信息仅有服务名和自启动状态两列</li>
+</ul>
+<h1><span id="4-服务启动与自启动">4. 服务启动与自启动</span></h1><ul>
+<li>服务常见位置：<ul>
+<li>rpm 服务<ul>
+<li><code>/usr/lib/systemd/system/</code> 中的 *.service 文件</li>
+<li><code>/etc/init.d/</code> 或 <code>/etc/rc.d/init.d/</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>基于 xinetd 服务，详见 <a href="#xinetd">4.3 基于 xinetd 的服务</a></li>
+<li>源码包服务：详见 <a href="#src">4.4 源码包安装的服务</a></li>
+</ul>
+</li>
+</ul>
+<h2><span id="41-启动">4.1 启动</span></h2><p>在当前系统中让服务运行，并且提供功能。</p>
+<p>启动方式：</p>
+<ol>
+<li><code>systemctl start/stop/restart 服务名</code></li>
+<li>执行服务启动的脚本文件（绝对路径）</li>
+<li><code>service 服务名 start/stop/restart</code></li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>1，3 方式是 RedHat 系列 Linux 的快速启动服务方法，并不是所有 Linux 的发行版本都支持</li>
+<li>2 方式是通用的启动方法，但需要记住服务启动脚本的绝对路径，通常，rpm 安装的脚本都在 <code>/usr/sbin</code> 或 <code>/usr/bin</code> 下</li>
+<li>本质上，方式 3 其实还是使用了方式 1 进行服务的管理</li>
+</ul>
+<h2><span id="42-自启动">4.2 自启动</span></h2><p>指让服务在系统开机或重启之后，随着系统的启动而自动启动</p>
+<p>自启动方式：</p>
+<ul>
+<li>修改配置文件：<code>/etc/rc.d/rc.local</code> 或 <code>/etc/rc.local</code></li>
+<li>命令方式：<code>systemctl enable/disable 服务名</code></li>
+</ul>
+<p>查看服务是否自启动：<code>systemctl is-enabled 服务名</code></p>
+<p>说明：</p>
+<ul>
+<li>配置文件：后者是前者的软链接，此文件为系统启动后默认加载文件，文件中命令都会默认执行，可以在此文件中添加需要自启动服务的启动命令来使该服务自启。</li>
+<li>命令方式：启用服务就是在 <code>/etc/systemd/system/multi-user.target.wants/</code> 目录下建立 需要自启动服务的软链接；禁用服务就是删除此软链接；添加服务就是添加软连接。</li>
+<li>上述两种方式相互独立，互不影响</li>
+</ul>
+<h2><span id="43-基于-xinetd-的服务"><span id="xinetd">4.3 基于 xinetd 的服务</span></span></h2><p>基于 xinetd 的服务管理已渐渐被淘汰，此处只作简要说明。</p>
+<ul>
+<li>安装 xinetd 服务，同时会自动安装一些由 xinetd 管理的服务<ul>
+<li>xinetd 服务：此服务本身就是一个 rpm 服务，相关操作同 rpm 服务</li>
+<li>基于 xinetd 的服务：相关操作见下</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>安装完成后，会在 <code>/etc/xinetd.d/</code> 下生成默认随 xinetd 安装的服务的对应配置文件，详细配置不再说明</li>
+</ul>
+<ul>
+<li>启动与自启动<ul>
+<li>对于基于 xinetd 的服务而言，启动服务与服务自启动是一致，如果开启该服务，意味着此服务将会自启动；如果设置这个服务自启动，则该服务也会立即启动；关闭同样如此。</li>
+<li>启动/关闭服务：<code>chkconfig 服务名 on/off</code></li>
+<li>服务自启动：修改 <code>/etc/xinetd.d/</code> 下的对应服务的配置文件，其中 <code>disable=no</code> 即可</li>
+</ul>
+</li>
+</ul>
+<h2><span id="44-源码包安装的服务"><span id="src">4.4 源码包安装的服务</span></span></h2><p>所有服务最根本的启动方式都是执行该服务的启动脚本，对于源码包，默认情况下，唯一的启动方式就是执行脚本文件，通常，源码包安装的服务都会在源码包中说明启动方式。</p>
+<p>由于源码包的安装位置是由启用自定义的，所以默认情况下，无法使用 rpm 服务的管理命令，但是只要将源码包中的启动脚本文件放置到 <code>/usr/lib/systemd/system/</code> 下，就可以使用 rpm 服务的管理命令了，通常的做法是建立软链接，软链接后缀名建议为 service，便于识别和管理。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-服务管理/" data-id="cj7ovn5080006cpsbe6928t4m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-网络管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-网络管理/" class="article-date">
+  <time datetime="2017-09-17T15:01:46.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-网络管理/">CentOS_7_网络管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-ip">1. IP</a><ul>
+<li><a href="#11-ip-常见命令">1.1 ip 常见命令</a><ul>
+<li><a href="#111-设置-查看和删除ip地址">1.1.1 设置、查看和删除IP地址</a></li>
+<li><a href="#112-查看-修改路由">1.1.2 查看、修改路由</a></li>
+<li><a href="#113-显示网络信息">1.1.3 显示网络信息</a></li>
+<li><a href="#114-激活或停止网络接口">1.1.4 激活或停止网络接口</a></li>
+</ul>
+</li>
+<li><a href="#12-绑定静态-ip-地址">1.2 绑定静态 IP 地址</a></li>
+</ul>
+</li>
+<li><a href="#2-防火墙">2. 防火墙</a><ul>
+<li><a href="#21-基本命令">2.1 基本命令</a><ul>
+<li><a href="#211-系统管理命令">2.1.1 系统管理命令</a></li>
+<li><a href="#212-firewall-命令">2.1.2 firewall 命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-ip">1. IP</span></h1><p>CentOS 7 中默认使用 ip 命令，不在安装 ifconfig。ifconfig 命令属于 net-tools 套件，而 ip 命令属于 iproute 套件。ip 命令和 ifconfig 命令一样，但是功能更加强大，并旨在取代后者。</p>
+<h2><span id="11-ip-常见命令">1.1 ip 常见命令</span></h2><h3><span id="111-设置-查看和删除ip地址">1.1.1 设置、查看和删除IP地址</span></h3><ul>
+<li>设置IP地址：<code>ip addr add 192.168.1.1/24 dev eth0</code></li>
+<li>查看IP地址：<code>ip addr show eth0</code></li>
+<li>删除IP地址：<code>ip addr del 192.168.1.1 dev eth0</code></li>
+</ul>
+<h3><span id="112-查看-修改路由">1.1.2 查看、修改路由</span></h3><ul>
+<li>查看路由表：<code>ip route show</code></li>
+<li>查看路由包来自的接口(本地接口)：<code>ip route get 123.125.114.144</code></li>
+<li>更改默认路由：<code>ip route add default via 192.168.1.254</code></li>
+</ul>
+<h3><span id="113-显示网络信息">1.1.3 显示网络信息</span></h3><ul>
+<li>显示网络统计信息：<code>ip -s link</code></li>
+<li>查看 ARP 条目：<code>ip neigh(或neighbour)</code></li>
+<li>监控 netlink 消息：<code>ip monitor all</code></li>
+</ul>
+<h3><span id="114-激活或停止网络接口">1.1.4 激活或停止网络接口</span></h3><ul>
+<li>激活网络接口：<code>ip link set eth0 up</code></li>
+<li>停止网络接口：<code>ip link set eth0 down</code></li>
+</ul>
+<h2><span id="12-绑定静态-ip-地址">1.2 绑定静态 IP 地址</span></h2><p>通过修改配置文件来修改 ip，配置文件地址为：<code>/etc/sysconfig/network-scripts/ifcfg-eno16777736</code> 。如下为常见的需要新增／修改的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 修改如下配置</div><div class="line">BOOTPROTO=&quot;static&quot;        # 启用静态IP地址，默认为 dhcp</div><div class="line">ONBOOT=&quot;yes&quot;              # 自动开启网络服务，如果此项为 no，需要改成 yes</div><div class="line"># 增加如下配置</div><div class="line">IPADDR=&quot;192.168.1.10&quot;    # 设置IP地址</div><div class="line">PREFIX=&quot;24&quot;              # 设置子网掩码，也可以使用 NETMASK=&quot;255.255.255.0&quot;</div><div class="line">GATEWAY=&quot;192.168.1.1&quot;    # 设置网关</div><div class="line">BROADCAST=&quot;192.168.1.255&quot; # 广播地址，可选，省略即采用默认值</div><div class="line">DNS1=&quot;8.8.8.8&quot;            # 设置主 DNS </div><div class="line">DNS2=&quot;8.8.4.4&quot;          　# 设置备 DNS（可选）</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>配置文件的文件名可能会因为个人环境不同而有所区别，但命名格式为：<code>ifcfg-enXXXXX</code></li>
+<li>如果需要配置多个 ip，可以使用 IPADDR0/PREFIX0/GATEWAY0，IPADDR1/PREFIX1/GATEWAY1… 分组的方式进行多个 ip 的配置</li>
+<li>修改此配置文件前，建议备份原配置文件</li>
+<li>修改配置文件后，需要重启网络服务使修改生效，命令为：<code>systemctl restart network</code></li>
+</ul>
+<h1><span id="2-防火墙">2. 防火墙</span></h1><p>区别于之前的版本，从 CentOS 7.0 开始默认使用的是 firewall 作为防火墙工具，对于旧版本的 iptables，虽然 CentOS 7 之后的版本仍然支持，但需要另行安装，此处不再赘述。 </p>
+<h2><span id="21-基本命令">2.1 基本命令</span></h2><h3><span id="211-系统管理命令">2.1.1 系统管理命令</span></h3><ul>
+<li>启动/关闭/重启防火墙：<code>systemctl start/stop/restart firewalld[.service]</code></li>
+<li>显示防火墙状态：<code>systemctl status firewalld</code></li>
+<li>开机启动/禁用防火墙：<code>systemctl enable/disable firewalld</code></li>
+<li>查看防火墙是否开机启动：<code>systemctl is-enabled firewalld</code></li>
+</ul>
+<h3><span id="212-firewall-命令">2.1.2 firewall 命令</span></h3><ul>
+<li>开启指定端口：<code>firewall-cmd --zone=scope --add-port=port/protocol --permanent</code><ul>
+<li><code>--zone</code>: 作用域，通常为 public</li>
+<li><code>--add-port</code>: 端口号/协议，如：8080/tcp, 3306/tcp 等</li>
+<li><code>--permanent</code>: 可选项，永久生效，没有此参数重启后失效</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>查看已开放端口：<code>firewall-cmd --list-ports</code></li>
+<li>刷新防火墙配置（在修改防火墙配置后用于使修改生效）：<code>firewall-cmd --reload</code></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-网络管理/" data-id="cj7ovn50h000kcpsb54xtito9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-软件安装管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-软件安装管理/" class="article-date">
+  <time datetime="2017-09-17T15:00:56.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-软件安装管理/">CentOS_7_软件安装管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-软件包的分类">1. 软件包的分类</a><ul>
+<li><a href="#11-源码包">1.1 源码包</a></li>
+<li><a href="#12-二进制包rpm-包也叫系统默认包">1.2 二进制包（RPM 包，也叫系统默认包）</a></li>
+<li><a href="#13-脚本安装包">1.3 脚本安装包</a></li>
+</ul>
+</li>
+<li><a href="#2-rpm-包管理">2. rpm 包管理</a><ul>
+<li><a href="#21-rpm-包相关">2.1 rpm 包相关</a></li>
+<li><a href="#22-rpm-安装">2.2 rpm 安装</a></li>
+<li><a href="#23-rpm-升级">2.3 rpm 升级</a></li>
+<li><a href="#24-rpm-包卸载">2.4 rpm 包卸载</a></li>
+<li><a href="#25-rpm-包查询">2.5 rpm 包查询</a><ul>
+<li><a href="#251-查询是否安装">2.5.1 查询是否安装</a></li>
+<li><a href="#252-查询软件包信息">2.5.2 查询软件包信息</a></li>
+<li><a href="#253-查询包中文件安装的位置">2.5.3 查询包中文件安装的位置</a></li>
+<li><a href="#254-查询系统文件所属的-rpm-包">2.5.4 查询系统文件所属的 rpm 包</a></li>
+<li><a href="#255-查询软件包的依赖性">2.5.5 查询软件包的依赖性</a></li>
+</ul>
+</li>
+<li><a href="#26-rpm-包校验">2.6 rpm 包校验</a></li>
+<li><a href="#27-rpm-包文件提取">2.7 rpm 包文件提取</a></li>
+</ul>
+</li>
+<li><a href="#3-yum-在线安装">3. yum 在线安装</a><ul>
+<li><a href="#31-yum-配置文件">3.1 yum 配置文件</a></li>
+<li><a href="#32-yum-本地安装">3.2 yum 本地安装</a></li>
+<li><a href="#33-yum-命令">3.3 yum 命令</a></li>
+<li><a href="#34-yum-缓存">3.4 yum 缓存</a></li>
+<li><a href="#35-yum-配置文件">3.5 yum 配置文件</a></li>
+<li><a href="#34-源码包安装">3.4 源码包安装</a><ul>
+<li><a href="#341-源码包和-rpm-的区别">3.4.1 源码包和 rpm 的区别</a></li>
+<li><a href="#342-安装">3.4.2 安装</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-软件包的分类">1. 软件包的分类</span></h1><p>Linux 中只有两种软件包，就是源码包和二进制包</p>
+<h2><span id="11-源码包">1.1 源码包</span></h2><ul>
+<li>优点<ul>
+<li>开源，如果有足够的能力，可以修改源代码；</li>
+<li>可以自由选择所需的功能；</li>
+<li>软件是编译安装，所以更加适合自己的系统，更加稳定、效率更高；</li>
+<li>卸载方便；</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>安装过程步骤较多，尤其安装较大的软件集合时（如 LAMP 环境搭建），容易出现拼写错误；</li>
+<li>编译过程时间较长，安装比二进制安装时间长；</li>
+<li>因为是编译安装，安装过程中一旦报错新手很难解决；</li>
+</ul>
+</li>
+</ul>
+<h2><span id="12-二进制包rpm-包也叫系统默认包">1.2 二进制包（RPM 包，也叫系统默认包）</span></h2><ul>
+<li>优点<ul>
+<li>包管理系统简单，只用几个命令就可以实现安装、升级、查询和卸载</li>
+<li>安装速度比源码包快多了</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>经过编译，不再可以看到源代码</li>
+<li>功能选择不如源码包灵活</li>
+<li>依赖性</li>
+</ul>
+</li>
+</ul>
+<h2><span id="13-脚本安装包">1.3 脚本安装包</span></h2><p>所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装，其本质还是安装源码包和二进制包。</p>
+<p>优点：安装简单、快捷（和 Windows 下安装软件时的一键安装很类似。）<br>缺点：完全丧失了自定义性。（在 Windows 下，我们没办法再更改安装路径。）</p>
+<h1><span id="2-rpm-包管理">2. rpm 包管理</span></h1><h2><span id="21-rpm-包相关">2.1 rpm 包相关</span></h2><ul>
+<li>RPM 包的来源：RPM包在系统光盘的 Packages 目录中</li>
+</ul>
+<ul>
+<li>RPM 包命名规则：以 httpd-2.2.15-15.el6.centos.1.i686.rpm 为例<ul>
+<li>httpd：软件包名</li>
+<li>2.2.15：软件版本</li>
+<li>15：软件发布的次数</li>
+<li>el6.centos：适合的linux平台</li>
+<li>i686：适合的硬件平台，除 x64，其余 ixxx 都是 32 位</li>
+<li>rpm：rpm包扩展名</li>
+</ul>
+</li>
+<li>RPM 包依赖性<ul>
+<li>树形依赖：a -&gt; b -&gt; c，对于此依赖，根据提示依次安装即可</li>
+<li>环形依赖：a -&gt; b -&gt; c -&gt; a</li>
+<li>模块依赖：此依赖表示依赖的是一个库文件，文件名以 “.so” 结尾。此时无法直接通过 rpm 命令安装该库文件，需要通过查询 “www.rpmfind.net” 网站找到含有此库文件的 rpm 包，然后安装查询到的包即可</li>
+</ul>
+</li>
+<li>包全名与包名<ul>
+<li>包全名：操作的包是没有安装的软件包时，使用包全名，而且需要注意路径，确保系统能找到该包</li>
+<li>包名：操作已经安装的软件时（卸载、查询）时，使用包名即可，系统会去 /var/lib/rpm/ 下的数据库中搜索已经安装的对应包</li>
+</ul>
+</li>
+</ul>
+<h2><span id="22-rpm-安装">2.2 rpm 安装</span></h2><p>格式：rpm -ivh 包全名</p>
+<p>选项：</p>
+<ul>
+<li>-i(install)：安装</li>
+<li>-v(verbose)：显示详细信息</li>
+<li>-h(hash)：显示进度</li>
+<li>–nodepes：不检测依赖性，强制安装，对于需要安装依赖包的软件，使用此选项是虽能安装软件包，但无法实现功能，所以通常情况下，是不允许使用的。</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>安装命令并不复杂，主要是需要处理包的依赖性</li>
+<li>安装过程中第一个 100% 表示准备成功，第二个 100% 表示安装成功</li>
+<li>由于 rpm 包的安装互相依赖极其繁琐，所以通常会使用 yum 在线安装，但是 yum 安装不能实现 RPM 包的查询以及校验</li>
+</ul>
+<h2><span id="23-rpm-升级">2.3 rpm 升级</span></h2><p>格式：rpm -Uvh 包全名</p>
+<p>选项：</p>
+<ul>
+<li>-U(upgrade)：升级</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>升级包对于系统而言，同样是未安装的，所有需要使用的包全名，并且注意包的路径</li>
+<li>由于是升级，所以新包的版本应该高于旧包</li>
+<li>对于从未安装的包，此命令也有效，此时功能等价于使用安装命令，即 rpm 的安装也可以使用升级命令</li>
+</ul>
+<h2><span id="24-rpm-包卸载">2.4 rpm 包卸载</span></h2><p>格式：rpm -e 包名</p>
+<p>选项：</p>
+<ul>
+<li>-e(erase)：卸载</li>
+<li>–nodeps：不检查依赖性，基本不允许使用</li>
+</ul>
+<h2><span id="25-rpm-包查询">2.5 rpm 包查询</span></h2><h3><span id="251-查询是否安装">2.5.1 查询是否安装</span></h3><ul>
+<li><code>rpm -q 包名</code>：查询指定包是否安装，query</li>
+<li><code>rpm -qa</code>：查询所有已安装包，query all</li>
+</ul>
+<h3><span id="252-查询软件包信息">2.5.2 查询软件包信息</span></h3><p>软件包的信息是包作者提前写到包中的，是一些包的简介，参考价值并不大，不过可以在此信息中找到该包对应的官网，获取更详细的帮助。由于这些信息是提前写好的，所以，无论软件包是否安装，都可以通过此命令查询包的信息</p>
+<ul>
+<li><code>rpm -qi 包名</code>：查询指定已安装包的信息，query information</li>
+<li><code>rpm -qip 包名</code>：查询指定未安装包的信息，query informatio package</li>
+</ul>
+<h3><span id="253-查询包中文件安装的位置">2.5.3 查询包中文件安装的位置</span></h3><p>同软件包的信息类似，软件包文件的安装位置也是包作者提前指定好的，无论软件包是否安装，都可以通过此命令查询包中文件的安装位置。但是，不同的作者，对文件位置的处理并不一致，所以包与包之间会存在一定和差异。</p>
+<ul>
+<li><code>rpm -ql 包名</code>：查询指定已安装包中文件的安装位置，query list</li>
+<li><code>rpm -qlp 包名</code>：查询指定未安装包中文件的安装位置，query　list package</li>
+</ul>
+<p>通常情况下 rpm 包的<span id="rpmDefDir">默认安装位置</span></p>
+<table>
+<thead>
+<tr>
+<th>安装目录　</th>
+<th>　说明　</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/etc/</td>
+<td>配置文件安装目录　</td>
+</tr>
+<tr>
+<td>/usr/sbin/ 或 /usr/bin</td>
+<td>软件包中可执行命令的安装目录　</td>
+</tr>
+<tr>
+<td>/usr/lib</td>
+<td>软件包所需要使用的库文件　</td>
+</tr>
+<tr>
+<td>/usr/share/doc</td>
+<td>　软件包的使用文档保存目录　</td>
+</tr>
+<tr>
+<td>/usr/share/man</td>
+<td>　软件包使用手册的保存目录　</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="254-查询系统文件所属的-rpm-包">2.5.4 查询系统文件所属的 rpm 包</span></h3><p>与上条命令功能相反，此命令是根据文件找到对应的 rpm 包。注意：此的文件必须是通过安装 rpm　生成的。</p>
+<ul>
+<li><code>rpm -qf 文件</code>：查询文件属性于哪个 rpm 软件包，query file</li>
+</ul>
+<h3><span id="255-查询软件包的依赖性">2.5.5 查询软件包的依赖性</span></h3><p>软件包的依赖性也是由包本身决定，与是否被安装无关，所以，无论软件包是否安装，都可以通过此命令查询包的依赖性。不过，此命令的列出的依赖太过详细，往往会包含一些系统最基本的包、命令、库文件等，而这些都是安装完系统肯定存在的，根本无须用户手动安装，所以，真正需要的依赖包通常都是该命令结果集的子集。</p>
+<p>对于包依赖性，更多的是使用 rpm　安装命令，根据提示逐个解决。</p>
+<ul>
+<li><code>rpm -qR 包名</code>： 查询指定的已安装软件包的依赖性</li>
+<li><code>rpm -qRp 包名</code>：查询指定的未安装软件包的依赖性</li>
+</ul>
+<h2><span id="26-rpm-包校验">2.6 rpm 包校验</span></h2><p>对软件包的安装完成的文件进行校验，判断文件是否被修改</p>
+<ul>
+<li><code>rpm -V 包名</code>：校验指定的已安装的包，verify</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>该命令执行之后，如果没有任何回馈信息，则表示该　rpm 包下的文件一切正常</li>
+</ul>
+<ul>
+<li>执行结果格式举例：<code>S.5....T.  c /etc/httped/conf/httpd.conf</code><pre><code>+ `S.5....T.`，对应位置存在值，表示文件相关信息被改变
+ - S：文件大小是否改变
+ - M：文件的类型或文件的权限（rwx）是否被改变
+ - 5：文件MD5校验和是否改变（可以看成文件内容是否改变）
+ - D：设备的主从代码是否改变
+ - L：文件路径是否改变
+ - U：文件的属主（所有者）是否改变
+ - G：文件的属组是否改变
+ - T：文件的修改时间是否改变
++ `c`，表示文件类型
+ - c：配置文件（config file）
+ - d：普通文档（documentation）
+ - g：“鬼”　文件（ghost file），很少见，就是该文件不应该被这个　RPM　包中；
+ - L：授权文件（license file）
+ - r：描述文件（read me）
+</code></pre></li>
+</ul>
+<h2><span id="27-rpm-包文件提取">2.7 rpm 包文件提取</span></h2><p>从 rpm 包中提取需要文件，通常用于因为误操作删除了一些系统文件导致某些功能无法使用，此时需要从对应的 rpm 包中找到被误删除的文件，并拷贝到对应目录下来使功能正常使用，当然也可以直接重新安装该 rpm 软件包。</p>
+<ul>
+<li><code>rpm2cpio 包全名 ｜ cpio -idv .文件/目录绝对路径</code><ul>
+<li>rpm2cpip：将 rpm 包格式转换为 cpio 格式</li>
+</ul>
+<ul>
+<li>cpip：一个标准工具，它用于创建软件档案文件并从档案文件中提取文件<ul>
+<li>命令格式：cpio 选项 目标文件/目录 &lt; 档案文件源</li>
+</ul>
+<ul>
+<li>选项：<ul>
+<li>-i：copy-in模式，还原/解压</li>
+<li>-d：还原时自动新建需要的目录</li>
+<li>-v：列出处理的文件/目录</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>rpm2cpio 后指定软件包使用的包全名</li>
+<li>cpio 命令只指定了需要抽取的目的文件，所以对于档案文件源需要使用重定向符或者管道命令来指定</li>
+<li>对于抽取的目的文件/目录，必须使用绝对路径名，该绝对路径名必须能够使用 <code>rpm -ql [全]包名</code> 命令在对应的 rpm 包软件安装位置中找到，而且，绝对路径名之前的 <code>.</code> 不能省略，代表将找到的文件复制到当前目录下</li>
+<li>如果抽取成功，会在执行后输出命令中指定的 ”.绝对路径“ 以及 blocks 数量，否则，只输出 blocks 数量</li>
+</ul>
+<p>通过以上步骤就可以从 rpm 包中抽取需要的文件/目录，然后将文件/目录保存到对应的目录，即可还原系统功能。</p>
+<h1><span id="3-yum-在线安装">3. yum 在线安装</span></h1><p>yum 是 redhat 提供的在线安装工具，用于解决 rpm 安装中依赖性的问题，但其本质还是安装的 rpm 软件包，并且 yum 注重的是安装，对于包的查询、校验等并未提供很好的支持，所以，此时还是需要使用 rpm 来进行包的管理。</p>
+<h2><span id="31-yum-配置文件">3.1 yum 配置文件</span></h2><p>通过如下命令查看 yum 的配置文件：<code>ls /etc/yum.repos.d/CentOS-*.repo</code>，默认情况下，有如下文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CentOS-Base.repo  CentOS-Debuginfo.repo  CentOS-Media.repo    CentOS-Vault.repo</div><div class="line">CentOS-CR.repo    CentOS-fasttrack.repo  CentOS-Sources.repo</div></pre></td></tr></table></figure>
+<p>上述配置文件的结构、内容基本相似，其中，系统默认以 CentOS-Base.repo 作为基本配置文件，文件内容大致说明如下：</p>
+<ul>
+<li>[base]：容器名称，一定要放在 <code>[]</code> 中</li>
+<li>name：容器说明，可以自己随意填写</li>
+<li>mirrorlist：镜像站点，默认是国外的，相对速度较慢，可以自行修改为国内可用镜像</li>
+<li>baseurl：yum 源服务器的地址，默认是 CentOS 官方的 yum 源服务器，此参数和 mirrorlist 是主备关系，使用其一即可，同样此参数可以自行修改为国内可用地址</li>
+<li>enabled：此容器是否生效，如果省略或设置为 1，即默认值，否则设为 0，即不生效</li>
+<li>gpgcheck：如果是 1 是指 RPM 的数字证书生效，如果是 0 则不生效，建议启用</li>
+<li>gpgkey：数字证书的公钥文件保存位置，不用修改</li>
+</ul>
+<h2><span id="32-yum-本地安装">3.2 yum 本地安装</span></h2><p>对于无法联网、追求快速安装、无须最新版本的情况，可以搭建 yum 的本地安装环境，通过会使用系统盘作为 yum 软件包源，下面简要说明使用光盘搭建本地 yum 的方法。</p>
+<ol>
+<li>将含有 rpm 包的光盘挂载到系统，此处使用的挂载目录为：<code>/media/cdrom</code></li>
+<li>取消系统默认的 yum 网络安装配置，可以使用 <code>enabled=0</code> 将 CentOS-Base.repo 文件中的所有容器设置成不生效，或者直接删除此文件（不建议），推荐修改此文件的文件名，如 CentOS-Base.repo.bak</li>
+<li>启用 yum 光盘安装配置，即修改 CentOS-Media.repo 文件内容<ul>
+<li>启用窗口，<code>enabled=1</code></li>
+<li>修改窗口的 baseurl 为光盘的挂载目录</li>
+</ul>
+</li>
+</ol>
+<p>通过以上步骤就搭建好了 yum 的本地安装环境，可以通过 <code>yum list</code> 命令查询本地 yum 中的 rpm 包列表，此时，会先更新本地 yum 数据库信息，如果列出的 Available Packages 的容器名与 CentOS-Media.repo 中配置的容器名一致，说明 yum 本地安装环境搭建成功。</p>
+<h2><span id="33-yum-命令">3.3 yum 命令</span></h2><p>格式：yum [选项] 命令 [参数]</p>
+<p>常用 yum 命令：</p>
+<ul>
+<li><code>yum list [命令] [参数]</code><ul>
+<li><code>yum list</code>：列出当前 yum Repository 中所有可用的软件包</li>
+<li><code>yum list 包名</code>：列出当前 yum Repository 中指定软件包</li>
+<li><code>yum list installed</code>：列出当前系统已安装的软件包</li>
+<li><code>yum list extras</code>：列出当前已安装但不在 Yum Repository 內的软件包</li>
+<li><code>yum list updates</code>：列出当前系统中可更新的软件包</li>
+</ul>
+</li>
+<li><code>yum info [命令] [参数]</code><ul>
+<li><code>yum info</code>：列出当前 yum Repository 中所有软件包的信息</li>
+<li><code>yum info 包名</code>：列出当前 yum Repository 中指定的软件包信息</li>
+<li><code>yum info installed</code>：列出当前系统已安装软件的信息</li>
+<li><code>yum info extras</code>：列出当前系统中已安装但不再 yum Repository 中的软件包信息</li>
+<li><code>yum info updates</code>：列出当前系统中可更新的软件包信息</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>yum check-update</code>：列出可更新的软件包列表</li>
+<li><code>yum provides 关键字</code>：从当前 yum Repository 中查找包含该关键字（包名、库文件…）的 rpm 软件包</li>
+<li><code>yum search 关键字</code>：按照关键字从当前 yum Repository 中查找匹配的软件包</li>
+<li><code>yum deplist 包名</code>：查看包的依赖</li>
+<li><code>yum repolist</code>：查看当前生效的 yum 源</li>
+</ul>
+<ul>
+<li><code>yum -y 命令 [包名]</code><ul>
+<li>-y：选项，表示在整个 yum 命令的执行过程中，对于系统的询问，总是回答 yes</li>
+</ul>
+<ul>
+<li>常用命令<ul>
+<li>安装：<code>yum -y install 包名</code></li>
+<li>升级：<code>yum -y update 包名</code>，如果省略包名，会升级所有包，包括系统内核程序，耗时长，内核程序的升级容易导致系统崩溃</li>
+<li>卸载：<code>yum -y remove 包名</code>，yum 的卸载同安装一样，会自动处理依赖性问题，即自动卸载相关的包、库文件等，容易导致系统崩溃，所以不建议使用 yum 进行卸载</li>
+</ul>
+</li>
+<li>软件组管理命令（类似于相关软件的打包安装）<ul>
+<li><code>yum grouplist</code>：列出当前 yum 源可用的软件组列表</li>
+<li><code>yum groupinstall</code>：安装指定的软件组名，组名必须为英文，如果系统为中文，可使用 <code>LANG=en_US.UTF-8</code> 来临时切换系统语言</li>
+<li><code>yum groupremove</code>：卸载指定软件组</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>yum localinstall</code>：安装本地 yum 源</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>yum --downloadonly --downloaddir=DLDIR</code>：只下载 rpm 包，不安装。不指定下载目录，默认下载到 yum 的缓存目录中</li>
+</ul>
+<h2><span id="34-yum-缓存">3.4 yum 缓存</span></h2><p>缓存目录：/var/cache/yum/</p>
+<ul>
+<li>清除 yum 缓存<ul>
+<li><code>yum clean all</code>：清除缓存目录下的所有内容（packages、headers、plugins 等）</li>
+<li><code>yum clean packages</code>：清除缓存目录下的所有 packages</li>
+<li><code>yum clean headers</code>：清除缓存目录下的所有 headers</li>
+</ul>
+</li>
+</ul>
+<h2><span id="35-yum-配置文件">3.5 yum 配置文件</span></h2><p>配置文件地址：<code>/etc/yum.conf</code>，其中配置了 yum 的默认缓存目录，是否开启缓存等配置，默认情况下，yum 不缓存（keepcache=0）</p>
+<h2><span id="34-源码包安装">3.4 源码包安装</span></h2><h3><span id="341-源码包和-rpm-的区别">3.4.1 源码包和 rpm 的区别</span></h3><ul>
+<li>基本概念上的区别前面已经说明，此处不再赘述</li>
+</ul>
+<ul>
+<li>主要是安装位置上的区别<ul>
+<li>rpm 包：默认情况下，rpm 是有基本统一的安装位置的，由该软件包的作者指定，详见：<a href="#rpmDefDir">rpm 默认安装位置</a>；同时 rpm 的安装软件包也可以手动指定安装位置，使用如下选项 <code>--prefix=&lt;dir&gt;</code>，但并不建议手动指定，通常情况下软件包作者配置的安装目录都是按照 Linux 目录的功能进行分配的，对于可执行命令都会安装到 PATH 指定的目录下，系统会提供一些便捷的调用方式，如果自定义，则需要手动配置。</li>
+<li>源码包：安装位置由用户手动指定，通过情况下建议安装在 /usr/local/，此目录类似于 windows 下的 Program Fils，此时，对于软件包提供的一些可执行命令必须使用绝对路径来调用</li>
+</ul>
+</li>
+</ul>
+<h3><span id="342-安装">3.4.2 安装</span></h3><p>以 apache 的 httpd 为例：</p>
+<ol>
+<li>下载源码包：<code>wget http://mirrors.cnnic.cn/apache//httpd/httpd-2.4.23.tar.gz</code>，建议保存位置：<code>/usr/local/src</code>，以下操作均在此目录下执行</li>
+<li>解压源码包：<code>tar -xvf httpd-2.4.23.tar.gz</code></li>
+<li>进入解压目录：<code>cd httpd-2.4.23</code></li>
+<li>查看 INSTALL 文件，该文件说明了安装、配置和启动命令，主要如下：<ol>
+<li>安装前准备：<code>./configure --prefix=path...</code> ，进行 httpd 的基本配置和安装环境检查<ul>
+<li><code>--prefix=/usr/local/apache2.4</code>：指定安装位置，建议必选</li>
+<li><code>--help</code>：查看相关配置帮助</li>
+<li>此命令的配置会在安装完成后保存在 MAKEFILE 文件中</li>
+</ul>
+</li>
+<li>编译：<code>make</code></li>
+<li>安装：<code>make install</code></li>
+<li>启动：<code>/usr/local/apache/bin/apachectl start</code>，stop 为关闭</li>
+</ol>
+</li>
+</ol>
+<p>一般而言，源码包的安装基本有上述几步：</p>
+<ol>
+<li>下载源码包</li>
+<li>解压源码包</li>
+<li>进入解压目录（必选，因为安装命令都是在解压包中的，所以必须进入此目录，否则安装命令就需要使用绝对路径调用）<br>4.安装<ol>
+<li>检查安装环境，进行软件包的基本配置</li>
+<li>make，编译需要 gcc 包的支持，如果编译失败，可通过 <code>make clean</code> 来撤消</li>
+<li>make install<ul>
+<li>通常情况下，只有在安装过程完全结束，此时如果最后部分安装说明出现错误，才可确定为安装失败，对于安装过程中的错误，一般可以忽略</li>
+<li>如果安装失败，需要手动删除安装目录，然后根据错误说明解决问题后重新安装；在编译期出现错误时，因为还未生成安装目录，所以根本不存在删除安装目录之说</li>
+</ul>
+</li>
+<li>启动</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-软件安装管理/" data-id="cj7ovn50k000qcpsbnkirdjrx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-磁盘管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-磁盘管理/" class="article-date">
+  <time datetime="2017-09-17T14:58:41.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-磁盘管理/">CentOS_7_磁盘管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-分区简介">1. 分区简介</a></li>
+<li><a href="#2-设备相关基本信息查询">2. 设备相关基本信息查询</a><ul>
+<li><a href="#21-查看块设备信息">2.1 查看块设备信息</a><ul>
+<li><a href="#211-lsblk">2.1.1 lsblk</a></li>
+<li><a href="#212-blkid">2.1.2 blkid</a></li>
+</ul>
+</li>
+<li><a href="#22-查看磁盘分区基本信息">2.2 查看磁盘分区基本信息</a></li>
+<li><a href="#23-统计磁盘上文件的大小">2.3 统计磁盘上文件的大小</a></li>
+</ul>
+</li>
+<li><a href="#3-磁盘的分区-格式化和挂载卸载">3. 磁盘的分区、格式化和挂载/卸载</a><ul>
+<li><a href="#31-分区">3.1 分区</a><ul>
+<li><a href="#311-mbr-分区">3.1.1 MBR 分区</a><ul>
+<li><a href="#1-进入-fdisk-模式">1. 进入 fdisk 模式</a></li>
+<li><a href="#2-新建分区">2. 新建分区</a><ul>
+<li><a href="#21-新建主分区扩展分区">2.1 新建主分区/扩展分区</a></li>
+<li><a href="#22-新建逻辑分区">2.2 新建逻辑分区</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#312-gpt-分区">3.1.2 GPT 分区</a><ul>
+<li><a href="#1-进入-parted-模式">1. 进入 parted 模式</a></li>
+<li><a href="#2-选择需要进行分区的硬盘">2. 选择需要进行分区的硬盘</a></li>
+<li><a href="#3-指定分区的模式">3. 指定分区的模式</a></li>
+<li><a href="#4-创建分区">4. 创建分区</a></li>
+<li><a href="#5其他常用命令">5.其他常用命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#32-格式化">3.2 格式化</a></li>
+<li><a href="#33-挂载卸载">3.3 挂载/卸载</a></li>
+<li><a href="#34-swap-分区">3.4 swap 分区</a><ul>
+<li><a href="#341-修改分区-id-的-16-进制编码">3.4.1 修改分区 Id 的 16 进制编码</a></li>
+<li><a href="#342-格式化-swap-分区">3.4.2 格式化 swap 分区</a></li>
+<li><a href="#343-启用-swap-分区">3.4.3 启用 swap 分区</a></li>
+<li><a href="#344-查看-swap-的加载情况">3.4.4 查看 swap 的加载情况</a></li>
+<li><a href="#345-关闭-swap-分区">3.4.5 关闭 swap 分区</a></li>
+</ul>
+</li>
+<li><a href="#35-lvm">3.5 LVM</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-分区简介">1. 分区简介</span></h1><p>磁盘分区时使用分区编辑器（partition editor）在磁盘上划分几个逻辑部分。磁盘一旦被划分成数个分区（partition），不同类的目录与文件可以存储进不同的分区。</p>
+<h1><span id="2-设备相关基本信息查询">2. 设备相关基本信息查询</span></h1><h2><span id="21-查看块设备信息">2.1 查看块设备信息</span></h2><p>了解新插入的设备的名字，特别是当你在终端上处理磁盘/块设备时。</p>
+<h3><span id="211-lsblk">2.1.1 lsblk</span></h3><p>lsblk 是一个 Linux 工具，它会显示有关你系统里所有可用块设备的信息。它从 sysfs 文件系统 中获取信息。默认情况下，这个工具将会以树状格式显示（除了内存虚拟磁盘外的）所有块设备。</p>
+<p>格式：lsblk [选项]</p>
+<p>选项：</p>
+<ul>
+<li>省略，即默认值，此时以标准的树状格式输出,整齐地显示块设备</li>
+<li>-l 以列表的形式输出块设备信息</li>
+<li>-n 不显示表头</li>
+<li>-m 显示块设备所有者的相关信息（包括文件的所属用户、所属组以及文件系统挂载的模式）</li>
+</ul>
+<ul>
+<li>-f 在输出结果中增加文件系统列，其他列也会有所改变<ul>
+<li>FSTYPE: 设备对应的文件系统</li>
+<li>LABEL: 设备的 label 说明</li>
+<li>UUID: 设备的唯一标识符</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>-t 以拓扑的形式输出块设备信息，对应的输出信息于之前不同，具体不再说明</li>
+</ul>
+<p>下面以默认无参的命令作简要说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# lsblk</div><div class="line">NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</div><div class="line">sda               8:0    0    5G  0 disk</div><div class="line">├─sda1            8:1    0  200M  0 part /boot</div><div class="line">└─sda2            8:2    0  4.8G  0 part</div><div class="line">  ├─centos-root 253:0    0  3.8G  0 lvm  /</div><div class="line">  └─centos-swap 253:1    0    1G  0 lvm  [SWAP]</div><div class="line">sr0              11:0    1  7.7G  0 rom</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>NAME: 设备的名称</li>
+<li>MAJ:MIN: Linux 操作系统中的每个设备都以一个文件表示，对块（磁盘）设备来说，这里用主次设备编号来描述设备</li>
+<li>RM: 是否为可移动设备。如果这是一个可移动设备将显示 1，否则显示 0</li>
+<li>SIZE: 设备的容量</li>
+<li>RO: 对于只读文件系统，这里会显示 1，否则显示 0</li>
+<li>TYPE: 设备的类型</li>
+<li>MOUNTPOINT: 设备挂载的位置</li>
+</ul>
+<h3><span id="212-blkid">2.1.2 blkid</span></h3><p>blkid 主要用来对系统的块设备（包括交换分区）所使用的 FSTYPE、LABEL、UUID等信息进行查询。</p>
+<p>格式：blkid [选项] [参数] [dev]</p>
+<p>选项：</p>
+<ul>
+<li>全部省略，即默认值，输出系统中所有块设备的基本信息</li>
+<li>/dev/sda1: 根据设备名查询其他几项信息</li>
+<li>-s tag [dev]: 查询出[指定/所有]带 tag 的设备名和 tag 值，常见 tag 有：UUID, LABEL, TYPE</li>
+<li>-U UUID: 根据 UUID 查询出对应的设备名</li>
+<li>-L LABEL: 根据 LABEL 查询出对应的设备名</li>
+<li>-po format dev: 按照指定格式（format:value/device/udev/full）输出指定设备的详细信息</li>
+<li>-o format [dev]: 按照指定格式（format:value/device/list/export/full）输出[指定/所有]设备的信息</li>
+<li>-g: 清除设备列表缓存，刷新当前设备列表</li>
+</ul>
+<h2><span id="22-查看磁盘分区基本信息">2.2 查看磁盘分区基本信息</span></h2><p>格式：df [选项] [已挂载分区/文件系统名]</p>
+<p>选项：</p>
+<ul>
+<li>-l 仅显示本地磁盘（默认）</li>
+<li>-a 显示所有文件系统的磁盘使用情况</li>
+<li>-h 以 1024 进制计算最合适的单位显示磁盘容量</li>
+<li>-H 以 1000 进制计算最合适的单位显示磁盘容量</li>
+<li>-T 显示磁盘分区类型</li>
+<li>-t 后跟文件系统名，显示指定类型文件系统的磁盘分区</li>
+<li>-x 后跟文件系统名，不显示指定类型文件系统的磁盘分区</li>
+</ul>
+<h2><span id="23-统计磁盘上文件的大小">2.3 统计磁盘上文件的大小</span></h2><p>格式：du [选项] [文件/目录]</p>
+<p>选项：</p>
+<ul>
+<li>-b 以 byte 为单位统计文件文件大小</li>
+<li>-k 以 KB 为单位统计文件大小</li>
+<li>-m 以 MB 为单位统计文件大小</li>
+<li>-h 按照 1024 进制以最合适的单位统计文件大小</li>
+<li>-H 按照 1000 进制以最合适的单位统计文件大小</li>
+<li>-s 指定统计目标，如目录、文件等</li>
+</ul>
+<h1><span id="3-磁盘的分区-格式化和挂载卸载">3. 磁盘的分区、格式化和挂载/卸载</span></h1><p>Linux 系统中的硬件设备都是以文件的形式存在于根目录下的 dev 目录中，由 Linux 系统自动识别，对于磁盘，其文件命名结构为：sd[a-z]X</p>
+<ul>
+<li>sd：表示接口类型为 SATA 或 SCSI 的硬盘，对于 IDE 接口为 hd</li>
+<li>[a-z]：表示硬盘编号，分别对应第 1 到 26 块硬盘</li>
+<li>X：表示当前硬盘下的分区编号，</li>
+</ul>
+<p>虽然对于一块全新的硬盘，Linux 开机后能自动识别但并不能直接使用，必须对硬盘进行分区、格式化和挂载后才能正常使用。</p>
+<h2><span id="31-分区">3.1 分区</span></h2><h3><span id="311-mbr-分区">3.1.1 MBR 分区</span></h3><p>MBR 分区模式特点：</p>
+<ul>
+<li>一块硬盘的主分区 + 扩展分区最多只能有 4 个，对应的分区编号为 1-4</li>
+<li>扩展分区其实也是主分区，为了增加分区个数，将一个主分区作为扩展分区使用，但一个硬盘的扩展分区最多只能有 1 个</li>
+<li>扩展分区不能写入数据，只能包含若干个逻辑分区</li>
+<li>逻辑分区对应的编号从 5 开始</li>
+<li>单个分区容量最大为 2TB</li>
+</ul>
+<p>使用 Linux 自带的磁盘分区工具：fdisk，命令帮助如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk</div><div class="line">Usage:</div><div class="line"> fdisk [options] &lt;disk&gt;    change partition table</div><div class="line"> fdisk [options] -l &lt;disk&gt; list partition table(s)</div><div class="line"> fdisk -s &lt;partition&gt;      give partition size(s) in blocks</div><div class="line"></div><div class="line">Options:</div><div class="line"> -b &lt;size&gt;             sector size (512, 1024, 2048 or 4096)</div><div class="line"> -c[=&lt;mode&gt;]           compatible mode: 'dos' or 'nondos' (default)</div><div class="line"> -h                    print this help text</div><div class="line"> -u[=&lt;unit&gt;]           display units: 'cylinders' or 'sectors' (default)</div><div class="line"> -v                    print program version</div><div class="line"> -C &lt;number&gt;           specify the number of cylinders</div><div class="line"> -H &lt;number&gt;           specify the number of heads</div><div class="line"> -S &lt;number&gt;           specify the number of sectors per track</div></pre></td></tr></table></figure>
+<p>使用 <code>fdisk -l</code> 命令显示系统当前分区表信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk -l</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line"></div><div class="line"></div><div class="line">Disk /dev/sda: 21.5 GB, 21474836480 bytes, 41943040 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x000b9672</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sda1   *        2048     1026047      512000   83  Linux</div><div class="line">/dev/sda2         1026048    26191871    12582912   83  Linux</div><div class="line">/dev/sda3        26191872    30386175     2097152   82  Linux swap / Solaris</div><div class="line">/dev/sda4        30386176    41943039     5778432    5  Extended</div><div class="line">/dev/sda5        30388224    41938943     5775360   83  Linux</div></pre></td></tr></table></figure>
+<p>其中，/dev/sda 为系统的第一块硬盘，是用于安装系统和存储相关数据的主硬盘，/dev/sdb 为后来新增的第二块硬盘，现在需要对此硬盘进行分区操作，具体流程如下：</p>
+<h5><span id="1-进入-fdisk-模式">1. 进入 fdisk 模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk /dev/sdb</div><div class="line">Welcome to fdisk (util-linux 2.23.2).</div><div class="line"></div><div class="line">Changes will remain in memory only, until you decide to write them.</div><div class="line">Be careful before using the write command.</div><div class="line"></div><div class="line">Device does not contain a recognized partition table</div><div class="line">Building a new DOS disklabel with disk identifier 0x97759901.</div><div class="line"></div><div class="line">Command (m for help):</div></pre></td></tr></table></figure>
+<p>在 fdisk 的分区模式下，通过输入 m 查看相关的命令帮助，主要的分区命令都可通过帮助信息找到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Command (m for help): m</div><div class="line">Command action</div><div class="line">   a   toggle a bootable flag</div><div class="line">   b   edit bsd disklabel</div><div class="line">   c   toggle the dos compatibility flag</div><div class="line">   d   delete a partition</div><div class="line">   g   create a new empty GPT partition table</div><div class="line">   G   create an IRIX (SGI) partition table</div><div class="line">   l   list known partition types</div><div class="line">   m   print this menu</div><div class="line">   n   add a new partition</div><div class="line">   o   create a new empty DOS partition table</div><div class="line">   p   print the partition table</div><div class="line">   q   quit without saving changes</div><div class="line">   s   create a new empty Sun disklabel</div><div class="line">   t   change a partition's system id</div><div class="line">   u   change display/entry units</div><div class="line">   v   verify the partition table</div><div class="line">   w   write table to disk and exit</div><div class="line">   x   extra functionality (experts only)</div></pre></td></tr></table></figure>
+<h5><span id="2-新建分区">2. 新建分区</span></h5><h6><span id="21-新建主分区扩展分区">2.1 新建主分区/扩展分区</span></h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): n</div><div class="line">Partition type:</div><div class="line">   p   primary (0 primary, 0 extended, 4 free)</div><div class="line">   e   extended</div><div class="line">Select (default p):</div></pre></td></tr></table></figure>
+<ul>
+<li>p：主分区，默认值</li>
+<li>0 primary, 0 extended, 4 free：当前硬盘的分区情况，0 个主分区、0 个扩展分区，4 个分区可用</li>
+<li>e：扩展分区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Select (default p):</div><div class="line">Using default response p</div><div class="line">Partition number (1-4, default 1): 1</div></pre></td></tr></table></figure>
+<ul>
+<li>Partition number (1-4, default 1)：指定分区号，1-4 是系统预留给主分区和扩展分区使用的</li>
+</ul>
+<h6><span id="22-新建逻辑分区">2.2 新建逻辑分区</span></h6><p>新建的扩展分区并不能直接使用，需要在此基础上建立逻辑分区，逻辑分区的分区编号是从 5 开始的。当建立了扩展分区后，再次使用 n 命令会出现如下信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): n</div><div class="line">Partition type:</div><div class="line">   p   primary (1 primary, 1 extended, 2 free)</div><div class="line">   l   logical (numbered from 5)</div><div class="line">Select (default p):</div></pre></td></tr></table></figure>
+<p>此时只需要输入 <code>l</code> 即可创建逻辑分区，其余操作同创建主分区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">First sector (2048-10485759, default 2048):</div><div class="line">Using default value 2048</div><div class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (2048-10485759, default 10485759): +2G</div><div class="line">Partition 1 of type Linux and of size 2 GiB is set</div></pre></td></tr></table></figure>
+<ul>
+<li>指定分区的起始位置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Command (m for help): p</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x97759901</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sdb1            2048     4196351     2097152   83  Linux</div><div class="line"></div><div class="line">Command (m for help):</div></pre></td></tr></table></figure>
+<ul>
+<li>p 命令：查看当前磁盘下的分区信息</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m for help): w</div><div class="line">The partition table has been altered!</div><div class="line"></div><div class="line">Calling ioctl() to re-read partition table.</div><div class="line">Syncing disks.</div></pre></td></tr></table></figure>
+<p>当硬盘分区完成，使用 p 命令查看无误后，使用 w 命令将硬盘的分区信息写入到系统的分区表（partition table）中，此时，使用 <code>fdisk -l</code> 命令就可以看到刚才的分区信息了。</p>
+<h3><span id="312-gpt-分区">3.1.2 GPT 分区</span></h3><p>GPT 分区模式特点：</p>
+<ul>
+<li>主分区个数最大为 128 个，由于此分区模式下的分区数量足够使用，此时扩展分区用于增加分区数量的作用相对弱化，故在 pgt 分区模式下，不严格区分主分区和扩展分区</li>
+<li>单个分区的容量最大为 18EB (1EB = 1024PB = 1024TB)</li>
+<li>GPT 的主分区中不适合安装 X86 架构的系统</li>
+</ul>
+<p>fdisk 命令只能用于创建 MBR 分区模式的分区，所以，此处采用系统自带的 parted 分区工具，此命令可以指定分区的模式为 MBR 或 GPT 等。</p>
+<h5><span id="1-进入-parted-模式">1. 进入 parted 模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# parted</div><div class="line">GNU Parted 3.1</div><div class="line">Using /dev/sda</div><div class="line">Welcome to GNU Parted! Type 'help' to view a list of commands.</div><div class="line">(parted)</div></pre></td></tr></table></figure>
+<p>输入 help 查看相关的命令帮助，主要的分区命令都可通过帮助信息找到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# parted</div><div class="line">GNU Parted 3.1</div><div class="line">Using /dev/sda</div><div class="line">Welcome to GNU Parted! Type 'help' to view a list of commands.</div><div class="line">(parted) help</div><div class="line">  align-check TYPE N                        check partition N for TYPE(min|opt)</div><div class="line">        alignment</div><div class="line">  help [COMMAND]                           print general help, or help on COMMAND</div><div class="line">  mklabel,mktable LABEL-TYPE               create a new disklabel (partition</div><div class="line">        table)</div><div class="line">  mkpart PART-TYPE [FS-TYPE] START END     make a partition</div><div class="line">  name NUMBER NAME                         name partition NUMBER as NAME</div><div class="line">  print [devices|free|list,all|NUMBER]     display the partition table, available</div><div class="line">        devices, free space, all found partitions, or a particular partition</div><div class="line">  quit                                     exit program</div><div class="line">  rescue START END                         rescue a lost partition near START and</div><div class="line">        END</div><div class="line">  rm NUMBER                                delete partition NUMBER</div><div class="line">  select DEVICE                            choose the device to edit</div><div class="line">  disk_set FLAG STATE                      change the FLAG on selected device</div><div class="line">  disk_toggle [FLAG]                       toggle the state of FLAG on selected</div><div class="line">        device</div><div class="line">  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER</div><div class="line">  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition</div><div class="line">        NUMBER</div><div class="line">  unit UNIT                                set the default unit to UNIT</div><div class="line">  version                                  display the version number and</div><div class="line">        copyright information of GNU Parted</div><div class="line">(parted)</div></pre></td></tr></table></figure>
+<p>输入 print 查看当前选中硬盘（默认为 sda）的分区相关信息， 输入 print all 查看所有硬盘的分区相关信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">(parted) print all</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sda: 21.5GB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: msdos</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    Type      File system     Flags</div><div class="line"> 1      1049kB  525MB   524MB   primary   ext4            boot</div><div class="line"> 2      525MB   13.4GB  12.9GB  primary   ext4</div><div class="line"> 3      13.4GB  15.6GB  2147MB  primary   linux-swap(v1)</div><div class="line"> 4      15.6GB  21.5GB  5917MB  extended</div><div class="line"> 5      15.6GB  21.5GB  5914MB  logical   ext4</div><div class="line"></div><div class="line"></div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdb: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: msdos</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    Type      File system  Flags</div><div class="line"> 1      1049kB  2149MB  2147MB  primary</div><div class="line"> 2      2149MB  5369MB  3220MB  extended</div><div class="line"> 5      2150MB  3223MB  1074MB  logical</div><div class="line"> 6      3224MB  5369MB  2144MB  logical</div><div class="line"></div><div class="line"></div><div class="line">Error: /dev/sdc: unrecognised disk label</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: unknown</div><div class="line">Disk Flags:</div></pre></td></tr></table></figure>
+<h5><span id="2-选择需要进行分区的硬盘">2. 选择需要进行分区的硬盘</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(parted) select /dev/sdc</div></pre></td></tr></table></figure>
+<h5><span id="3-指定分区的模式">3. 指定分区的模式</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(parted) mklabel gpt</div></pre></td></tr></table></figure>
+<p>通过帮助可知：mklabel 和 mktabel 都可以用于指定分区的模式，两者是等价的，后面紧跟分区的模式类型，这是指定为 gpt，如果需要指定分区的模式类型为 MBR，可使用 msdos</p>
+<h5><span id="4-创建分区">4. 创建分区</span></h5><p>在 parted 工具中，它提供了两种操作模式：交互和命令。交互模式同 fdisk，通过输入简单命令，然后根据工具提示完成操作；命令模式是直接使用完整命令一次性完成分区创建。</p>
+<ul>
+<li>交互模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart</div><div class="line">Partition name?  []? test1</div><div class="line">File system type?  [ext2]?</div><div class="line">Start? 1</div><div class="line">End? 3000</div><div class="line">(parted) print</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    File system  Name   Flags</div><div class="line"> 1      1049kB  3000MB  2999MB               test1</div></pre></td></tr></table></figure>
+<ul>
+<li>命令模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart test2 3000 4000</div><div class="line">(parted) print</div><div class="line">Model: VMware, VMware Virtual S (scsi)</div><div class="line">Disk /dev/sdc: 5369MB</div><div class="line">Sector size (logical/physical): 512B/512B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    File system  Name   Flags</div><div class="line"> 1      1049kB  3000MB  2999MB               test1</div><div class="line"> 2      3000MB  4000MB  1000MB               test2</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>Partition name：分区名，默认为空，命令模式下必须输入分区名</li>
+<li>File system type：文件系统，默认为 ext2</li>
+<li>Start 和 End：起始位置，默认单位为 Mb，区别于 fdisk 中的起始位置，fdisk 中的起始位置输入的是扇区数据块的编号，此处是从 Start Mb 到 End Mb</li>
+<li>区别于 fdisk，parted 工具分区完成后，不需要额外的保存的命令来使用创建分区生效，它是立即生效的</li>
+</ul>
+<p>特殊情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(parted) mkpart test3 3500 5000</div><div class="line">Warning: You requested a partition from 3500MB to 5000MB (sectors</div><div class="line">6835937..9765625).</div><div class="line">The closest location we can manage is 4000MB to 5000MB (sectors</div><div class="line">7813120..9765625).</div><div class="line">Is this still acceptable to you?</div><div class="line">Yes/No? y</div><div class="line"></div><div class="line">(parted) mkpart test4 5300 5000</div><div class="line">Error: Can't have the end before the start! (start sector=10351562 length=-585936)</div><div class="line"></div><div class="line">(parted) mkpart test4 5000 6000</div><div class="line">Error: The location 6000 is outside of the device /dev/sdc.</div></pre></td></tr></table></figure>
+<p>当输入的分区开始值与原分区结束值重叠时，工具会自动给出解决方案（将新分区的开始值设置为上一分区的结束值），提示是否接受？</p>
+<p>当输入的起始值超出硬盘的容量或者结束值小于开始值，工具会自动报错。</p>
+<h5><span id="5其他常用命令">5.其他常用命令</span></h5><ul>
+<li>修改分区起始值的默认单位：<code>unit GB</code></li>
+<li>删除分区：<code>rm number</code>，number 为分区号，可通过 print 命令查看</li>
+</ul>
+<h2><span id="32-格式化">3.2 格式化</span></h2><p>通常使用 mkfs 命令进行分区的格式化，有以下两种方式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# mkfs.ext4 /dev/sdb1</div><div class="line"></div><div class="line">[root@localhost ~]# mkfs -t ext4 /dev/sdb5</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>格式化是针对主分区和逻辑分区而言的，扩展分区不能进行格式化</li>
+<li>对于已经格式化的分区，可以通过 parted 工具进行查看，如果该分区已经被挂载，也可通过 <code>df -T</code> 查看</li>
+</ul>
+<h2><span id="33-挂载卸载">3.3 挂载/卸载</span></h2><p>对于一块硬盘，经过分区、格式化后，仍然是无法使用的，必须将分区挂载，才可以正常使用。理论上，分区的挂载目录是任意的，只要该目录存在即可，但系统默认已经提供了 /mnt 目录专门用于挂载新增的设备（随着系统功能的增强和发行版的衍生，也存在 /media, /misc 等目录，视系统版本而定）方便管理，如无特殊需要，建议使用系统提供的目录。</p>
+<ul>
+<li>挂载：<code>mount 设备文件名 挂载目录</code>，如 <code>mount /dev/sdb1 /mnt/test1</code></li>
+<li>卸载：<code>umount 挂载目录</code>，如 <code>umount /mnt/test1</code></li>
+</ul>
+<p>详细帮助信息见 <code>mount --help</code></p>
+<p>通过命令的方式进行挂载只是临时的，系统重启就会使挂载失效，要想永久有效，需要修改 /etc/fstab 文件，这样每次系统开机时，都会自动挂载.</p>
+<table>
+<thead>
+<tr>
+<th>file system</th>
+<th>mount point</th>
+<th>type</th>
+<th>options</th>
+<th style="text-align:center">dump</th>
+<th style="text-align:center">pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sdb1</td>
+<td>/mnt/test1</td>
+<td>ext4</td>
+<td>defaults</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="34-swap-分区">3.4 swap 分区</span></h2><p>为硬盘添加 swap 分区步骤：</p>
+<ol>
+<li>建立一个普通的 Linux 分区</li>
+<li>修改分区 Id 的 16 进制编码</li>
+<li>格式化 swap 分区</li>
+<li>启用 swap 分区</li>
+</ol>
+<h3><span id="341-修改分区-id-的-16-进制编码">3.4.1 修改分区 Id 的 16 进制编码</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# fdisk /dev/sdb</div><div class="line">Welcome to fdisk (util-linux 2.23.2).</div><div class="line"></div><div class="line">Changes will remain in memory only, until you decide to write them.</div><div class="line">Be careful before using the write command.</div><div class="line"></div><div class="line"></div><div class="line">Command (m for help): t</div><div class="line">Partition number (1,2,5,6, default 6): 1</div><div class="line">Hex code (type L to list all codes): 82</div><div class="line">Changed type of partition 'Linux' to 'Linux swap / Solaris'</div><div class="line"></div><div class="line">Command (m for help): p</div><div class="line"></div><div class="line">Disk /dev/sdb: 5368 MB, 5368709120 bytes, 10485760 sectors</div><div class="line">Units = sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disk label type: dos</div><div class="line">Disk identifier: 0x97759901</div><div class="line"></div><div class="line">   Device Boot      Start         End      Blocks   Id  System</div><div class="line">/dev/sdb1            2048     4196351     2097152   82  Linux swap / Solaris</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>使用 fdisk 工具的 t 命令修改分区的系统 Id，系统 Id 默认为十六进制数，通过 L 查看对应关系，如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">Command (m for help): t</div><div class="line">Partition number (1,2,5,6, default 6): 1</div><div class="line">Hex code (type L to list all codes): L</div><div class="line"></div><div class="line"> 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris</div><div class="line"> 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-</div><div class="line"> 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-</div><div class="line"> 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden C:  c6  DRDOS/sec (FAT-</div><div class="line"> 4  FAT16 &lt;32M      40  Venix 80286     85  Linux extended  c7  Syrinx</div><div class="line"> 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data</div><div class="line"> 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .</div><div class="line"> 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility</div><div class="line"> 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt</div><div class="line"> 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access</div><div class="line"> a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O</div><div class="line"> b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor</div><div class="line"> c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi eb  BeOS fs</div><div class="line"> e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT</div><div class="line"> f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/</div><div class="line">10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC b</div><div class="line">11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor</div><div class="line">12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor</div><div class="line">14  Hidden FAT16 &lt;3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary</div><div class="line">16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS</div><div class="line">17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware</div><div class="line">18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto</div><div class="line">1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep</div><div class="line">1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT</div><div class="line">1e  Hidden W95 FAT1 80  Old Minix</div></pre></td></tr></table></figure>
+<h3><span id="342-格式化-swap-分区">3.4.2 格式化 swap 分区</span></h3><p>区别于普通分区的格式化命令 mkfs，此处使用 mkswap 命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# mkswap /dev/sdb1</div><div class="line">mkswap: /dev/sdb1: warning: wiping old ext4 signature.</div><div class="line">Setting up swapspace version 1, size = 2097148 KiB</div><div class="line">no label, UUID=cedc88d0-5d2b-46bd-af65-38adecd06901</div></pre></td></tr></table></figure>
+<h3><span id="343-启用-swap-分区">3.4.3 启用 swap 分区</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# swapon /dev/sdb1</div></pre></td></tr></table></figure>
+<h3><span id="344-查看-swap-的加载情况">3.4.4 查看 swap 的加载情况</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# free /dev/sdb1</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1001332      120416      741332        6832      139584      735092</div><div class="line">Swap:       2097148           0     2097148</div></pre></td></tr></table></figure>
+<h3><span id="345-关闭-swap-分区">3.4.5 关闭 swap 分区</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# swapoff /dev/sdb1</div></pre></td></tr></table></figure>
+<h2><span id="35-lvm">3.5 LVM</span></h2><p>Blockquote</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-磁盘管理/" data-id="cj7ovn50g000hcpsbdrd6x205" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-用户管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-用户管理/" class="article-date">
+  <time datetime="2017-09-17T14:57:28.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-用户管理/">CentOS_7_用户管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-基本概念">1. 基本概念</a></li>
+<li><a href="#2-与用户用户组相关的配置文件">2. 与用户/用户组相关的配置文件</a></li>
+<li><a href="#3-用户与用户组的相关命令">3. 用户与用户组的相关命令</a><ul>
+<li><a href="#31-用户组">3.1 用户组</a><ul>
+<li><a href="#311-增加用户组">3.1.1 增加用户组</a></li>
+<li><a href="#312-修改用户组">3.1.2 修改用户组</a></li>
+<li><a href="#313-删除用户组">3.1.3 删除用户组</a></li>
+</ul>
+</li>
+<li><a href="#32-用户">3.2 用户</a><ul>
+<li><a href="#321-新增用户">3.2.1 新增用户</a></li>
+<li><a href="#322-修改用户">3.2.2 修改用户</a></li>
+<li><a href="#323-删除用户">3.2.3 删除用户</a></li>
+</ul>
+</li>
+<li><a href="#33-进阶命令">3.3 进阶命令</a><ul>
+<li><a href="#331-passwd-命令">3.3.1 passwd 命令</a></li>
+<li><a href="#332-gpasswd-命令">3.3.2 gpasswd 命令</a></li>
+</ul>
+</li>
+<li><a href="#34-其他命令">3.4 其他命令</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-基本概念">1. 基本概念</span></h1><ul>
+<li>用户：使用操作系统的人</li>
+<li>用户组：具有相同系统权限的一组用户</li>
+</ul>
+<h1><span id="2-与用户用户组相关的配置文件">2. 与用户/用户组相关的配置文件</span></h1><ul>
+<li><p>/etc/group：存储当前系统中所有用户组的信息</p>
+<p>  说明：</p>
+<ul>
+<li>文件内容格式：组名称:组密码占位符:组编号:组中用户名列表</li>
+<li>每行代表一个组信息，组信息中用 <code>:</code> 分隔</li>
+<li>所有的组密码占位符都是 <code>x</code></li>
+<li>root 组的组编号始终为 <code>0</code></li>
+<li>1-499 为系统预留的编号，系统自动分配当前未使用的最小编号给对应的应用程序</li>
+<li>用户手动创建的组编号是从 500 开始的，系统自动分配从 500 开始的当前未使用的最小编号给新建的用户组</li>
+<li>组中用户名列表为空并不一定是该组中没有任何用户，当组中的用户名同组名时，该用户名是可以在列表中省略的</li>
+</ul>
+</li>
+<li><p>/etc/gshadow：存储当前系统中用户组的密码信息</p>
+<p>  说明：</p>
+<ul>
+<li>此文件中的内容与 /etc/group 文件中的内容一一对应</li>
+<li>文件内容格式：组名称:组密码:组管理者:组中的用户名列表</li>
+<li>每行代表一个组信息，组信息中用 <code>:</code> 分隔</li>
+<li>组密码如果为 */!/空 均视为组密码为空</li>
+<li>组管理者：表示组内哪些用户可以管理这个组，通常情况下为空，即表示组内所有用户都可以管理这个用户组</li>
+</ul>
+</li>
+<li><p>/etc/passwd：存储当前系统中的所有用户的相关信息</p>
+<p>  说明：</p>
+<ul>
+<li>文件内容格式：用户名:密码占位符:用户编号:用户组编号:用户注释信息:用户主目录:shell 类型</li>
+<li>每行代表一个组信息，组信息中用 <code>:</code> 分隔</li>
+<li>所有的组密码占位符都是 <code>x</code></li>
+<li>root 用户的用户编号始终为 <code>0</code></li>
+</ul>
+</li>
+<li><p>/etc/shadow：存储当前系统中所有用户的密码信息</p>
+<p>  说明：</p>
+<ul>
+<li>此文件的内容与 /etc/passwd 文件中的内容一一对应</li>
+<li>文件内容格式：用户名:密码::::::</li>
+<li>每行代表一个用户信息，用户信息中用 <code>:</code> 分隔</li>
+<li>用户密码如果为 */!/空，均视为该用户密码为空</li>
+<li>密码通过一种单向的加密方式保存</li>
+</ul>
+</li>
+</ul>
+<h1><span id="3-用户与用户组的相关命令">3. 用户与用户组的相关命令</span></h1><h2><span id="31-用户组">3.1 用户组</span></h2><h3><span id="311-增加用户组">3.1.1 增加用户组</span></h3><p>格式：groupadd [选项] 参数</p>
+<ul>
+<li><code>groupadd sexy</code>：增加用户组，组名为 sexy</li>
+<li><code>groupadd -g 888 boss</code>：创建 group id 为 888、组名为 boss 的用户组</li>
+</ul>
+<h3><span id="312-修改用户组">3.1.2 修改用户组</span></h3><p>格式：groupmod [选项] 参数</p>
+<ul>
+<li><code>groupmod -n market sexy</code>：修改用户组名，新组名 原组名</li>
+<li><code>groupmod -g 668 market</code>：修改指定用户组的 group id</li>
+</ul>
+<h3><span id="313-删除用户组">3.1.3 删除用户组</span></h3><p>格式：groupdel [选项] 参数</p>
+<ul>
+<li><code>groupdel market</code>：删除用户组 market。删除用户组之前，必须先删除该用户组下的所有用户</li>
+</ul>
+<h2><span id="32-用户">3.2 用户</span></h2><h3><span id="321-新增用户">3.2.1 新增用户</span></h3><p>格式：useradd [选项] 参数</p>
+<p>说明：</p>
+<ul>
+<li>如果创建用户时未指定该用户所在的组，系统会自动创建与该用户名同名的用户组，并将该用户加入到此用户组</li>
+<li><p>如果创建用户时未指定用户的家目录，这属于默认情况，系统会在 /home 目录下自动创建与用户名同名的目录作为该用户的家目录</p>
+</li>
+<li><p><code>useradd -g sexy lscang</code>：在指定的用户组下面新增用户</p>
+</li>
+<li><code>useradd -g group1 -G group2,group3 username</code>：新增用户，指定该用户的主要组 group1，附属组 group2 和 group3</li>
+<li><code>useradd -d /home/test test</code>：新增用户并指定该用户的家目录</li>
+</ul>
+<h3><span id="322-修改用户">3.2.2 修改用户</span></h3><p>格式：usermod [选项] 参数</p>
+<ul>
+<li><code>usermod -c 123 test</code>：给指定用户添加备注信息</li>
+<li><code>usermod -l bdyjy lscang</code>：修改用户名，新名称 原名称</li>
+<li><code>usermod -g sexy test</code>：修改指定用户所在的用户组，组名 用户名</li>
+<li><code>usermod -d /home/test test</code>：修改用户的家目录，系统不会自动创建该目录，需要手动创建</li>
+</ul>
+<h3><span id="323-删除用户">3.2.3 删除用户</span></h3><p>格式：userdel [选项] 参数</p>
+<ul>
+<li><code>userdel test</code>：删除指定用户，但并不会删除该用户的家目录</li>
+<li><code>userdel -r lscang</code>：删除指定用户，并删除该用户的家目录</li>
+</ul>
+<h2><span id="33-进阶命令">3.3 进阶命令</span></h2><h3><span id="331-passwd-命令">3.3.1 passwd 命令</span></h3><ul>
+<li>锁定帐户：<code>passwd -l username</code></li>
+<li>解锁帐户：<code>passwd -uf username</code>，其中 -f 为 force，不添加会出现警告，导致解锁失败</li>
+<li><code>passwd username</code>：设置指定用户的密码，执行此命令后，系统会提示输入密码和确认密码，只要再次输入相同，即可设置成功</li>
+<li>清除帐户密码：<code>passwd -d username</code></li>
+</ul>
+<h3><span id="332-gpasswd-命令">3.3.2 gpasswd 命令</span></h3><p>在 Linux 系统中，一个用户是可以属性多个组的，其中一个为主要组，其他的为附属组。默认情况下用户的所有权限、操作等都是基于主要组的。</p>
+<ul>
+<li><code>gpasswd -a lscang boss</code>：为用户添加附属组，可以同时添加多个附属组，组名之间用 <code>,</code> 隔开</li>
+<li><code>newgrp boss</code>：用户切换组，如果目标组存在组密码，需要验证密码</li>
+<li><code>gpasswd -d lscang boss</code>：删除用户的附属组</li>
+<li><code>gpasswd groupname</code>：设置指定用户组的密码，执行此命令后，系统会提示输入密码和确认密码，只要再次输入相同，即可设置成功</li>
+</ul>
+<h2><span id="34-其他命令">3.4 其他命令</span></h2><ul>
+<li><code>touch /etc/nologin</code>：在 /etc 目录下创建文件 nologin，可以阻止除 root 用户以外的所有用户的登陆，文件内容无关紧要</li>
+</ul>
+<ul>
+<li>切换用户（需要用户密码，root 用户切换到其他用户不需要密码）：<ul>
+<li><code>su</code>：直接执行，不加用户名，切换到 root 用户</li>
+<li><code>su username</code>：切换到指定的用户</li>
+</ul>
+</li>
+<li><code>id username/groupname</code>：<ul>
+<li>username：显示指定用户信息，包括用户编号、用户名</li>
+<li>groupname：显示指定用户组信息，包括主要组编号及名称、附属组列表</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>groups username</code>：显示该用户所在的所有组</li>
+<li><code>chfn username</code>：修改用户资料，按照系统提示输入即可</li>
+<li><code>finger username</code>：显示用户的详细资料，需要 finger 包的支持</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-用户管理/" data-id="cj7ovn50b000acpsbcjvufwhu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-基本命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-基本命令/" class="article-date">
+  <time datetime="2017-09-17T14:55:24.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-基本命令/">CentOS_7_基本命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-常见命令格式">1. 常见命令格式</a></li>
+<li><a href="#2-常见命令">2. 常见命令</a><ul>
+<li><a href="#21-查询目录中的内容">2.1 查询目录中的内容</a></li>
+<li><a href="#22-文件处理命令">2.2 文件处理命令</a><ul>
+<li><a href="#221-目录文件处理命令">2.2.1 目录/文件处理命令</a><ul>
+<li><a href="#2211-建立目录">2.2.1.1 建立目录</a></li>
+<li><a href="#2212-切换所在目录">2.2.1.2 切换所在目录</a></li>
+<li><a href="#2213-查询所在目录位置">2.2.1.3 查询所在目录位置</a></li>
+<li><a href="#2214-删除空目录">2.2.1.4 删除空目录</a></li>
+<li><a href="#2215-删除文件或目录">2.2.1.5 删除文件或目录</a></li>
+<li><a href="#2216-复制文件目录">2.2.1.6 复制文件/目录</a></li>
+<li><a href="#2217-剪切或重命名文件目录">2.2.1.7 剪切或重命名文件/目录</a></li>
+</ul>
+</li>
+<li><a href="#222-链接命令">2.2.2 链接命令</a></li>
+</ul>
+</li>
+<li><a href="#23-文件搜索命令">2.3 文件搜索命令</a><ul>
+<li><a href="#231-locate">2.3.1 locate</a></li>
+<li><a href="#232-whereis">2.3.2 whereis</a></li>
+<li><a href="#233-which">2.3.3 which</a></li>
+<li><a href="#234-find">2.3.4 find</a></li>
+<li><a href="#235-grep">2.3.5 grep</a></li>
+</ul>
+</li>
+<li><a href="#24-帮助命令">2.4 帮助命令</a><ul>
+<li><a href="#241-man">2.4.1 man</a></li>
+<li><a href="#242-获取选项帮助">2.4.2 获取选项帮助</a></li>
+<li><a href="#243-shell-内部命令帮助">2.4.3 shell 内部命令帮助</a></li>
+<li><a href="#244-详细命令帮助-info">2.4.4 详细命令帮助 info</a></li>
+</ul>
+</li>
+<li><a href="#25-压缩命令">2.5 压缩命令</a><ul>
+<li><a href="#251-zip-格式">2.5.1 .zip 格式</a><ul>
+<li><a href="#2511-压缩">2.5.1.1 压缩</a></li>
+<li><a href="#2512-解压缩">2.5.1.2 解压缩</a></li>
+</ul>
+</li>
+<li><a href="#252-gz-格式">2.5.2 .gz 格式</a><ul>
+<li><a href="#2521-压缩">2.5.2.1 压缩</a></li>
+</ul>
+</li>
+<li><a href="#2521-解压缩">2.5.2.1 解压缩</a></li>
+<li><a href="#253-bz2-格式">2.5.3 .bz2 格式</a><ul>
+<li><a href="#2531-压缩">2.5.3.1 压缩</a></li>
+<li><a href="#2532-解压缩">2.5.3.2 解压缩</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#26-打包与压缩-tar">2.6 打包与压缩 tar</a><ul>
+<li><a href="#261-打包">2.6.1 打包</a></li>
+<li><a href="#262-解包">2.6.2 解包</a></li>
+<li><a href="#263-压缩">2.6.3 压缩</a></li>
+<li><a href="#264-解压缩">2.6.4 解压缩</a></li>
+</ul>
+</li>
+<li><a href="#27-注销-关机和重启">2.7 注销、关机和重启</a><ul>
+<li><a href="#271-shutdown">2.7.1 shutdown</a></li>
+<li><a href="#272-其他关机重启命令">2.7.2 其他关机/重启命令</a></li>
+</ul>
+</li>
+<li><a href="#273-注销">2.7.3 注销</a></li>
+<li><a href="#28-挂载与卸载">2.8 挂载与卸载</a><ul>
+<li><a href="#281-查询与自动挂载">2.8.1 查询与自动挂载</a></li>
+<li><a href="#282-挂载命令">2.8.2 挂载命令</a><ul>
+<li><a href="#2821-挂载光盘">2.8.2.1 挂载光盘</a></li>
+<li><a href="#2822-挂载-u-盘">2.8.2.2 挂载 U 盘</a></li>
+</ul>
+</li>
+<li><a href="#283-卸载命令">2.8.3 卸载命令</a></li>
+</ul>
+</li>
+<li><a href="#29-用户登录查询相关命令">2.9 用户登录查询相关命令</a><ul>
+<li><a href="#291-w">2.9.1 w</a></li>
+<li><a href="#292-who">2.9.2 who</a></li>
+<li><a href="#293-last">2.9.3 last</a></li>
+<li><a href="#294-lastlog">2.9.4 lastlog</a></li>
+</ul>
+</li>
+<li><a href="#3-其他命令">3. 其他命令</a><ul>
+<li><a href="#31-输出命令">3.1 输出命令</a></li>
+<li><a href="#32-统计内容命令">3.2 统计内容命令</a></li>
+</ul>
+</li>
+<li><a href="#tips">Tips</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-常见命令格式">1. 常见命令格式</span></h1><p>命令 [选项] [参数]</p>
+<p>注意：</p>
+<ul>
+<li>除个别命令不遵循此格式，其余都使用上述格式。</li>
+<li>当有多个选项时，可以简写在一起</li>
+<li>选项分为简化选项和完整选项，如 -a 等价于 –all</li>
+</ul>
+<h1><span id="2-常见命令">2. 常见命令</span></h1><h2><span id="21-查询目录中的内容">2.1 查询目录中的内容</span></h2><p>ls [选项] [文件或目录]</p>
+<p>选项：</p>
+<ul>
+<li>-a 显示所有文件，包括隐藏文件</li>
+<li>-l 显示详细信息， ll 是 ls -l 的别名</li>
+<li>-d 查看目录相关属性信息</li>
+<li>-h 个性化显示文件大小，默认文件大小以字节为单位，使用此选项，可转换成以 k/g 等为单位的数值，更方便阅读</li>
+<li>-i 显示 inode，类似于文件在系统中的 id 号</li>
+</ul>
+<h2><span id="22-文件处理命令">2.2 文件处理命令</span></h2><h3><span id="221-目录文件处理命令">2.2.1 目录/文件处理命令</span></h3><h4><span id="2211-建立目录">2.2.1.1 建立目录</span></h4><p>mkdir [选项] [目录名]</p>
+<p>选项：</p>
+<ul>
+<li>-p 递归创建</li>
+</ul>
+<h4><span id="2212-切换所在目录">2.2.1.2 切换所在目录</span></h4><p>cd [目录]</p>
+<p>常见简化命令：</p>
+<ul>
+<li>cd ~/cd 进入当前用户的家目录，如 /root，/home/test</li>
+<li>cd - 进入上次目录</li>
+<li>cd .. 返回上一级目录</li>
+<li>cd . 进入当前目录</li>
+</ul>
+<h4><span id="2213-查询所在目录位置">2.2.1.3 查询所在目录位置</span></h4><p>pwd</p>
+<h4><span id="2214-删除空目录">2.2.1.4 删除空目录</span></h4><p>rmdir</p>
+<p>注意：只能删除空目录，基本不用，通常使用下面的命令</p>
+<h4><span id="2215-删除文件或目录">2.2.1.5 删除文件或目录</span></h4><p>rm [选项] [文件或目录]</p>
+<p>选项：</p>
+<ul>
+<li>-r 递归处理，主要用于操作目录</li>
+<li>-f 强制删除，不再显示是否确认删除的提示，直接删除</li>
+</ul>
+<h4><span id="2216-复制文件目录">2.2.1.6 复制文件/目录</span></h4><p>cp [选项] 原文件或目录 目标文件或目录</p>
+<p>选项：</p>
+<ul>
+<li>-r 递归处理，主要用于操作目录</li>
+<li>-p 连带文件目录属性一起复制</li>
+<li>-d 若源文件是链接文件，则复制链接属性</li>
+<li>-a 相当于 -pdr</li>
+</ul>
+<h4><span id="2217-剪切或重命名文件目录">2.2.1.7 剪切或重命名文件/目录</span></h4><p>mv 原文件或目录 目标文件或目录的完整名称</p>
+<p>注意：</p>
+<ul>
+<li>此命令对目录和文件的操作是一致的，对于目录操作没有 cp/rm 中的 -r 选项。</li>
+<li>如果原文件/目录与目标文件/目录在同一个路径下，即为重命名；否则为剪切。</li>
+<li>如果目标文件没有指定文件名，剪切后文件名不变；否则使用指定的文件名。</li>
+</ul>
+<h3><span id="222-链接命令">2.2.2 链接命令</span></h3><p>ln [选项] 原文件 目标文件</p>
+<p>选项：</p>
+<ul>
+<li>选项为空，即默认值，创建硬链接</li>
+<li>-s 创建软链接</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>如果目标文件只指定了目录，表示链接文件仍使用原文件名；否则使用指定的文件名。</li>
+<li>创建软链接时，如果原文件和软链接不在同一目录下，那么原文件必须使用绝对路径，否则软链接无法找到该原文件。建议：统一使用绝对路径。</li>
+</ul>
+<h2><span id="23-文件搜索命令">2.3 文件搜索命令</span></h2><h3><span id="231-locate">2.3.1 locate</span></h3><p>格式：locate 文件名</p>
+<p>按文件名（且只能按文件名）进行搜索</p>
+<p>说明：</p>
+<ul>
+<li>此命令需要安装 mlocate 包，使用 yum -y install mlocate 命令来完成安装。</li>
+<li>此命令并非遍历所有文件进行搜索，而是搜索一个数据库文件：/var/lib/mlocate/mlocate.db，所以此命令的效率较 find 要高出很多</li>
+<li>由于是搜索数据文件，所以，对于刚安装该包的情况，需要先生成对应的数据文件，使用命令：updatedb</li>
+<li>此数据文件默认是每天更新，所以对于当天新建的文件/目录是无法搜索到的，此时需要手动更新，使用命令：updatedb</li>
+</ul>
+<p>优缺点：</p>
+<ul>
+<li>优点：查询效率高，占用资源少</li>
+</ul>
+<ul>
+<li>缺点<ul>
+<li>需要安装 mlocate 包，并且手动生成和更新数据文件</li>
+<li>搜索功能并不强大，仅能通过文件名进行搜索</li>
+</ul>
+</li>
+</ul>
+<p>配置文件：</p>
+<p>mlocate 的搜索依赖于 /etc/updatedb.conf 配置文件，此配置文件中主要有如下几个参数：</p>
+<ul>
+<li>PRUNE_BIND_MOUNTS = “yes” 开启搜索限制，使用下面的配置生效</li>
+<li>PRUNEFS 不搜索此参数列出的文件系统</li>
+<li>PRUNENAMES 不搜索此参数列出的文件类型，如：.git .hg .svn</li>
+<li>PRUNEPATHS 不搜索此参数列出的文件目录中的文件，如：/media /mnt /tmp /var/tmp</li>
+</ul>
+<h3><span id="232-whereis">2.3.2 whereis</span></h3><p>格式：whereis [选项] 命令名</p>
+<p>搜索系统命令的命令，搜索命令所在的路径及帮助文件所有位置</p>
+<p>选项：</p>
+<ul>
+<li>-b 只查找可执行文件</li>
+<li>-m 只查找帮助文档</li>
+</ul>
+<h3><span id="233-which">2.3.3 which</span></h3><p>格式：which 命令名</p>
+<p>搜索系统命令的命令，搜索命令所在的路径及该命令的别名（完整命令）</p>
+<p>注意：</p>
+<p>whereis 和 which 命令比较相似，都是搜索系统命令的命令，但不是所有的系统命令都能通过这两个命令来找到对应的路径的。</p>
+<h3><span id="234-find">2.3.4 find</span></h3><p>格式：find scope 选项 [condition]</p>
+<p>选项（常见）：</p>
+<ul>
+<li>-name 按照文件名进行搜索，condition 为文件名</li>
+<li>-iname 文件名不区分大小写搜索，condition 为文件名</li>
+<li>-user 按照文件所有者进行搜索，condition 为 user</li>
+<li>-nouser 查找没有所有者的文件，没有 condition</li>
+</ul>
+<ul>
+<li>time 按照相关时间进行搜索，condtion 为时间，默认单位是天，如：+10 代表 10 天前，10 代表第 10 天当天，-10 代表 10 天内。<ul>
+<li>-atime 按照文件访问时间进行搜索</li>
+<li>-ctime 按照文件属性的修改时间进行搜索</li>
+<li>-mtime 按照文件内容的修改时间进行搜索</li>
+</ul>
+</li>
+<li>-size 按照文件大小进行搜索，condition 为文件大小， 默认单位为计算机硬盘单个扇区的大小，通常为 512k，建议带单位：k，M（注意大小写）<ul>
+<li>-25k 小于 25k 的文件</li>
+<li>25k 等于 25k 的文件</li>
+<li>+ 25k 大于 25k 的文件</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>-inum 按照 inode 的值进行搜索</li>
+<li>逻辑运算符，用于多条件查询，如 find /root -size +10k -a -size -1M<ul>
+<li>-a and 逻辑与，两个条件同时满足</li>
+<li>-o or 逻辑或，两个条件满足其一即可</li>
+</ul>
+</li>
+<li><p>-exec 命令 {} \;，对查询结果执行指定的命令，<strong>注意：<code>-exec</code> 和 <code>{} \;</code> 是固定格式</strong>，如：find /root -name abc -exec rm -rf {} \;将查询到的结果文件删除<br>说明：</p>
+</li>
+<li><p>find 是非常强大的搜索命令，相对的，使用 find 搜索非常耗费系统资源</p>
+</li>
+<li>避免使用大范围搜索，即 scope 的值尽量使用更小的、更明确的目录</li>
+</ul>
+<ul>
+<li>find 支持通配符操作，使用时建议用引号括起来，否则，有可能不能识别。主要支持的通配符有：<ul>
+<li>* 匹配任意内容</li>
+<li>? 匹配任意一个字符</li>
+<li>[abc] 匹配中括号中的任意一个字符</li>
+</ul>
+</li>
+</ul>
+<h3><span id="235-grep">2.3.5 grep</span></h3><p>格式：grep [选项] 字符串 文件名</p>
+<p>在文件中搜索符合条件的字符串，支持模糊查询，需要使用正则表达式。</p>
+<p>选项：</p>
+<ul>
+<li>-i 忽略大小写</li>
+<li>-v 排除指定字符串</li>
+</ul>
+<h2><span id="24-帮助命令">2.4 帮助命令</span></h2><h3><span id="241-man">2.4.1 man</span></h3><p>获取指定命令的帮助信息，全称为 manual，帮助手册的意思</p>
+<p>格式：man [选项] 命令</p>
+<p>选项：</p>
+<ul>
+<li>-f 查看命令拥有哪些级别的帮助，相当于 whatis 命令</li>
+<li>-k 查看与命令相关的所有帮助信息，找到的不一定都是命令，相当于 apropos 命令</li>
+<li>man 的级别（1-9 级别描述见下），如 man 1 ls</li>
+</ul>
+<p><strong>man 的级别</strong></p>
+<ol>
+<li>可执行程序或 shell 命令</li>
+<li>由内核提供的系统调用的方法</li>
+<li>程序库调用的库中的方法</li>
+<li>特殊文件，主要是 /dev 中的文件</li>
+<li>配置文件</li>
+<li>游戏</li>
+<li>其它杂项</li>
+<li>系统管理员命令，通常给 root 用户使用</li>
+<li>内核相关</li>
+</ol>
+<p>级别不同，代表该命令的不同使用情况，对于含有多个 man 级别的命令，默认只会查找级别最低的那个帮助信息，此时，就需要使用 man 的级别选项来指定需要的对应 man 级别的命令的帮助信息。</p>
+<h3><span id="242-获取选项帮助">2.4.2 获取选项帮助</span></h3><p>格式：命令 –help</p>
+<p>列出当前命令支持的所有选项及对应的说明使用</p>
+<h3><span id="243-shell-内部命令帮助">2.4.3 shell 内部命令帮助</span></h3><p>格式：shell 命令 help</p>
+<p>仅对 shell 命令有效，其他命令的帮助使用 man</p>
+<h3><span id="244-详细命令帮助-info">2.4.4 详细命令帮助 info</span></h3><p>格式：info 命令</p>
+<p>列出该命令相关的所有帮助信息，说明相当详细，篇幅过多，适合作为完整文档进行学习，不利于快速查找，操作较繁琐。</p>
+<p>主要操作：</p>
+<ul>
+<li>Enter 在带有 * 的目录上回车可跳转到该小节的具体说明</li>
+<li>u 跳转到上层目录</li>
+<li>n 跳转到下一小节</li>
+<li>p 跳转到上一小节</li>
+<li>q 退出</li>
+</ul>
+<h2><span id="25-压缩命令">2.5 压缩命令</span></h2><p>Linux 对于压缩文件，在显示详细信息时，文件名的颜色会和普通文件不同，通常为红色。</p>
+<h3><span id="251-zip-格式">2.5.1 .zip 格式</span></h3><p>此格式与 windows 中的 zip 完全兼容，可以在两个系统间交叉地进行压缩和解压缩</p>
+<h4><span id="2511-压缩">2.5.1.1 压缩</span></h4><p>格式：zip [选项] 目标文件 源文件</p>
+<p>选项：</p>
+<ul>
+<li>-r 递归处理，主要用于操作目录</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>目标文件在前，源文件在后</li>
+<li>如果目标文件没有 .suffix，此命令会自动为其加上 .zip 的后缀；否则直接使用指定的文件名（如 abc.txt），建议指定 .zip 的后缀，不规则的后缀名容易导致解压错误、不方便识别和管理。</li>
+</ul>
+<h4><span id="2512-解压缩">2.5.1.2 解压缩</span></h4><p>格式：unzip 源文件 [选项] 参数</p>
+<p>说明：</p>
+<ul>
+<li>解压缩文件或目录的命令格式完成一致，解压缩目录不需要使用 -r 选项。</li>
+<li>指定解压的路径：unzip abc.zip -d /root，将当前目录下的 abc.zip 解压到 /root 下。<strong>注意：此处的参数是目录不是文件名，如果指定文件名，会多出一层指定文件名的目录；解压的文件名默认为压缩文件去掉后缀名</strong></li>
+</ul>
+<h3><span id="252-gz-格式">2.5.2 .gz 格式</span></h3><h4><span id="2521-压缩">2.5.2.1 压缩</span></h4><p>格式：gzip [选项] 源文件</p>
+<p>选项：</p>
+<ul>
+<li>-c 保持源文件不改变， 将压缩后的文件输出到指定目标中（控制台，文件等）</li>
+<li>-r 递归处理，主要用于操作目录</li>
+</ul>
+<p>此命令在压缩完成后不保留源文件</p>
+<p>说明：</p>
+<ul>
+<li>此命令会自动在当前目录产生一个与源文件同名的，以 .gz 为后缀的压缩文件</li>
+<li>由于此压缩命令不支持保留源文件的操作，可以结合 -c 使用 gzip -c test &gt; /tmp/test.gz，即：保留 test 源文件，将压缩后的文件写入到目标文件 /tmp/test.gz 中</li>
+<li>此命令对于目录的压缩，并非压缩目录本身，而是递归地压缩目录中的文件</li>
+</ul>
+<h3><span id="2521-解压缩">2.5.2.1 解压缩</span></h3><p>格式： gzip -d [选项] 压缩文件 / gunzip [选项] 压缩文件</p>
+<p>选项：</p>
+<ul>
+<li>-c 保持压缩文件不变，将解压后的文件输出到指定目标中</li>
+<li>-r 递归处理，主要用于操作目录</li>
+</ul>
+<p>将压缩文件解压到指定文件：在原有命令后增加 &gt; 目标文件</p>
+<h3><span id="253-bz2-格式">2.5.3 .bz2 格式</span></h3><h4><span id="2531-压缩">2.5.3.1 压缩</span></h4><p>格式：bzip [选项] 源文件</p>
+<p>选项：</p>
+<ul>
+<li>-k 保留源文件</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>此命令会自动在当前目录产生一个与源文件同名的，以 .bz2 为后缀的压缩文件</li>
+<li>默认情况下，此压缩命令不保留源文件，需要保留时，使用 -k 选项</li>
+<li>此命令不支持压缩目录</li>
+</ul>
+<h4><span id="2532-解压缩">2.5.3.2 解压缩</span></h4><p>格式 bzip2 -d [选项] 压缩文件 / bunzip2 [选项] 压缩文件</p>
+<p>选项：</p>
+<p>-k 保留压缩文件</p>
+<h2><span id="26-打包与压缩-tar">2.6 打包与压缩 tar</span></h2><p>除了上面提到的三种压缩格式（.zip, .gz, .bz2），其实更常用的是：.tar.gz，.tar.bz2，所以，相比于 2.5 中的压缩命令，Linux 中更常用的 tar 命令，它集成了打包与压缩命令，能更好地处理目录的压缩，建议使用此命令。</p>
+<h3><span id="261-打包">2.6.1 打包</span></h3><p>格式：tar [选项] 目标包名 源文件</p>
+<p>选项：</p>
+<ul>
+<li>-c 打包</li>
+<li>-v 显示打包的详细过程信息</li>
+<li>-f 指定打包后的目标包名</li>
+</ul>
+<h3><span id="262-解包">2.6.2 解包</span></h3><p>格式：tar [选项] 包文件名</p>
+<p>选项：</p>
+<ul>
+<li>-x 解包</li>
+<li>-v 显示解饭详细过程信息</li>
+<li>-f 指定需要解包的文件名</li>
+</ul>
+<h3><span id="263-压缩">2.6.3 压缩</span></h3><p>其实，.tar.gz/.tar.bz2 格式文件就是先打包为 .tar 文件，再压缩为 .gz/.bz2 文件。我们可以通过先使用 tar 命令打包再使用 gzip/bzip2 命令的方式完成操作，但相对麻烦，所以 tar 命令提供了更加便捷的方式。</p>
+<p>格式：tar [选项] 目标压缩包名 源文件</p>
+<p>选项：</p>
+<ul>
+<li>-z 指定格式为 .tar.gz</li>
+<li>-j 指定格式为 .tar.bz2</li>
+<li>-c 打包压缩</li>
+<li>-v 显示详细过程信息</li>
+<li>-f 指定打包压缩后的目标包名</li>
+</ul>
+<h3><span id="264-解压缩">2.6.4 解压缩</span></h3><p>格式：tar [选项] 包文件名</p>
+<p>选项：</p>
+<ul>
+<li>-z 指定格式为 .tar.gz</li>
+<li>-j 指定格式为 .tar.bz2</li>
+<li>-x 解包解压缩</li>
+<li>-v 显示详细过程信息</li>
+<li>-f 指定需要解包的文件名</li>
+</ul>
+<h2><span id="27-注销-关机和重启">2.7 注销、关机和重启</span></h2><h3><span id="271-shutdown">2.7.1 shutdown</span></h3><p>格式：shutdown [选项] [时间]</p>
+<p>选项：</p>
+<ul>
+<li>-c 取消之前使用 shutdown 指定的关机或重启命令</li>
+<li>-h 关机</li>
+<li>-r 重启</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>默认情况下，即直接使用 shutdown 命令，不加任何参数，就是指关机命令，但不是立刻，而是一分钟后；如果加上对应选项，但没指定时间，默认也是等待一分钟</li>
+</ul>
+<p>例：</p>
+<ul>
+<li>shutdown -h now 立即关机</li>
+<li>shutdown -r 16:00 在指定的时间重启</li>
+</ul>
+<h3><span id="272-其他关机重启命令">2.7.2 其他关机/重启命令</span></h3><p>关机：</p>
+<ul>
+<li>halt</li>
+<li>poweroff</li>
+<li>init 0</li>
+</ul>
+<p>重启：</p>
+<ul>
+<li>reboot (相对安全，可以使用)</li>
+<li>init 6</li>
+</ul>
+<p>相对于 shutdown 命令，上述命令并不是太好，可能会出现一些文件丢失、硬件损坏的情况，不建议使用。</p>
+<h2><span id="273-注销">2.7.3 注销</span></h2><p>格式：logout</p>
+<p>建议不使用时就注销</p>
+<h2><span id="28-挂载与卸载">2.8 挂载与卸载</span></h2><h3><span id="281-查询与自动挂载">2.8.1 查询与自动挂载</span></h3><ul>
+<li>mount 查询系统中已经挂载的设备</li>
+<li>mount -a 依据配置文件 /etc/fstab 的内容，进自动挂载</li>
+</ul>
+<h3><span id="282-挂载命令">2.8.2 挂载命令</span></h3><p>格式：mount [-t 文件系统] [-o 特殊选项] 设备文件名 挂载点</p>
+<p>选项：</p>
+<ul>
+<li>-t 指定挂载设备的文件系统类型，如 CentOS7 默认的 ext4，光盘默认的 iso9660 等文件系统</li>
+<li><p>-o 指定挂载时的额外选项，常见的参数如下：</p>
+<p>  | 参数 | 说明 |<br>  | — | — |<br>  | atime/noatime | 访问分区文件时是否更新访问时间，默认为更新 |<br>  | async/sync | 异步/同步 |<br>  | auto/noauto | mount -a 命令执行时，是否会自动安装 /etc/fstab 文件中配置的挂载点 |<br>  | defautls | 默认值，相当于指定 rw,suid,dev,exec,auto,nouser,async 这七个选项 |<br>  | exec/noexec | 设定是否允许在文件系统中执行可执行文件，默认是 exec 允许|<br>  | remount | 重新挂载已经挂载的分区，一般用于指定特殊挂载选项后的分区刷新 |<br>  | rw/ro | 指定挂载分区内文件的读写权限：读写/只读，默认为读写 |<br>  | suid/nosuid | 挂载分区时是否具有 SUID 的权限，默认是具有 |<br>  | user/nouser | 挂载分区时指定分区是否允许普通用户挂载，默认是不允许，只有 root 用户可以挂载分区 |<br>  | usrquota | 指定分区是否支持用户磁盘配额，默认不支持 |<br>  | grpquota | 指定分区是否支持组磁盘配额，默认不支持 |</p>
+</li>
+<li><p>设备文件名，不同的设备系统会自动分配对应的设备文件名，常见的如：光盘 -&gt; /dev/sr0,/dev/cdrom，</p>
+</li>
+<li>挂载点，任意空目录都可以作为挂载点，如系统自带的 /，/home，/mnt 等</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>关于上述挂载的额外选项，如果没有明确的需求，不建议修改默认值</li>
+<li>关于 exec/noexec 选项，如果在挂载分区时设置值为 noexec，此时，对于分区内的可执行文件，即使是 root 用户，文件也确实具有可执行权限，执行时也会提示 permission denies</li>
+</ul>
+<h4><span id="2821-挂载光盘">2.8.2.1 挂载光盘</span></h4><ol>
+<li>建立挂载点<br> mkdir /mnt/cdrom/ ，挂载点可以是任意的空目录，不过 Linux 已经提供了这样的空目录：/mnt，/media，建议使用 /mnt，/media 是后期新增的，并不是所有 Linux 的版本都具有，所以，更常见的是在 /mnt 下自定义空目录挂载相应的分区</li>
+<li>挂载光盘<br> mount -t iso9660 /dev/sr0 /mnt/cdrom/，对于光盘来说，-t 选项是可以省略的，因为系统为自动识别到需要挂载的分区为光盘，然后设置文件分区的文件系统为 iso9660；设备文件名 /dev/sr0 是 Linux 默认提供的，当然也可以使用 /dev/cdrom，不过此设备文件名其实是 /dev/sr0 的一个软链接，所以，建议还是使用 /dev/sr0；挂载点即创建的空目录</li>
+</ol>
+<h4><span id="2822-挂载-u-盘">2.8.2.2 挂载 U 盘</span></h4><ol>
+<li>查看 U 盘的设备文件名，对于光盘，该设备文件名就是确定的 /dev/sr0 或者 /dev/cdrom，而对于 U 盘，需要通过命令查看：fdisk -l，此命令会列出当前系统下的所有磁盘设备相关信息</li>
+<li>创建挂载点<br> mkdir /mnt/usb/</li>
+<li>挂载 U 盘<br> mount -t vfat /dev/sdb1 /mnt/usb/，关于文件系统，此处使用的是 fat32，目前最为常见的 U 盘文件系统，支持多操作系统，注意：Linux/Unix 默认是不支持 NTFS 文件系统的。</li>
+</ol>
+<h3><span id="283-卸载命令">2.8.3 卸载命令</span></h3><p>格式：umount 设备文件名/挂载点</p>
+<p>说明：</p>
+<ul>
+<li>设备文件名和挂载点只能写一个</li>
+<li>卸载时，必须退出挂载点所在目录，否则无法卸载</li>
+<li>对于任何外置分区，用完之后必须卸载</li>
+</ul>
+<p>举例：umount /dev/sr0 == umount /mnt/cdrom/</p>
+<h2><span id="29-用户登录查询相关命令">2.9 用户登录查询相关命令</span></h2><h3><span id="291-w">2.9.1 w</span></h3><p>输出信息：</p>
+<ul>
+<li>统计信息<ul>
+<li>当前时间</li>
+<li>up … 至今为止的开机时间</li>
+<li>… users 此次开机后登录过后用户个数</li>
+<li>load average … … … 三段时间分别表示系统在一/五/十五分钟内的平均负载情况，值越大，系统压力越大</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>USER 当前登录的用户名</li>
+<li>TTY 使用的登录终端</li>
+<li>FROM 登录的 IP 地址</li>
+<li>LOGIN@ 登录时间</li>
+<li>IDLE 用户闲置时间</li>
+<li>JCPU 和终端连接人所有进程占用的时间。这个时间里并不包括过去的后台作业，但包括当前正在运行的后台作业所占用的时间</li>
+<li>PCPU 当前进程所占用的时间</li>
+<li>WHAT 当前执行的命令</li>
+</ul>
+<h3><span id="292-who">2.9.2 who</span></h3><p>输出信息：</p>
+<p>用户名 登录终端 登录时间(IP 地址)</p>
+<h3><span id="293-last">2.9.3 last</span></h3><p>此命令是查询当前登录和过去登录的所有用户的信息，实质是读取 /var/log/wtmp 文件数据，不过此文件保存的都是二进制数据，无法直接通过编辑器直接查看，也是防止有人恶意访问后修改自己的访问记录。</p>
+<p>输出信息：</p>
+<p>用户名 登录终端 登录IP 登录时间 退出时间（在线时长）</p>
+<h3><span id="294-lastlog">2.9.4 lastlog</span></h3><p>此命令是查询系统中所有用户最后一次登录系统的时间</p>
+<p>输出信息：</p>
+<p>用户名 登录终端 登录IP 最后一次登录时间</p>
+<h2><span id="3-其他命令">3. 其他命令</span></h2><h3><span id="31-输出命令">3.1 输出命令</span></h3><p>格式：echo [选项] [输出内容]</p>
+<p>选项：</p>
+<ul>
+<li>-e 支持反斜线控制的字符转换<ul>
+<li>常见的反斜线控制的字符：<ul>
+<li>\a 输出警告音</li>
+<li>\b 退格键，即向左删除键</li>
+<li>\n 换行符</li>
+<li>\r 回车键</li>
+<li>\t 制表符，即 tab 键</li>
+<li>\v 垂直制表符</li>
+<li>\0nnn 八进制，nnn 为三位八进制数</li>
+<li>\xhh 十六进制，hh 为十六进制数</li>
+</ul>
+</li>
+<li>颜色控制，格式：echo -e “\e[1;30mChina\e[0m”，常见颜色如下：<ul>
+<li>30m 黑色</li>
+<li>31m 红色</li>
+<li>32m 绿色</li>
+<li>33m 黄色</li>
+<li>34m 蓝色</li>
+<li>35m 洋红</li>
+<li>36m 青色</li>
+<li>37m 白色</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>双引号与单引号：两者都可用来引用内容，但双引号中使用 “!”（英文字符） 会报错</li>
+</ul>
+<h3><span id="32-统计内容命令">3.2 统计内容命令</span></h3><p>格式：wc [选项] [文件名]</p>
+<p>选项：</p>
+<ul>
+<li>-c 统计内容的字节数</li>
+<li>-w 统计内容的单词数</li>
+<li>-l 统计内容的行数</li>
+</ul>
+<p>说明：默认情况下，即未指定需要统计的文件名，此命令统计的对象是键盘录入，结束录入的方法是 Ctrl + d ，如当前行有录入内容，使用两次快捷键，如当前行无内容，一次即可。</p>
+<h2><span id="tips">Tips</span></h2><ol>
+<li>显示系统时间：date</li>
+<li>显示系统相关编码：locale [-a]</li>
+<li>输出系统的环境变量：echo \$PATH, echo \$SHELL, echo \$HOSTNAME 等</li>
+<li>创建文件：touch 文件名</li>
+<li>分屏查看文件内容：more 文件名</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-基本命令/" data-id="cj7ovn5070005cpsbf54nn66a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CentOS-7-相关概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-相关概念/" class="article-date">
+  <time datetime="2017-09-17T14:35:52.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/CentOS-7-相关概念/">CentOS_7_相关概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-常用目录说明">1. 常用目录说明</a><ul>
+<li><a href="#11-bin-sbin-usrbin-usrsbin-简单区分">1.1 /bin, /sbin/, /usr/bin, /usr/sbin 简单区分</a></li>
+<li><a href="#12-关于-mntmediamisc-挂载目录">1.2 关于 /mnt,/media,/misc 挂载目录</a></li>
+</ul>
+</li>
+<li><a href="#2-文件目录详细信息相关说明">2. 文件/目录详细信息相关说明</a><ul>
+<li><a href="#21-详细信息概述">2.1 详细信息概述</a></li>
+<li><a href="#22-文件类型及权限">2.2 文件类型及权限</a></li>
+</ul>
+</li>
+<li><a href="#3-硬链接和软链接">3. 硬链接和软链接</a><ul>
+<li><a href="#31-硬链接">3.1 硬链接</a></li>
+<li><a href="#32-软链接">3.2 软链接</a></li>
+</ul>
+</li>
+<li><a href="#4-系统运行级别">4. 系统运行级别</a><ul>
+<li><a href="#41-查看当前运行的级别">4.1 查看当前运行的级别</a></li>
+<li><a href="#42-修改运行级别">4.2 修改运行级别</a><ul>
+<li><a href="#421-临时修改">4.2.1 临时修改</a></li>
+<li><a href="#422-开机默认运行级别修改">4.2.2 开机默认运行级别修改</a><ul>
+<li><a href="#4221-切换到运行级3">4.2.2.1 切换到运行级3</a></li>
+<li><a href="#4222-切换到运行级5">4.2.2.2 切换到运行级5</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-常用目录说明">1. 常用目录说明</span></h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>根目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>保存系统运行相关文件</td>
+<td>系统启动目录</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>命令保存目录</td>
+<td>普通用户就可以使用的命令</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>命令保存目录</td>
+<td>超级用户可以使用的命令</td>
+</tr>
+<tr>
+<td>/lib, /lib64</td>
+<td>系统库文件保存目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>保存相关的应用程序文件</td>
+<td></td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>命令保存目录</td>
+<td>普通用户就可以使用的命令</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>命令保存目录</td>
+<td>超级用户可以使用的命令</td>
+</tr>
+<tr>
+<td>/usr/lib, /usr/lib64</td>
+<td>系统库文件保存目录</td>
+</tr>
+<tr>
+<td>/usr/local</td>
+<td>主要存放那些手动安装(非包管理器)的软件</td>
+<td>和 /usr 目录具有相类似的目录结构</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>存放某些可选、大型或者特殊软件的目录</td>
+<td>安装到 /opt 目录下的程序，它所有的数据、库文件等等都是放在同个目录下面，安装和删除不影响系统其他任何配置</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>临时文件存放目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/var</td>
+<td>保存系统产生的经常变化的文件</td>
+<td></td>
+</tr>
+<tr>
+<td>/proc, /sys</td>
+<td>保存系统相关进程和信息的目录</td>
+<td>这两个目录都是内存的挂载点</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>超级用户的家目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/home</td>
+<td>普通用户的家目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>配置文件保存目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>设备硬件文件保存目录</td>
+<td></td>
+</tr>
+<tr>
+<td>/mnt, /media</td>
+<td>系统挂载目录</td>
+<td>空目录，通常用来挂载外置存储设备等</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="11-bin-sbin-usrbin-usrsbin-简单区分">1.1 /bin, /sbin/, /usr/bin, /usr/sbin 简单区分</span></h2><p>这些目录都是用来存放系统、应用程序相关命令的。</p>
+<ol>
+<li>/bin 和 /sbin<ul>
+<li>命令功能<ul>
+<li>/sbin 下的命令属于基本的系统命令，主要放置一些系统管理的必备程式，例如：cfdisk、dhcpcd、dump、e2fsck、fdisk、halt、ifconfig、ifup、 ifdown、init、insmod、lilo、lsmod、mke2fs、modprobe、quotacheck、reboot、rmmod、 runlevel、shutdown 等</li>
+<li>/bin 下存放一些普通的基本命令，主要放置一些系统的必备执行档，例如：cat、cp、chmod、df、dmesg、gzip、kill、ls、mkdir、more、mount、rm、su、tar 等</li>
+</ul>
+</li>
+<li>用户权限：<ul>
+<li>/sbin 目录下的命令通常只有管理员才可以运行</li>
+<li>/bin 下的命令管理员和一般的用户都可以使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/usr/bin 和 /usr/sbin<ul>
+<li>命令功能<ul>
+<li>/usr/bin 是你在后期安装的一些软件的运行脚本。主要放置一些应用软体工具的必备执行档，例如：c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome*、 gzip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb*、wget 等</li>
+<li>/usr/sbin 放置一些用户安装的系统管理的必备程式，例如：dhcpd、httpd、imap、in.*d、inetd、lpd、named、netconfig、nmbd、samba、sendmail、squid、swap、tcpd、tcpdump 等</li>
+</ul>
+</li>
+<li>用户权限<ul>
+<li>/usr/sbin 目录下的命令通常只有管理员才可以运行</li>
+<li>/usr/bin 下的命令管理员和一般的用户都可以使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/ 和 /usr 下的 bin/sbin 的区别<ul>
+<li>/bin,/sbin 目录是在系统启动后挂载到根文件系统中的，所以/sbin,/bin 目录必须和根文件系统在同一分区</li>
+<li>/usr/bin,usr/sbin 可以和根文件系统不在一个分区</li>
+<li>从可运行时间角度看，因为 /sbin,/bin 在系统启动后就挂载到根文件系统中，所以能够在挂载其他文件系统前就使用，但 /usr/bin 和 /usr/sbin 不行</li>
+</ul>
+</li>
+</ol>
+<h2><span id="12-关于-mntmediamisc-挂载目录">1.2 关于 /mnt,/media,/misc 挂载目录</span></h2><p>我们可以自定义任意目录用于挂载外置存储设备，而这三个目录都是系统提供的用于挂载的空目录，/mnt 是最为常见的挂载目录，是 Linux 系统一直支持的，而 /media 和 /misc 是新增的，并不是所有 Linux 版本都有的，所以通常都会使用 /mnt，在其中自定义目录来挂载不同类别的外置存储设备。</p>
+<h1><span id="2-文件目录详细信息相关说明">2. 文件/目录详细信息相关说明</span></h1><h2><span id="21-详细信息概述">2.1 详细信息概述</span></h2><p>显示详细信息命令：ls -li[h]</p>
+<p>举例格式：<br>524414 drwxr-xr-x. 2 root root 4.0K Aug 12  2015 bin</p>
+<p>各部分对应作用：<br>inode 文件类型及权限 硬链接数量 所有者 所属组 文件大小 修改日期 文件名</p>
+<p>说明：</p>
+<ul>
+<li>inode<br>: - inode 译成中文就是索引节点。每个存储设备或存储设备的分区被格式化为文件系统后，应该有两部份，一部份是 inode，另一部份是 Block，Block 是用来存储数据用的，而 inode 就是用来存储这些数据的信息，包括文件大小、属主、归属的用户组、读写权限等。inode 为每个文件进行信息索引，所以就有了 inode 的数值。操作系统根据指令，能通过 inode 值最快的找到相对应的文件。<br>: - inode 值相同的文件是硬链接文件，也就是说，不同的文件名，inode 可能是相同的，一个 inode 值可以对应多个文件。</li>
+<li>硬链接数量：1 表示没有硬链接，就是本身</li>
+</ul>
+<h2><span id="22-文件类型及权限">2.2 文件类型及权限</span></h2><p>格式：drwxr-xr-x.</p>
+<p>说明：</p>
+<ul>
+<li>第一位：文件类型，-：文件，d：目录，l：软链接文件，b：块设备文件</li>
+</ul>
+<ul>
+<li>rwxr-xr-x：操作权限，每三个为一组，依次对应所有者 user/所属组 group/其他人 other 的权限，其中：<ul>
+<li>r：读，4</li>
+<li>w：写，2</li>
+<li>x：执行，1</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>最后一位：.，是在 CentOS 6 之后才有的，未明确定义，估计为 ACL 权限</li>
+</ul>
+<h1><span id="3-硬链接和软链接">3. 硬链接和软链接</span></h1><h2><span id="31-硬链接">3.1 硬链接</span></h2><p>特征：</p>
+<ul>
+<li>拥有与原文件相同的 inode 和 存储 block 块，可以看作是访问原文件的另一个入口</li>
+<li>可通过 inode 进行识别</li>
+<li>不能跨分区</li>
+<li>不能针对目录使用</li>
+<li>修改原文件或硬链接，另一个都会改变</li>
+<li>删除原文件或硬链接，另一种方式仍能访问到</li>
+</ul>
+<h2><span id="32-软链接">3.2 软链接</span></h2><p>特征：</p>
+<ul>
+<li>与 Windows 的快捷方式基本一致</li>
+<li>软链接拥有自己的 inode 和 block 块，但是 block 中保存的是原文件的文件名和 inode 等信息，并没有实际的文件数据</li>
+</ul>
+<ul>
+<li>软链接的文件详细信息<ul>
+<li>软链接的文件类型和操作权限是固定的：lrwxrwxrwx，但对于真正的操作权限是以原文件的操作权限为准的。</li>
+<li>软链接详细信息中的文件名后指定了原文件的文件名，如：bin -&gt; usr/bin</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>修改原文件或软链接，另一个都会改变</li>
+<li>删除原文件，软链接失效，并且再次查看软链接的详细信息时，软链接的文件名以及映射的原文件名都会有颜色变化和闪动，访问该软链接时，会提示 No such file or directory</li>
+<li>可以跨分区，对目录使用</li>
+</ul>
+<h1><span id="4-系统运行级别">4. 系统运行级别</span></h1><p>Linux 默认的运行级别有如下几种：</p>
+<table>
+<thead>
+<tr>
+<th>描述</th>
+<th>值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关机</td>
+<td>0</td>
+<td>Do Not set initdefault to this</td>
+</tr>
+<tr>
+<td>单用户</td>
+<td>1</td>
+<td>类似于 windows 的安全模式，主要用于系统修复</td>
+</tr>
+<tr>
+<td>不完全多用户命令模式</td>
+<td>2</td>
+<td>相比于 3 级别，缺少 NFS 服务，即是一个不完全的标准字符界面</td>
+</tr>
+<tr>
+<td>完全多用户命令模式</td>
+<td>3</td>
+<td>标准的字符界面</td>
+</tr>
+<tr>
+<td>未分配</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>图形界面</td>
+<td>5</td>
+<td>使用 <code>startx</code> 命令可直接运行</td>
+</tr>
+<tr>
+<td>重启</td>
+<td>6</td>
+<td>Do Not set initdefault to this</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="41-查看当前运行的级别">4.1 查看当前运行的级别</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# runlevel</div><div class="line">N 3</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>runlevel</code>：查看系统的运行级别</li>
+<li><code>N 3</code>：上一个运行级别 当前运行级别</li>
+</ul>
+<h2><span id="42-修改运行级别">4.2 修改运行级别</span></h2><h3><span id="421-临时修改">4.2.1 临时修改</span></h3><p>在 CentOS 6 之前，使用 <code>init 数值</code> 来修改对应的运行级别，从 CentOS 6 开始，修改了系统的启动流程，使用 systemd 替代了 sysvinit，使用 target 替代了运行级别，所以，从 CentOS 6 开始，建议使用下面命令来切换运行级别：</p>
+<ul>
+<li>systemctl isolate multi-user.target</li>
+<li>systemctl isolate runlevel5.target</li>
+</ul>
+<p>常用 target：</p>
+<ul>
+<li>第三运行级：runlevel[3/multi-user].target</li>
+<li>第五运行级：runlevel[5/graphical].target</li>
+</ul>
+<p>说明：前者是符号/软链接指向了后面的target</p>
+<ul>
+<li>runlevel3.target -&gt; multi-user.target</li>
+<li>runlevel5.target -&gt; graphical.target</li>
+</ul>
+<h3><span id="422-开机默认运行级别修改">4.2.2 开机默认运行级别修改</span></h3><p>systemd 使用软链接来指向默认的运行级别，由 /etc/systemd/system/default.target 文件中决定。</p>
+<h4><span id="4221-切换到运行级3">4.2.2.1 切换到运行级3</span></h4><ul>
+<li>ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target</li>
+<li>ln -sf /lib/systemd/system/runlevel3.target /etc/systemd/system/default.target</li>
+</ul>
+<p>或</p>
+<ul>
+<li>systemctl set-default multi-user.target</li>
+</ul>
+<h4><span id="4222-切换到运行级5">4.2.2.2 切换到运行级5</span></h4><ul>
+<li>ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target</li>
+<li>ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target</li>
+</ul>
+<p>或</p>
+<ul>
+<li>systemctl set-default graphical.target</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-相关概念/" data-id="cj7ovn50d000ccpsbt3vyvgqn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
     </footer>
   </div>
   
@@ -111,17 +3088,42 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -140,7 +3142,23 @@
       <ul>
         
           <li>
-            <a href="/2017/09/13/hello-world/">Hello World</a>
+            <a href="/2017/09/17/CentOS-7-系统管理/">CentOS_7_系统管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-bash基础/">CentOS_7_bash基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-Shell基础/">CentOS_7_Shell基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-服务管理/">CentOS_7_服务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-网络管理/">CentOS_7_网络管理</a>
           </li>
         
       </ul>

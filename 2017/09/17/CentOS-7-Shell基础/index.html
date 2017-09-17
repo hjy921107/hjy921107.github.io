@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | jyhuang&#39;s blogs</title>
+  <title>CentOS_7_Shell基础 | jyhuang&#39;s blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="1. Shell 简介 2. HelloWorld 2.1 新建 Shell 脚本 2.2 执行 Shell 脚本      1. Shell 简介2. HelloWorld2.1 新建 Shell 脚本脚本文件 hello.sh 1234#!/bin/bash#This is the first programecho &quot;Hello Shell&quot;; 说明：  Linux 中并没有扩展名的概念">
+<meta name="keywords" content="CentOS 7">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/09/13/hello-world/index.html">
+<meta property="og:title" content="CentOS_7_Shell基础">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/CentOS-7-Shell基础/index.html">
 <meta property="og:site_name" content="jyhuang&#39;s blogs">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="1. Shell 简介 2. HelloWorld 2.1 新建 Shell 脚本 2.2 执行 Shell 脚本      1. Shell 简介2. HelloWorld2.1 新建 Shell 脚本脚本文件 hello.sh 1234#!/bin/bash#This is the first programecho &quot;Hello Shell&quot;; 说明：  Linux 中并没有扩展名的概念">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-13T13:06:18.850Z">
+<meta property="og:updated_time" content="2017-09-17T15:05:08.240Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="CentOS_7_Shell基础">
+<meta name="twitter:description" content="1. Shell 简介 2. HelloWorld 2.1 新建 Shell 脚本 2.2 执行 Shell 脚本      1. Shell 简介2. HelloWorld2.1 新建 Shell 脚本脚本文件 hello.sh 1234#!/bin/bash#This is the first programecho &quot;Hello Shell&quot;; 说明：  Linux 中并没有扩展名的概念">
   
     <link rel="alternate" href="/atom.xml" title="jyhuang&#39;s blogs" type="application/atom+xml">
   
@@ -64,12 +65,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-CentOS-7-Shell基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/09/13/hello-world/" class="article-date">
-  <time datetime="2017-09-13T13:06:18.000Z" itemprop="datePublished">2017-09-13</time>
+    <a href="/2017/09/17/CentOS-7-Shell基础/" class="article-date">
+  <time datetime="2017-09-17T15:05:27.000Z" itemprop="datePublished">2017-09-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -78,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      CentOS_7_Shell基础
     </h1>
   
 
@@ -86,37 +91,64 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2><span id="quick-start">Quick Start</span></h2><h3><span id="create-a-new-post">Create a new post</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3><span id="run-server">Run server</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3><span id="generate-static-files">Generate static files</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <!-- toc -->
+<ul>
+<li><a href="#1-shell-简介">1. Shell 简介</a></li>
+<li><a href="#2-helloworld">2. HelloWorld</a><ul>
+<li><a href="#21-新建-shell-脚本">2.1 新建 Shell 脚本</a></li>
+<li><a href="#22-执行-shell-脚本">2.2 执行 Shell 脚本</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-shell-简介">1. Shell 简介</span></h1><h1><span id="2-helloworld">2. HelloWorld</span></h1><h2><span id="21-新建-shell-脚本">2.1 新建 Shell 脚本</span></h2><p>脚本文件 hello.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span>!/bin/bash</div><div class="line"><span class="meta">#</span>This is the first program</div><div class="line"></div><div class="line">echo "Hello Shell";</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>Linux 中并没有扩展名的概念，但为了便于管理，建议使用 .sh 作为脚本文件的后缀</li>
+<li>注释：shell 脚本中使用 # 进行注释</li>
+<li><code>#!/bin/bash</code> 是固定写法，不是注释，放在文件首行，说明下面的内容遵循 bash 的基本语法。对于简单的 shell 脚本可以省略，但不建议；对于脚本中使用了其他语言的脚本，不能省略。</li>
+</ul>
+<h2><span id="22-执行-shell-脚本">2.2 执行 Shell 脚本</span></h2><ul>
+<li>方法一：直接使用 <code>bash hello.sh</code> 命令，但通常不这样做，建议使用方法二</li>
+</ul>
+<ul>
+<li>方法二：<ol>
+<li>修改脚本文件的执行权限 <code>chmod 755 hell.sh</code></li>
+<li>使用相对/绝对路径访问脚本文件 <code>./hello.sh</code> 或 <code>/root/hello.sh</code></li>
+</ol>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/13/hello-world/" data-id="cj7ovn50m000tcpsbfhl63sny" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-Shell基础/" data-id="cj7ovn5020001cpsbc0lj6bwb" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/09/17/CentOS-7-相关概念/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/17/CentOS-7-bash基础/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          CentOS_7_相关概念
+          CentOS_7_bash基础
         
       </div>
     </a>
   
+  
+    <a href="/2017/09/17/CentOS-7-服务管理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CentOS_7_服务管理</div>
+    </a>
   
 </nav>
 

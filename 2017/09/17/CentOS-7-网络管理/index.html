@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS_7_网络管理 | jyhuang&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. IP 1.1 ip 常见命令 1.1.1 设置、查看和删除IP地址 1.1.2 查看、修改路由 1.1.3 显示网络信息 1.1.4 激活或停止网络接口   1.2 绑定静态 IP 地址   2. 防火墙 2.1 基本命令 2.1.1 系统管理命令 2.1.2 firewall 命令        1. IPCentOS 7 中默认使用 ip 命令，不在安装 ifconfig。ifcon">
+<meta name="keywords" content="CentOS 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS_7_网络管理">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/CentOS-7-网络管理/index.html">
+<meta property="og:site_name" content="jyhuang&#39;s blogs">
+<meta property="og:description" content="1. IP 1.1 ip 常见命令 1.1.1 设置、查看和删除IP地址 1.1.2 查看、修改路由 1.1.3 显示网络信息 1.1.4 激活或停止网络接口   1.2 绑定静态 IP 地址   2. 防火墙 2.1 基本命令 2.1.1 系统管理命令 2.1.2 firewall 命令        1. IPCentOS 7 中默认使用 ip 命令，不在安装 ifconfig。ifcon">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-17T15:02:12.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS_7_网络管理">
+<meta name="twitter:description" content="1. IP 1.1 ip 常见命令 1.1.1 设置、查看和删除IP地址 1.1.2 查看、修改路由 1.1.3 显示网络信息 1.1.4 激活或停止网络接口   1.2 绑定静态 IP 地址   2. 防火墙 2.1 基本命令 2.1.1 系统管理命令 2.1.2 firewall 命令        1. IPCentOS 7 中默认使用 ip 命令，不在安装 ifconfig。ifcon">
+  
+    <link rel="alternate" href="/atom.xml" title="jyhuang&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jyhuang&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CentOS-7-网络管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/CentOS-7-网络管理/" class="article-date">
+  <time datetime="2017-09-17T15:01:46.000Z" itemprop="datePublished">2017-09-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS_7_网络管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#1-ip">1. IP</a><ul>
+<li><a href="#11-ip-常见命令">1.1 ip 常见命令</a><ul>
+<li><a href="#111-设置-查看和删除ip地址">1.1.1 设置、查看和删除IP地址</a></li>
+<li><a href="#112-查看-修改路由">1.1.2 查看、修改路由</a></li>
+<li><a href="#113-显示网络信息">1.1.3 显示网络信息</a></li>
+<li><a href="#114-激活或停止网络接口">1.1.4 激活或停止网络接口</a></li>
+</ul>
+</li>
+<li><a href="#12-绑定静态-ip-地址">1.2 绑定静态 IP 地址</a></li>
+</ul>
+</li>
+<li><a href="#2-防火墙">2. 防火墙</a><ul>
+<li><a href="#21-基本命令">2.1 基本命令</a><ul>
+<li><a href="#211-系统管理命令">2.1.1 系统管理命令</a></li>
+<li><a href="#212-firewall-命令">2.1.2 firewall 命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<hr>
+<h1><span id="1-ip">1. IP</span></h1><p>CentOS 7 中默认使用 ip 命令，不在安装 ifconfig。ifconfig 命令属于 net-tools 套件，而 ip 命令属于 iproute 套件。ip 命令和 ifconfig 命令一样，但是功能更加强大，并旨在取代后者。</p>
+<h2><span id="11-ip-常见命令">1.1 ip 常见命令</span></h2><h3><span id="111-设置-查看和删除ip地址">1.1.1 设置、查看和删除IP地址</span></h3><ul>
+<li>设置IP地址：<code>ip addr add 192.168.1.1/24 dev eth0</code></li>
+<li>查看IP地址：<code>ip addr show eth0</code></li>
+<li>删除IP地址：<code>ip addr del 192.168.1.1 dev eth0</code></li>
+</ul>
+<h3><span id="112-查看-修改路由">1.1.2 查看、修改路由</span></h3><ul>
+<li>查看路由表：<code>ip route show</code></li>
+<li>查看路由包来自的接口(本地接口)：<code>ip route get 123.125.114.144</code></li>
+<li>更改默认路由：<code>ip route add default via 192.168.1.254</code></li>
+</ul>
+<h3><span id="113-显示网络信息">1.1.3 显示网络信息</span></h3><ul>
+<li>显示网络统计信息：<code>ip -s link</code></li>
+<li>查看 ARP 条目：<code>ip neigh(或neighbour)</code></li>
+<li>监控 netlink 消息：<code>ip monitor all</code></li>
+</ul>
+<h3><span id="114-激活或停止网络接口">1.1.4 激活或停止网络接口</span></h3><ul>
+<li>激活网络接口：<code>ip link set eth0 up</code></li>
+<li>停止网络接口：<code>ip link set eth0 down</code></li>
+</ul>
+<h2><span id="12-绑定静态-ip-地址">1.2 绑定静态 IP 地址</span></h2><p>通过修改配置文件来修改 ip，配置文件地址为：<code>/etc/sysconfig/network-scripts/ifcfg-eno16777736</code> 。如下为常见的需要新增／修改的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 修改如下配置</div><div class="line">BOOTPROTO=&quot;static&quot;        # 启用静态IP地址，默认为 dhcp</div><div class="line">ONBOOT=&quot;yes&quot;              # 自动开启网络服务，如果此项为 no，需要改成 yes</div><div class="line"># 增加如下配置</div><div class="line">IPADDR=&quot;192.168.1.10&quot;    # 设置IP地址</div><div class="line">PREFIX=&quot;24&quot;              # 设置子网掩码，也可以使用 NETMASK=&quot;255.255.255.0&quot;</div><div class="line">GATEWAY=&quot;192.168.1.1&quot;    # 设置网关</div><div class="line">BROADCAST=&quot;192.168.1.255&quot; # 广播地址，可选，省略即采用默认值</div><div class="line">DNS1=&quot;8.8.8.8&quot;            # 设置主 DNS </div><div class="line">DNS2=&quot;8.8.4.4&quot;          　# 设置备 DNS（可选）</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>配置文件的文件名可能会因为个人环境不同而有所区别，但命名格式为：<code>ifcfg-enXXXXX</code></li>
+<li>如果需要配置多个 ip，可以使用 IPADDR0/PREFIX0/GATEWAY0，IPADDR1/PREFIX1/GATEWAY1… 分组的方式进行多个 ip 的配置</li>
+<li>修改此配置文件前，建议备份原配置文件</li>
+<li>修改配置文件后，需要重启网络服务使修改生效，命令为：<code>systemctl restart network</code></li>
+</ul>
+<h1><span id="2-防火墙">2. 防火墙</span></h1><p>区别于之前的版本，从 CentOS 7.0 开始默认使用的是 firewall 作为防火墙工具，对于旧版本的 iptables，虽然 CentOS 7 之后的版本仍然支持，但需要另行安装，此处不再赘述。 </p>
+<h2><span id="21-基本命令">2.1 基本命令</span></h2><h3><span id="211-系统管理命令">2.1.1 系统管理命令</span></h3><ul>
+<li>启动/关闭/重启防火墙：<code>systemctl start/stop/restart firewalld[.service]</code></li>
+<li>显示防火墙状态：<code>systemctl status firewalld</code></li>
+<li>开机启动/禁用防火墙：<code>systemctl enable/disable firewalld</code></li>
+<li>查看防火墙是否开机启动：<code>systemctl is-enabled firewalld</code></li>
+</ul>
+<h3><span id="212-firewall-命令">2.1.2 firewall 命令</span></h3><ul>
+<li>开启指定端口：<code>firewall-cmd --zone=scope --add-port=port/protocol --permanent</code><ul>
+<li><code>--zone</code>: 作用域，通常为 public</li>
+<li><code>--add-port</code>: 端口号/协议，如：8080/tcp, 3306/tcp 等</li>
+<li><code>--permanent</code>: 可选项，永久生效，没有此参数重启后失效</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>查看已开放端口：<code>firewall-cmd --list-ports</code></li>
+<li>刷新防火墙配置（在修改防火墙配置后用于使修改生效）：<code>firewall-cmd --reload</code></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/17/CentOS-7-网络管理/" data-id="cj7ovn50h000kcpsb54xtito9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/17/CentOS-7-服务管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CentOS_7_服务管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/17/CentOS-7-软件安装管理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CentOS_7_软件安装管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-系统管理/">CentOS_7_系统管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-bash基础/">CentOS_7_bash基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-Shell基础/">CentOS_7_Shell基础</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-服务管理/">CentOS_7_服务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/17/CentOS-7-网络管理/">CentOS_7_网络管理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 jyhuang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
